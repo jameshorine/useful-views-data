@@ -1,0 +1,4 @@
+# this is a repo level gitignore file.
+
+# Ignore ArcGIS file geodatabase data in the crop-sequence-boundaries/in directory
+crop-sequence-boundaries/in/CSB1825.gdb/
