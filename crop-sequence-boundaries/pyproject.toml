@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "beautifulsoup4>=4.15.0",
     "duckdb>=1.4.5",
     "polars>=1.36.1",
     "pyogrio>=0.13.0",
