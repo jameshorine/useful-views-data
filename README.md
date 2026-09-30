@@ -2,7 +2,7 @@
 
 ## About `useful-views`
 
-a collection of (maybe) useful table views
+A collection of (maybe) useful table views. We subscribe to the `tidy` data model here. Unless you have a SUPER good reason not to. To be honest, you probably know the domain space better than most, so I wont even challenge you on your reason not to use a tidy data model. I am just trying to keep things tidy for myself. 
 
 
 This repo is structured in the following way: 
@@ -56,3 +56,31 @@ With uv installed, open a terminal in the data project’s folder, then run:
 I am one person, please send help :D 
 
 Really though, either reach out, or submit a PR. I am almost surely to need help. 
+
+### Branching workflow
+
+We (lets be real, its just me, its one person, I) use `dev` to integrate changes and `main` for stable, validated work. 
+
+- main receives changes only through pull requests from dev.
+- dev receives contribution pull requests and is where changes are validated together.
+- Working branches start from the latest dev. Use a descriptive prefix such as feature/, fix/, or docs/, for example feature/csb-summary.
+
+
+
+
+| Branch | Purpose | Example |
+|---|---|---|
+| `main` | Permanent stable branch; receives validated changes from `dev` via PR. | `main` |
+| `dev` | Permanent integration branch; receives contribution PRs. | `dev` |
+| `new-dataset/<dataset-name>` | Add a new dataset project. | `new-dataset/crop-sequence-boundaries` |
+| `feature/<description>` | Add functionality or views to an existing project. | `feature/csb-summary` |
+| `fix/<description>` | Correct a bug or data-processing error. | `fix/csb-import` |
+| `docs/<description>` | Update documentation or examples. | `docs/uv-setup` |
+
+
+
+When contributing a new data set, please use `new-dataset/<dataset-name>`. for example: `new-dataset/crop-sequence-boundaries`. 
+
+The branches represent the contributions, not the permanent homes for data sets. 
+
+
