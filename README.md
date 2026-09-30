@@ -9,9 +9,9 @@ This repo is structured in the following way:
 
 ```
 dataset_name
-├──in
-├──out
-├──useful-view
+├──in # raw data goes here on your local
+├──out # any processing of the data you need. finalized formats, ect.
+├──useful-views # you guessed it - the useful view you find useful! 
 ├──readme.md
 ```
 
