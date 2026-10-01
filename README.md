@@ -1,5 +1,14 @@
 # useful-views
 
+
+## Current `useful-views`
+
+| Dataset | View | Useful for | Get it |
+|---|---|---|---|
+| Crop Sequence Boundaries | `land_cover_codes` (Parquet) | Putting names to the CDL land-cover codes. You will get to practice your left-joins :) | [Generate locally](crop-sequence-boundaries/README.md#land-cover-lookup) |
+
+
+
 ## About `useful-views`
 
 `useful-views` are designed to be data-assets or data-products that help enable usecases. 
