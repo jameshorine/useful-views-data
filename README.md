@@ -2,17 +2,32 @@
 
 ## About `useful-views`
 
-A collection of (maybe) useful table views. We subscribe to the `tidy` data model here. Unless you have a SUPER good reason not to. To be honest, you probably know the domain space better than most, so I wont even challenge you on your reason not to use a tidy data model. I am just trying to keep things tidy for myself. 
+`useful-views` are designed to be data-assets or data-products that help enable usecases. 
+
+Think of these as collection of (maybe) useful table views. We (are trying to) subscribe to the `tidy` data model here. Unless you have a SUPER good reason not to, in which case, I trust you. To be honest, you probably know the domain space better than most, so I wont even challenge you on your reason not to use a tidy data model, but I encourage questions to help with udnerstanding. I am just trying to keep things tidy for myself. 
+
 
 
 This repo is structured in the following way: 
 
 ```
-dataset_name
-├──in # raw data goes here on your local
-├──out # any processing of the data you need. finalized formats, ect.
-├──useful-views # you guessed it - the useful view you find useful! 
-├──readme.md
+dataset-name/
+├── .python-version
+├── .venv/ # local Python environment
+├── README.md
+├── pyproject.toml
+├── uv.lock
+├── in/ # raw data goes here on your local
+├── out/ # processed data and intermediate outputs, gitignored
+├── sandbox/
+│   ├── sandbox.ipynb
+│   └── example_queries.ipynb
+├── src/
+│   └── dataset_name/
+│       ├── __init__.py
+│       └── utils/
+│           └── extract_lookup.py
+└── useful-views/ # the useful tables, in Parquet, gitignored
 ```
 
 This is designed to give us a helping hand in managing the data that we need for various projects. Often the data sets arrive to us in a "less than useful" format or view. This repo is designed to help us collect a few useful views on data that we frequently work with. 
