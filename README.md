@@ -5,7 +5,10 @@
 
 | Dataset | Useful View | Useful for | Get it |
 |---|---|---|---|
-| Crop Sequence Boundaries | `land_cover_codes` (Parquet) | Putting names to the CDL land-cover codes. You will get to practice your left-joins :) | [Generate locally](crop-sequence-boundaries/README.md#land-cover-lookup) |
+| Crop Sequence Boundaries | `csb_field_year` (Parquet) | Land cover for every field, every year 2018-2025. The tidy core. | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
+| Crop Sequence Boundaries | `csb_field` (GeoParquet) | Field acres, location and geometry. | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
+| Crop Sequence Boundaries | `county` (Parquet) | County names and ASDs by 5-digit county GEOID. | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
+| Crop Sequence Boundaries | `land_cover_codes` (Parquet) | Putting names to the CDL land-cover codes. You will get to practice your left-joins :) | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
 
 
 
@@ -30,16 +33,19 @@ dataset-name/
 ├── pyproject.toml
 ├── uv.lock
 ├── in/ # raw data goes here on your local
+│   └── SOURCES.md # where each input came from, with checksums
 ├── out/ # processed data and intermediate outputs, gitignored
 ├── sandbox/
 │   ├── sandbox.ipynb
 │   └── example_queries.ipynb
 ├── src/
 │   └── dataset_name/
-│       ├── __init__.py
-│       └── utils/
-│           └── extract_lookup.py
+│       ├── __init__.py # main(): runs every step in order
+│       ├── config.py # paths, release name, expected input facts
+│       ├── step1_<does_what>.py
+│       └── step2_<does_what>.py
 └── useful-views/ # the useful tables, in Parquet, gitignored
+    └── <release>/ # one folder per source release
 ```
 
 This is designed to give us a helping hand in managing the data that we need for various projects. Often the data sets arrive to us in a "less than useful" format or view. This repo is designed to help us collect a few useful views on data that we frequently work with. 
@@ -78,6 +84,14 @@ With uv installed, open a terminal in the data project’s folder, then run:
 
 
 ### Running the scripts on local
+
+From a dataset's folder, after `uv sync --locked`:
+
+```sh
+uv run <dataset-name>
+```
+
+This runs every step in order and builds that dataset's `useful-views/`. For example, `uv run crop-sequence-boundaries`. Each dataset's README lists its steps, inputs and outputs.
 
 ## Contributing to `useful-views`
 I am one person, please send help :D 

@@ -1,4 +1,4 @@
-"""Export the national CSB layer from the file geodatabase to GeoParquet.
+"""Step 1: export the national CSB layer from the file geodatabase to GeoParquet.
 
 Moved from the last cell of sandbox/sandbox.ipynb. Refuses to overwrite an
 existing output; pass --force to replace it.
@@ -16,18 +16,15 @@ from crop_sequence_boundaries.config import (
     EXPECTED_STATES,
     GDB_LAYER,
     GDB_PATH,
-    OUT_DIR,
+    NATIONAL_PARQUET_PATH,
+    prepare_outputs,
 )
 
-OUTPUT_PATH = OUT_DIR / f"{GDB_LAYER}.parquet"
 
-
-def export(output_path: Path, force: bool = False) -> None:
+def run(force: bool = False, output_path: Path = NATIONAL_PARQUET_PATH) -> None:
     if not GDB_PATH.exists():
         raise FileNotFoundError(f"Missing input: {GDB_PATH}. See in/SOURCES.md.")
-    if output_path.exists() and not force:
-        raise FileExistsError(f"Output already exists: {output_path} (use --force)")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    prepare_outputs([output_path], force)
 
     con = duckdb.connect()
     con.execute("INSTALL spatial")
@@ -73,10 +70,10 @@ def export(output_path: Path, force: bool = False) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--output", type=Path, default=OUTPUT_PATH)
+    parser.add_argument("--output", type=Path, default=NATIONAL_PARQUET_PATH)
     parser.add_argument("--force", action="store_true", help="replace existing output")
     args = parser.parse_args()
-    export(args.output, args.force)
+    run(args.force, args.output)
 
 
 if __name__ == "__main__":

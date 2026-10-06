@@ -22,28 +22,34 @@ Use this project's `.venv` as your notebook kernel. Not the Anaconda base enviro
 
 The notebooks expect their working directory to be `sandbox/`. They use DuckDB's spatial extension; run `INSTALL spatial` once if `LOAD spatial` fails because it isn't installed.
 
-Scripts resolve their paths from the project, so they can be run from any folder. Paths and the expected input facts live in [config.py](src/crop_sequence_boundaries/config.py).
+## Building the views
 
-## National export
-
-```sh
-uv run src/crop_sequence_boundaries/utils/export_national.py
-```
-
-Converts the `national1825` layer to GeoParquet at `out/national1825.parquet`, then checks the feature count, state count and CRS against `in/SOURCES.md`. It won't overwrite an existing file; pass `--force` to replace it.
-
-## Land-cover lookup
+Run every step in order:
 
 ```sh
-uv run src/crop_sequence_boundaries/utils/extract_csb_land_cover_codes.py
+uv run crop-sequence-boundaries
 ```
 
-Reads `in/csb_2025_metadata.htm` (checked against its SHA256) and writes `land_cover_code` and `land_cover_name` to:
+Each step refuses to overwrite its outputs; pass `--force` to rebuild. Every step can also be run on its own, e.g. `uv run python -m crop_sequence_boundaries.step2_land_cover_codes`. Scripts resolve their paths from the project, so they work from any folder. Paths, the release name and the expected input facts all live in [config.py](src/crop_sequence_boundaries/config.py).
 
-- `out/land_cover_codes.csv`
-- `useful-views/land_cover_codes.parquet`
+| Step | Script | Reads | Writes |
+|---|---|---|---|
+| 1 | [step1_export_national.py](src/crop_sequence_boundaries/step1_export_national.py) | `in/CSB1825.gdb` | `out/national1825.parquet` |
+| 2 | [step2_land_cover_codes.py](src/crop_sequence_boundaries/step2_land_cover_codes.py) | `in/csb_2025_metadata.htm` | `useful-views/csb_2025/land_cover_codes.parquet`, `out/land_cover_codes.csv` |
+| 3 | [step3_tidy_views.py](src/crop_sequence_boundaries/step3_tidy_views.py) | steps 1 and 2 | `useful-views/csb_2025/csb_field_year.parquet`, `csb_field.parquet`, `county.parquet` |
 
-Rerunning replaces both files. Both output folders are gitignored; generate them locally.
+Each step checks its result: step 1 the feature count, state count and CRS against `in/SOURCES.md`; step 2 the metadata file's SHA256; step 3 row counts, unique keys, and that every code and county joins. `out/` and `useful-views/` are gitignored; generate them locally.
+
+## The views
+
+All in `useful-views/csb_2025/`. Field IDs are specific to this release; see [in/SOURCES.md](in/SOURCES.md).
+
+| View | One row per | Key | Columns |
+|---|---|---|---|
+| `csb_field_year` | field × year | `csb_id`, `year` | `land_cover_code` |
+| `csb_field` | field | `csb_id` | `county_geoid`, `csb_acres`, `inside_x`, `inside_y`, `geometry` (EPSG:5070) |
+| `county` | county | `county_geoid` | `state_fips`, `county_fips`, `county_name`, `asd_code` |
+| `land_cover_codes` | land-cover code | `land_cover_code` | `land_cover_name` |
 
 ## A couple of notes
 
