@@ -1,25 +1,23 @@
 import csv
 import re
-from pathlib import Path
-from urllib.request import urlopen
 
 import polars as pl
 from bs4 import BeautifulSoup
 
+from crop_sequence_boundaries.config import (
+    METADATA_PATH,
+    METADATA_SHA256,
+    OUT_DIR,
+    VIEWS_DIR,
+    require_file,
+)
+
 # Paths to write to
 
-FILE_NAME = 'land_cover_codes'
+FILE_NAME = "land_cover_codes"
 
-CSV_PATH = Path(f"out/{FILE_NAME}.csv")
-PARQUET_PATH = Path(f"useful-views/{FILE_NAME}.parquet")
-
-
-
-URL = (
-    "https://www.nass.usda.gov/Research_and_Science/"
-    "Crop-Sequence-Boundaries/"
-    "metadata_Crop-Sequence-Boundaries-2025.htm"
-)
+CSV_PATH = OUT_DIR / f"{FILE_NAME}.csv"
+PARQUET_PATH = VIEWS_DIR / f"{FILE_NAME}.parquet"
 
 
 def extract_land_cover(html: bytes) -> list[tuple[int, str]]:
@@ -61,8 +59,10 @@ def extract_land_cover(html: bytes) -> list[tuple[int, str]]:
 
 
 def main() -> None:
-    with urlopen(URL, timeout=30) as response:
-        rows = extract_land_cover(response.read())
+    # Parse the archived metadata from the release zip, not the live web page.
+    # The live page can change; see in/SOURCES.md.
+    require_file(METADATA_PATH, METADATA_SHA256)
+    rows = extract_land_cover(METADATA_PATH.read_bytes())
 
     output = CSV_PATH
     output.parent.mkdir(parents=True, exist_ok=True)

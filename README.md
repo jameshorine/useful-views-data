@@ -1,9 +1,9 @@
 # useful-views
 
 
-## Current `useful-views`
+## Directory of `useful-views`
 
-| Dataset | View | Useful for | Get it |
+| Dataset | Useful View | Useful for | Get it |
 |---|---|---|---|
 | Crop Sequence Boundaries | `land_cover_codes` (Parquet) | Putting names to the CDL land-cover codes. You will get to practice your left-joins :) | [Generate locally](crop-sequence-boundaries/README.md#land-cover-lookup) |
 
@@ -11,13 +11,16 @@
 
 ## About `useful-views`
 
-`useful-views` are designed to be data-assets or data-products that help enable usecases. 
+`useful-views` are designed to be data-assets or data-products that help enable various data/analytics/science/engineering use cases. 
 
-Think of these as collection of (maybe) useful table views. We (are trying to) subscribe to the `tidy` data model here. Unless you have a SUPER good reason not to, in which case, I trust you. To be honest, you probably know the domain space better than most, so I wont even challenge you on your reason not to use a tidy data model, but I encourage questions to help with udnerstanding. I am just trying to keep things tidy for myself. 
+Think of these as collection of (maybe) useful table views. We (currently are trying to) subscribe to the [`tidy` data model](https://vita.had.co.nz/papers/tidy-data.pdf). 
+
+There are very likely some very good reasons to split from the `tidy` data view, and if you have one of those reasons, I trust you. You (almost surely) know the problme and domain space much better than most. I wont even challenge you, however I will want to understand, and will seek your help in understanding why! 
+
+This is really just my attempt at keeping myself super organized.
 
 
-
-This repo is structured in the following way: 
+As a result of doing a lot of this work in github, the repo implies a project strucutre as follows:
 
 ```
 dataset-name/
