@@ -1,23 +1,22 @@
-import csv
+"""Step 2: build the land-cover lookup from the release's metadata page.
+
+Refuses to overwrite existing outputs; pass --force to replace them.
+"""
+
+import argparse
 import re
 
 import polars as pl
 from bs4 import BeautifulSoup
 
 from crop_sequence_boundaries.config import (
+    LAND_COVER_CSV_PATH,
+    LAND_COVER_PARQUET_PATH,
     METADATA_PATH,
     METADATA_SHA256,
-    OUT_DIR,
-    VIEWS_DIR,
+    prepare_outputs,
     require_file,
 )
-
-# Paths to write to
-
-FILE_NAME = "land_cover_codes"
-
-CSV_PATH = OUT_DIR / f"{FILE_NAME}.csv"
-PARQUET_PATH = VIEWS_DIR / f"{FILE_NAME}.parquet"
 
 
 def extract_land_cover(html: bytes) -> list[tuple[int, str]]:
@@ -58,31 +57,29 @@ def extract_land_cover(html: bytes) -> list[tuple[int, str]]:
     return sorted(rows)
 
 
-def main() -> None:
+def run(force: bool = False) -> None:
     # Parse the archived metadata from the release zip, not the live web page.
     # The live page can change; see in/SOURCES.md.
     require_file(METADATA_PATH, METADATA_SHA256)
     rows = extract_land_cover(METADATA_PATH.read_bytes())
 
-    output = CSV_PATH
-    output.parent.mkdir(parents=True, exist_ok=True)
-
-    with output.open("w", newline="", encoding="utf-8") as destination:
-        writer = csv.writer(destination)
-        writer.writerow(["land_cover_code", "land_cover_name"])
-        writer.writerows(rows)
-
-    print(f"Wrote {len(rows)} land-cover codes to {output}")
-
-    parquet_output = PARQUET_PATH
-    parquet_output.parent.mkdir(parents=True, exist_ok=True)
+    prepare_outputs([LAND_COVER_CSV_PATH, LAND_COVER_PARQUET_PATH], force)
     table = pl.DataFrame(
         rows,
-        schema={"land_cover_code": pl.Int64, "land_cover_name": pl.String},
+        schema={"land_cover_code": pl.Int16, "land_cover_name": pl.String},
         orient="row",
     )
-    table.write_parquet(parquet_output)
-    print(f"Wrote {len(rows)} land-cover codes to {parquet_output}")
+    table.write_csv(LAND_COVER_CSV_PATH) 
+    table.write_parquet(LAND_COVER_PARQUET_PATH)
+    print(f"Wrote {len(rows)} land-cover codes to {LAND_COVER_CSV_PATH}")
+    print(f"Wrote {len(rows)} land-cover codes to {LAND_COVER_PARQUET_PATH}")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--force", action="store_true", help="replace existing outputs")
+    args = parser.parse_args()
+    run(args.force)
 
 
 if __name__ == "__main__":
