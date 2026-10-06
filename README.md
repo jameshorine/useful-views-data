@@ -16,7 +16,8 @@
 
 `useful-views` are designed to be data-assets or data-products that help enable various data/analytics/science/engineering use cases. 
 
-Think of these as collection of (maybe) useful table views. We (currently are trying to) subscribe to the [`tidy` data model](https://vita.had.co.nz/papers/tidy-data.pdf). 
+Think of these as collection of (maybe) useful table views. We (currently are trying to) subscribe to the [`tidy` data model](https://vita.had.co.nz/papers/tidy-data.pdf). That is to say, useful-views naturally extends `frictionlessdata`'s `datapackage` methodology to include the build details as steps that are tested against a reviewed and known `datapackage.json` file type. 
+
 
 There are very likely some very good reasons to split from the `tidy` data view, and if you have one of those reasons, I trust you. You (almost surely) know the problme and domain space much better than most. I wont even challenge you, however I will want to understand, and will seek your help in understanding why! 
 
