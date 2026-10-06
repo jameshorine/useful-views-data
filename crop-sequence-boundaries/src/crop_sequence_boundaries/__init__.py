@@ -13,12 +13,20 @@ def main() -> None:
         step2_land_cover_codes,
         step3_tidy_views,
         step4_datapackage,
+        step5_verify,
     )
 
-    parser = argparse.ArgumentParser(description="Build every CSB view, steps 1-4.")
+    parser = argparse.ArgumentParser(description="Build every CSB view, steps 1-5.")
     parser.add_argument("--force", action="store_true", help="replace existing outputs")
     args = parser.parse_args()
 
-    for step in (step1_export_national, step2_land_cover_codes, step3_tidy_views, step4_datapackage):
+    steps = (
+        step1_export_national,
+        step2_land_cover_codes,
+        step3_tidy_views,
+        step4_datapackage,
+        step5_verify,
+    )
+    for step in steps:
         print(f"--- {step.__name__.rsplit('.', 1)[-1]}")
         step.run(args.force)

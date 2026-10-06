@@ -105,14 +105,16 @@ def table_schema_type(arrow_type: pa.DataType) -> str:
     return "any"
 
 
+def git(*args: str) -> str:
+    """Run a git command in the project folder and return its output."""
+    return subprocess.run(
+        ["git", "-C", str(PROJECT_ROOT), *args],
+        capture_output=True, text=True, check=True,
+    ).stdout.strip()
+
+
 def git_commit() -> str | None:
     """The commit the build ran from, with "-dirty" if build inputs had uncommitted changes."""
-    def git(*args: str) -> str:
-        return subprocess.run(
-            ["git", "-C", str(PROJECT_ROOT), *args],
-            capture_output=True, text=True, check=True,
-        ).stdout.strip()
-
     try:
         commit = git("rev-parse", "--short", "HEAD")
         dirty = git("status", "--porcelain", "--", *BUILD_INPUTS)
