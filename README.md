@@ -43,9 +43,11 @@ dataset-name/
 │       ├── __init__.py # main(): runs every step in order
 │       ├── config.py # paths, release name, expected input facts
 │       ├── step1_<does_what>.py
-│       └── step2_<does_what>.py
+│       ├── ...
+│       └── stepN_datapackage.py # writes the release's datapackage.json
 └── useful-views/ # the useful tables, in Parquet, gitignored
     └── <release>/ # one folder per source release
+        └── datapackage.json # data bill of materials: checksums, schemas, provenance (committed)
 ```
 
 This is designed to give us a helping hand in managing the data that we need for various projects. Often the data sets arrive to us in a "less than useful" format or view. This repo is designed to help us collect a few useful views on data that we frequently work with. 
@@ -54,7 +56,7 @@ For questions, comments, (and help!) please reach out :D
 
 The global gitignore is used to essentially screen out the source raw data files from github. 
 
-Each datset project sub folder should (I hope) contain its own independent uv project. This is to help the reproducibility efforts. 
+Each datset project sub folder should (I hope) contain its own independent uv project. This is to help reproducibility at all steps!  
 
 ## Getting Started with `useful-views`
 

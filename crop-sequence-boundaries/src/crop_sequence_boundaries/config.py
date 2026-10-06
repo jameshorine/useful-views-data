@@ -27,7 +27,11 @@ RELEASE_VIEWS_DIR = VIEWS_DIR / RELEASE
 
 # --- Inputs ---
 
-# Source: NationalCSB_2018-2025_rev23.zip
+# Source zip. Not kept in the repo, so its hash is recorded rather than checked;
+# CSB1825.gdb was verified against it file by file (see in/SOURCES.md).
+ZIP_NAME = "NationalCSB_2018-2025_rev23.zip"
+ZIP_SHA256 = "32c5e138141a1526ee356c8d8c8888844b5531fcca8ca4ac0b36ba37d7c087bb"
+
 GDB_PATH = IN_DIR / "CSB1825.gdb"
 GDB_LAYER = "national1825"
 YEARS = range(2018, 2026)
@@ -45,13 +49,24 @@ METADATA_SHA256 = "d4840e7bb11ef9e641e34a7092c5a57543dba8e3bdd1c8d84fc3b9c1da607
 NATIONAL_PARQUET_PATH = OUT_DIR / f"{GDB_LAYER}.parquet"
 
 # Step 2: the land-cover lookup.
-LAND_COVER_CSV_PATH = OUT_DIR / "land_cover_codes.csv"
 LAND_COVER_PARQUET_PATH = RELEASE_VIEWS_DIR / "land_cover_codes.parquet"
 
 # Step 3: the tidy views.
 CSB_FIELD_YEAR_PATH = RELEASE_VIEWS_DIR / "csb_field_year.parquet"
 CSB_FIELD_PATH = RELEASE_VIEWS_DIR / "csb_field.parquet"
 COUNTY_PATH = RELEASE_VIEWS_DIR / "county.parquet"
+
+OUTPUT_PATHS = (
+    NATIONAL_PARQUET_PATH,
+    LAND_COVER_PARQUET_PATH,
+    CSB_FIELD_YEAR_PATH,
+    CSB_FIELD_PATH,
+    COUNTY_PATH,
+)
+
+# Step 4: the Frictionless Data Package describing the views, with checksums.
+# The only file in useful-views/ that is committed to git.
+DATAPACKAGE_PATH = RELEASE_VIEWS_DIR / "datapackage.json"
 
 
 def sha256(path: Path) -> str:

@@ -10,7 +10,6 @@ import polars as pl
 from bs4 import BeautifulSoup
 
 from crop_sequence_boundaries.config import (
-    LAND_COVER_CSV_PATH,
     LAND_COVER_PARQUET_PATH,
     METADATA_PATH,
     METADATA_SHA256,
@@ -63,15 +62,13 @@ def run(force: bool = False) -> None:
     require_file(METADATA_PATH, METADATA_SHA256)
     rows = extract_land_cover(METADATA_PATH.read_bytes())
 
-    prepare_outputs([LAND_COVER_CSV_PATH, LAND_COVER_PARQUET_PATH], force)
+    prepare_outputs([LAND_COVER_PARQUET_PATH], force)
     table = pl.DataFrame(
         rows,
         schema={"land_cover_code": pl.Int16, "land_cover_name": pl.String},
         orient="row",
     )
-    table.write_csv(LAND_COVER_CSV_PATH) 
     table.write_parquet(LAND_COVER_PARQUET_PATH)
-    print(f"Wrote {len(rows)} land-cover codes to {LAND_COVER_CSV_PATH}")
     print(f"Wrote {len(rows)} land-cover codes to {LAND_COVER_PARQUET_PATH}")
 
 

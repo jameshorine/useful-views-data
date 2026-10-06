@@ -35,10 +35,24 @@ Each step refuses to overwrite its outputs; pass `--force` to rebuild. Every ste
 | Step | Script | Reads | Writes |
 |---|---|---|---|
 | 1 | [step1_export_national.py](src/crop_sequence_boundaries/step1_export_national.py) | `in/CSB1825.gdb` | `out/national1825.parquet` |
-| 2 | [step2_land_cover_codes.py](src/crop_sequence_boundaries/step2_land_cover_codes.py) | `in/csb_2025_metadata.htm` | `useful-views/csb_2025/land_cover_codes.parquet`, `out/land_cover_codes.csv` |
+| 2 | [step2_land_cover_codes.py](src/crop_sequence_boundaries/step2_land_cover_codes.py) | `in/csb_2025_metadata.htm` | `useful-views/csb_2025/land_cover_codes.parquet` |
 | 3 | [step3_tidy_views.py](src/crop_sequence_boundaries/step3_tidy_views.py) | steps 1 and 2 | `useful-views/csb_2025/csb_field_year.parquet`, `csb_field.parquet`, `county.parquet` |
+| 4 | [step4_datapackage.py](src/crop_sequence_boundaries/step4_datapackage.py) | steps 1–3 | `useful-views/csb_2025/datapackage.json` |
 
-Each step checks its result: step 1 the feature count, state count and CRS against `in/SOURCES.md`; step 2 the metadata file's SHA256; step 3 row counts, unique keys, and that every code and county joins. `out/` and `useful-views/` are gitignored; generate them locally.
+Each step checks its result: step 1 the feature count, state count and CRS against `in/SOURCES.md`; step 2 the metadata file's SHA256; step 3 row counts, unique keys, and that every code and county joins; step 4 that every column has a description. `out/` and `useful-views/` are gitignored; generate them locally. The one exception is `datapackage.json`, which is committed.
+
+## The data bill of materials
+
+[useful-views/csb_2025/datapackage.json](useful-views/csb_2025/datapackage.json) is a [Frictionless Data Package](https://datapackage.org) describing every view: its file, size and SHA256, its fields, primary key and joins, the source and licence. A custom `build` section records what the views were built from: the git commit, input checksums, row counts and tool versions.
+
+The views are deterministic: the same inputs, code and `uv.lock` produce byte-identical files. To check that a rebuild reproduced the committed views exactly:
+
+```sh
+uv run crop-sequence-boundaries --force
+git diff useful-views/csb_2025/datapackage.json
+```
+
+No diff means the rebuild is identical. If only `build.commit` changed, the outputs are still identical; you built from a different commit. A `-dirty` suffix on the commit means `src/`, `in/`, `pyproject.toml` or `uv.lock` had uncommitted changes during the build.
 
 ## The views
 
