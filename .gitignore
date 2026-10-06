@@ -2,3 +2,16 @@
 
 # Ignore ArcGIS file geodatabase data in the crop-sequence-boundaries/in directory
 crop-sequence-boundaries/in/CSB1825.gdb/
+
+crop-sequence-boundaries/out/
+
+# Ignore the views themselves, but commit each release's datapackage.json
+# (its checksums and schemas) so rebuilds can be checked with git diff.
+crop-sequence-boundaries/useful-views/**
+!crop-sequence-boundaries/useful-views/**/
+!crop-sequence-boundaries/useful-views/**/datapackage.json
+
+# OS / Python artifacts
+.DS_Store
+__pycache__/
+*.pyc

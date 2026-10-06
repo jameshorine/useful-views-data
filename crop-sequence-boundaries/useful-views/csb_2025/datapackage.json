@@ -1,0 +1,229 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "csb-2025",
+  "title": "Crop Sequence Boundaries 2018-2025 (rev23): tidy views",
+  "description": "Tidy views on the USDA NASS Crop Sequence Boundaries 2018-2025 release. See in/SOURCES.md in the useful-views repository for full provenance.",
+  "licenses": [
+    {
+      "name": "other-pd",
+      "title": "Public domain. USDA NASS: \"considered public domain and free to redistribute\".",
+      "path": "https://www.nass.usda.gov/Research_and_Science/Crop-Sequence-Boundaries/"
+    }
+  ],
+  "sources": [
+    {
+      "title": "USDA NASS NationalCSB_2018-2025_rev23.zip",
+      "path": "https://www.nass.usda.gov/Research_and_Science/Crop-Sequence-Boundaries/datasets/NationalCSB_2018-2025_rev23.zip"
+    }
+  ],
+  "resources": [
+    {
+      "name": "csb_field_year",
+      "type": "table",
+      "path": "csb_field_year.parquet",
+      "format": "parquet",
+      "bytes": 125498029,
+      "hash": "sha256:e2d7f4287b93af0cb2a34331eb22ea7ffa1ce5d53af345aefc392ec28b0239bf",
+      "description": "Land cover for every field, every year. One row per field per year.",
+      "schema": {
+        "fields": [
+          {
+            "name": "csb_id",
+            "type": "string",
+            "description": "CSB field identifier. Specific to this release."
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "Crop year."
+          },
+          {
+            "name": "land_cover_code",
+            "type": "integer",
+            "description": "Cropland Data Layer land-cover code for this field and year."
+          }
+        ],
+        "primaryKey": [
+          "csb_id",
+          "year"
+        ],
+        "foreignKeys": [
+          {
+            "fields": [
+              "csb_id"
+            ],
+            "reference": {
+              "resource": "csb_field",
+              "fields": [
+                "csb_id"
+              ]
+            }
+          },
+          {
+            "fields": [
+              "land_cover_code"
+            ],
+            "reference": {
+              "resource": "land_cover_codes",
+              "fields": [
+                "land_cover_code"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "csb_field",
+      "type": "table",
+      "path": "csb_field.parquet",
+      "format": "parquet",
+      "bytes": 4522837448,
+      "hash": "sha256:1463bb3bae3cfb21c19dc713d44ee455a35d7b0b00961b653222387f9ba1f61f",
+      "description": "One row per field: area, location and boundary.",
+      "schema": {
+        "fields": [
+          {
+            "name": "csb_id",
+            "type": "string",
+            "description": "CSB field identifier. Specific to this release."
+          },
+          {
+            "name": "county_geoid",
+            "type": "string",
+            "description": "5-digit county GEOID (state FIPS + county FIPS)."
+          },
+          {
+            "name": "csb_acres",
+            "type": "number",
+            "description": "Field area in acres."
+          },
+          {
+            "name": "inside_x",
+            "type": "number",
+            "description": "Easting of a point inside the field, EPSG:5070 metres."
+          },
+          {
+            "name": "inside_y",
+            "type": "number",
+            "description": "Northing of a point inside the field, EPSG:5070 metres."
+          },
+          {
+            "name": "geometry",
+            "type": "any",
+            "description": "Field boundary as WKB (GeoParquet), EPSG:5070."
+          }
+        ],
+        "primaryKey": [
+          "csb_id"
+        ],
+        "foreignKeys": [
+          {
+            "fields": [
+              "county_geoid"
+            ],
+            "reference": {
+              "resource": "county",
+              "fields": [
+                "county_geoid"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "county",
+      "type": "table",
+      "path": "county.parquet",
+      "format": "parquet",
+      "bytes": 24024,
+      "hash": "sha256:160936e6bfd4601bf7f3c249f6aa00dc9472a82ff8040a9b1518384a9cb7d68b",
+      "description": "One row per county.",
+      "schema": {
+        "fields": [
+          {
+            "name": "county_geoid",
+            "type": "string",
+            "description": "5-digit county GEOID (state FIPS + county FIPS)."
+          },
+          {
+            "name": "state_fips",
+            "type": "string",
+            "description": "2-digit state FIPS code."
+          },
+          {
+            "name": "county_fips",
+            "type": "string",
+            "description": "3-digit county FIPS code."
+          },
+          {
+            "name": "county_name",
+            "type": "string",
+            "description": "County name."
+          },
+          {
+            "name": "asd_code",
+            "type": "string",
+            "description": "Agricultural statistics district: state FIPS + 2-digit ASD."
+          }
+        ],
+        "primaryKey": [
+          "county_geoid"
+        ]
+      }
+    },
+    {
+      "name": "land_cover_codes",
+      "type": "table",
+      "path": "land_cover_codes.parquet",
+      "format": "parquet",
+      "bytes": 2303,
+      "hash": "sha256:3ae6a90e34f1fd1ecc8c76e3437263ca8ee1f0a4f270f487964a88ca2864eff3",
+      "description": "Names for Cropland Data Layer land-cover codes, from the release metadata.",
+      "schema": {
+        "fields": [
+          {
+            "name": "land_cover_code",
+            "type": "integer",
+            "description": "Cropland Data Layer land-cover code."
+          },
+          {
+            "name": "land_cover_name",
+            "type": "string",
+            "description": "Land-cover name."
+          }
+        ],
+        "primaryKey": [
+          "land_cover_code"
+        ]
+      }
+    }
+  ],
+  "build": {
+    "commit": "2fcf060",
+    "inputs": {
+      "NationalCSB_2018-2025_rev23.zip": "sha256:32c5e138141a1526ee356c8d8c8888844b5531fcca8ca4ac0b36ba37d7c087bb",
+      "csb_2025_metadata.htm": "sha256:d4840e7bb11ef9e641e34a7092c5a57543dba8e3bdd1c8d84fc3b9c1da60730a"
+    },
+    "intermediate": {
+      "out/national1825.parquet": {
+        "bytes": 4863970353,
+        "hash": "sha256:01e44dfa8c353907348c8d3fdd9240017bb6e5dec47aaf5ff4d64329f105c3f3"
+      }
+    },
+    "rows": {
+      "out/national1825.parquet": 15973095,
+      "useful-views/csb_2025/land_cover_codes.parquet": 135,
+      "useful-views/csb_2025/csb_field_year.parquet": 127784760,
+      "useful-views/csb_2025/csb_field.parquet": 15973095,
+      "useful-views/csb_2025/county.parquet": 3087
+    },
+    "tools": {
+      "python": "3.13.15",
+      "duckdb": "1.5.6",
+      "polars": "1.44.2",
+      "pyarrow": "25.0.1"
+    }
+  }
+}
