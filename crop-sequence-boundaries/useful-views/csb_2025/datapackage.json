@@ -201,7 +201,7 @@
     }
   ],
   "build": {
-    "commit": "cee23a7-dirty",
+    "commit": "dc717fc",
     "inputs": {
       "NationalCSB_2018-2025_rev23.zip": "sha256:32c5e138141a1526ee356c8d8c8888844b5531fcca8ca4ac0b36ba37d7c087bb",
       "csb_2025_metadata.htm": "sha256:d4840e7bb11ef9e641e34a7092c5a57543dba8e3bdd1c8d84fc3b9c1da60730a"
