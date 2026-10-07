@@ -111,7 +111,23 @@
           {
             "name": "geometry",
             "type": "any",
-            "description": "Field boundary as WKB (GeoParquet), EPSG:5070."
+            "description": "Field boundary as WKB (GeoParquet), EPSG:5070.",
+            "geoparquet": {
+              "version": "1.0.0",
+              "encoding": "WKB",
+              "geometry_types": [
+                "MultiPolygon"
+              ],
+              "crs": "EPSG:5070",
+              "crs_name": "NAD83 / Conus Albers",
+              "bbox": [
+                -2353581.604800001,
+                311197.3618000001,
+                2256746.360800002,
+                3162016.9350000005
+              ]
+            },
+            "rdfType": "http://www.opengis.net/ont/sf#MultiPolygon"
           }
         ],
         "primaryKey": [
@@ -201,7 +217,7 @@
     }
   ],
   "build": {
-    "commit": "2fcf060",
+    "commit": "a56d95e-dirty",
     "inputs": {
       "NationalCSB_2018-2025_rev23.zip": "sha256:32c5e138141a1526ee356c8d8c8888844b5531fcca8ca4ac0b36ba37d7c087bb",
       "csb_2025_metadata.htm": "sha256:d4840e7bb11ef9e641e34a7092c5a57543dba8e3bdd1c8d84fc3b9c1da60730a"

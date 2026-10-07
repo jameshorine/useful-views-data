@@ -130,9 +130,44 @@ def file_record(path) -> dict:
     }
 
 
+def geometry_properties(geo: dict, column: str) -> dict:
+    """Describe a geometry column using the file's own GeoParquet metadata.
+
+    Table Schema has no geometry type, so the column stays "any" and gains a
+    custom `geoparquet` property, plus `rdfType` naming the OGC Simple Features
+    class when the column holds a single geometry type.
+    """
+    meta = geo["columns"][column]
+    crs = meta.get("crs", "missing")
+    if crs == "missing":
+        # GeoParquet: an absent crs means OGC:CRS84 (longitude/latitude).
+        crs_id, crs_name = "OGC:CRS84", "WGS 84 (CRS84)"
+    elif crs is None:
+        crs_id, crs_name = None, "unknown"
+    else:
+        crs_id = f"{crs['id']['authority']}:{crs['id']['code']}" if "id" in crs else None
+        crs_name = crs.get("name")
+
+    properties = {
+        "geoparquet": {
+            "version": geo["version"],
+            "encoding": meta["encoding"],
+            "geometry_types": meta["geometry_types"],
+            "crs": crs_id,
+            "crs_name": crs_name,
+            **({"bbox": meta["bbox"]} if "bbox" in meta else {}),
+        }
+    }
+    types = {t.split()[0] for t in meta["geometry_types"]}  # "Polygon Z" -> "Polygon"
+    if len(types) == 1:
+        properties["rdfType"] = f"http://www.opengis.net/ont/sf#{types.pop()}"
+    return properties
+
+
 def resource(name: str, view: dict) -> dict:
     path = RELEASE_VIEWS_DIR / f"{name}.parquet"
     schema = pq.read_schema(path)
+    geo = json.loads(schema.metadata[b"geo"]) if b"geo" in (schema.metadata or {}) else None
 
     columns = schema.names
     undocumented = [c for c in columns if c not in view["fields"]]
@@ -149,6 +184,7 @@ def resource(name: str, view: dict) -> dict:
                 "name": field.name,
                 "type": table_schema_type(field.type),
                 "description": view["fields"][field.name],
+                **(geometry_properties(geo, field.name) if geo and field.name in geo["columns"] else {}),
             }
             for field in schema
         ],
