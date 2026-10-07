@@ -46,6 +46,8 @@ Each step checks its result: step 1 the feature count, state count and CRS again
 
 [useful-views/csb_2025/datapackage.json](useful-views/csb_2025/datapackage.json) is a [Frictionless Data Package](https://datapackage.org) describing every view: its file, size and SHA256, its fields, primary key and joins, the source and licence. A custom `build` section records what the views were built from: the git commit, input checksums, row counts and tool versions.
 
+Table Schema has no geometry type, so `csb_field.geometry` is typed `"any"` and carries a custom `geoparquet` property: encoding, geometry types, CRS and bounding box, copied from the file's own GeoParquet metadata. It also has an `rdfType` naming the OGC Simple Features class (`MultiPolygon`).
+
 The views are deterministic: the same inputs, code and `uv.lock` produce byte-identical files. Step 5 checks this at the end of every build, comparing each output's hash, size and row count with the committed `datapackage.json`:
 
 ```

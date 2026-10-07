@@ -128,3 +128,16 @@ When contributing a new data set, please use `new-dataset/<dataset-name>`. for e
 The branches represent the contributions, not the permanent homes for data sets. 
 
 
+
+## The Future of `useful-views`
+
+Right now `useful-views` is a pattern that one dataset (Crop Sequence Boundaries) follows. The plan is to turn it into a package that any dataset can use. Roughly in order:
+
+- **A second dataset first.** One example can't show which parts are the pattern and which are specific to CSB. The second dataset is how we find out what is actually shared.
+- **A shared `useful_views` Python package.** The generic parts move out of the CSB project and into one place: path and input checks (`config.py` helpers), the data package writer (step 4), the verification step (step 5), and the check that every column is documented. Each dataset then keeps only its own steps and declarations. Datasets would stay separate uv projects, sharing the package through a uv workspace.
+- **A written spec.** A short document saying what a `useful-views` dataset MUST and SHOULD have: the folder layout, `in/SOURCES.md`, release folders, a committed `datapackage.json`, and the `build` section.
+- **A Frictionless Data Package profile.** A versioned JSON Schema that extends Data Package with the `build` section, so any `datapackage.json` can be checked against the `useful-views` rules, not just the base standard.
+- **A geometry convention.** Table Schema has no type for GeoParquet geometry. CSB already handles this by typing geometry columns `"any"` and adding a custom `geoparquet` property (encoding, geometry types, CRS, bounding box) copied from the file's GeoParquet metadata, plus an OGC Simple Features `rdfType`. The profile should make that convention a rule.
+- **Portable build records.** Record the full commit hash and the repository URL, so a `datapackage.json` still says where it came from once it leaves this repo.
+- **Two levels of "same data".** Today a rebuild counts as identical only if the files are byte-for-byte the same. Tool upgrades can change the bytes without changing the data, so the plan is to add a content check (did the data itself change?) alongside the file hash.
+- **A command-line tool.** Something like `useful-views new <dataset-name>` to scaffold a new dataset, and `useful-views verify` to check any dataset against its committed `datapackage.json`.
