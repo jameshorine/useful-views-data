@@ -1,4 +1,4 @@
-"""Step 4: compare the outputs with the committed datapackage.json.
+"""Step 5: compare the outputs with the committed datapackage.json.
 
 Checks the hash, size and row count of every output against the version of
 datapackage.json committed in git (HEAD), and reports what changed. The
@@ -7,7 +7,7 @@ build commit is ignored, since it changes even when the data doesn't.
 In a full build this only reports: outputs are sometimes meant to change.
 Run it on its own with --check to fail on any difference:
 
-    uv run python -m fas_psd.step4_verify --check
+    uv run python -m fas_psd.step5_verify --check
 """
 
 import argparse
@@ -16,7 +16,7 @@ import subprocess
 import sys
 
 from fas_psd.config import DATAPACKAGE_PATH, PROJECT_ROOT
-from fas_psd.step3_datapackage import git
+from fas_psd.step4_datapackage import git
 
 
 def fingerprints(package: dict) -> dict[str, dict]:

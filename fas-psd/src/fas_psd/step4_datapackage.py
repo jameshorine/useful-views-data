@@ -1,4 +1,4 @@
-"""Step 3: describe the release's views as a Frictionless Data Package.
+"""Step 4: describe the release's views as a Frictionless Data Package.
 
 Writes useful-views/<release>/datapackage.json, the data bill of materials for
 the release: each view's file, size, SHA256, fields and keys, plus a custom
@@ -95,6 +95,31 @@ VIEWS = {
             ),
         },
     },
+    "world_balance": {
+        "description": (
+            "Every country in psd_alldata summed to a world total. One row per commodity, market "
+            "year and attribute. Rates and ratios are left out (Extr. Rate, Milling Rate, Seed to "
+            "Lint Ratio, Yield, Stocks-to-Use, Annual % Change Per Cap. Cons.)."
+        ),
+        "primaryKey": ["Commodity_Code", "Market_Year", "Attribute_ID"],
+        "foreignKeys": {},
+        "fields": {
+            "Commodity_Code": "7-digit PSD commodity code, zero-padded (e.g. 0440000 Corn).",
+            "Commodity_Description": "Commodity name as PSD publishes it.",
+            "Market_Year": (
+                "Marketing year. Each country's local marketing year is summed as is, so world "
+                "imports and exports don't match: compare TY Imports and TY Exports for trade."
+            ),
+            "Attribute_ID": "3-digit PSD attribute code, zero-padded (e.g. 028 Production).",
+            "Attribute_Description": "Attribute name as PSD publishes it.",
+            "Unit_Description": "Unit as PSD publishes it. Never sum across units.",
+            "Value": (
+                "Sum of Value over every country in psd_alldata, with no country dropped or adjusted. "
+                "A few known cases count the same quantity twice; see the README's known overlaps."
+            ),
+            "n_countries": "Number of countries with a nonzero Value.",
+        },
+    },
 }
 
 # What determines the outputs. Notebook or README edits don't make a build dirty.
@@ -182,7 +207,7 @@ def resource(name: str, view: dict) -> dict:
 
 def run(force: bool = False) -> None:
     """Always rewrites datapackage.json; it only describes outputs that exist."""
-    require_outputs(OUTPUT_PATHS, before="steps 1-2")
+    require_outputs(OUTPUT_PATHS, before="steps 1-3")
 
     package = {
         "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",

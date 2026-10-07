@@ -50,10 +50,18 @@ PSD_PARQUET_PATH = RELEASE_VIEWS_DIR / "psd_alldata.parquet"
 # Step 2: one row per (commodity, attribute) pair that PSD reports, with its unit.
 COMMODITY_ATTRIBUTE_PATH = RELEASE_VIEWS_DIR / "commodity_attribute.parquet"
 
-# Every view in the release, in the order step 3 documents them.
-OUTPUT_PATHS = (PSD_PARQUET_PATH, COMMODITY_ATTRIBUTE_PATH)
+# Step 3: every country summed to one row per commodity, market year and attribute.
+WORLD_BALANCE_PATH = RELEASE_VIEWS_DIR / "world_balance.parquet"
 
-# Step 3: the release's Data Package descriptor, committed to git.
+# Rates and ratios, not quantities: a sum across countries is meaningless, so
+# world_balance leaves them out. 181 Extr. Rate, 182 Milling Rate, 183 Seed to
+# Lint Ratio, 184 Yield, 195 Stocks-to-Use, 220 Annual % Change Per Cap. Cons.
+NON_ADDITIVE_ATTRIBUTES = ("181", "182", "183", "184", "195", "220")
+
+# Every view in the release, in the order step 4 documents them.
+OUTPUT_PATHS = (PSD_PARQUET_PATH, COMMODITY_ATTRIBUTE_PATH, WORLD_BALANCE_PATH)
+
+# Step 4: the release's Data Package descriptor, committed to git.
 DATAPACKAGE_PATH = RELEASE_VIEWS_DIR / "datapackage.json"
 
 
