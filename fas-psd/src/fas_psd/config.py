@@ -38,12 +38,23 @@ EXPECTED_COMMODITIES = 63
 EXPECTED_COUNTRIES = 214
 EXPECTED_ATTRIBUTES = 69
 EXPECTED_UNITS = 11
+EXPECTED_COMMODITY_ATTRIBUTES = 752
 MARKET_YEARS = range(1960, 2027)
 
 # --- Outputs ---
 
-# Step 1: the source CSV as typed Parquet, all columns, unchanged.
-PSD_PARQUET_PATH = OUT_DIR / "psd_alldata.parquet"
+# Step 1: the source CSV as typed Parquet, all columns, unchanged. This is
+# the release's reference view, not an intermediate, so it lives with the views.
+PSD_PARQUET_PATH = RELEASE_VIEWS_DIR / "psd_alldata.parquet"
+
+# Step 2: one row per (commodity, attribute) pair that PSD reports, with its unit.
+COMMODITY_ATTRIBUTE_PATH = RELEASE_VIEWS_DIR / "commodity_attribute.parquet"
+
+# Every view in the release, in the order step 3 documents them.
+OUTPUT_PATHS = (PSD_PARQUET_PATH, COMMODITY_ATTRIBUTE_PATH)
+
+# Step 3: the release's Data Package descriptor, committed to git.
+DATAPACKAGE_PATH = RELEASE_VIEWS_DIR / "datapackage.json"
 
 
 def sha256(path: Path) -> str:

@@ -45,6 +45,7 @@ Profiled on 2026-10-07. These are what the pipeline checks.
 | Countries and regions | 214 |
 | Attributes | 69 |
 | Units | 11 |
+| Commodity–attribute pairs | 752 |
 | Market years | 1960–2026 |
 | Missing values | none |
 | Code → description | one description per commodity, country, attribute and unit code |

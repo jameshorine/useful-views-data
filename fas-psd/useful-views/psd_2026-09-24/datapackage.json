@@ -1,0 +1,159 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "psd-2026-09-24",
+  "title": "USDA FAS Production, Supply and Distribution (PSD), 2026-09-24 snapshot",
+  "description": "Views on the USDA FAS PSD all-commodities file as published on 2026-09-24. PSD overwrites earlier estimates every month, so the snapshot date is part of the data's identity. See in/SOURCES.md in the useful-views repository for full provenance.",
+  "licenses": [
+    {
+      "name": "other-pd",
+      "title": "Not stated by FAS. As a work of the US federal government it is likely public domain (17 U.S.C. §105).",
+      "path": "https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads"
+    }
+  ],
+  "sources": [
+    {
+      "title": "USDA FAS PSD Online, All Commodities (CSV), 2026-09-24",
+      "path": "https://apps.fas.usda.gov/psdonline/downloads/psd_alldata_csv.zip"
+    }
+  ],
+  "resources": [
+    {
+      "name": "psd_alldata",
+      "type": "table",
+      "path": "psd_alldata.parquet",
+      "format": "parquet",
+      "bytes": 3060858,
+      "hash": "sha256:842e5be2cdbc9928952dce4d1e2760490088c5b63ddd8092df72ed7a404fc1b6",
+      "description": "The PSD all-commodities file as published on 2026-09-24, every column unchanged but typed. One row per commodity, country, market year and attribute.",
+      "schema": {
+        "fields": [
+          {
+            "name": "Commodity_Code",
+            "type": "string",
+            "description": "7-digit PSD commodity code, zero-padded (e.g. 0440000 Corn)."
+          },
+          {
+            "name": "Commodity_Description",
+            "type": "string",
+            "description": "Commodity name. One name per Commodity_Code."
+          },
+          {
+            "name": "Country_Code",
+            "type": "string",
+            "description": "2-character PSD country code, FIPS 10-4 style, not ISO 3166 (e.g. CH China, GM Germany). Includes aggregates such as E4 European Union that overlap their member countries, and historical entities such as UR Union of Soviet Socialist Republics that overlap their successors; summing countries can double count."
+          },
+          {
+            "name": "Country_Name",
+            "type": "string",
+            "description": "Country or region name. One name per Country_Code."
+          },
+          {
+            "name": "Market_Year",
+            "type": "integer",
+            "description": "Marketing year the value applies to. Local marketing years start in different months for different commodities and countries; not a calendar year."
+          },
+          {
+            "name": "Calendar_Year",
+            "type": "integer",
+            "description": "Year the value was last revised, not the year it applies to."
+          },
+          {
+            "name": "Month",
+            "type": "integer",
+            "description": "Month the value was last revised (1-12); 0 where PSD gives no month."
+          },
+          {
+            "name": "Attribute_ID",
+            "type": "string",
+            "description": "3-digit PSD attribute code, zero-padded (e.g. 028 Production)."
+          },
+          {
+            "name": "Attribute_Description",
+            "type": "string",
+            "description": "Attribute name as PSD publishes it. One name per Attribute_ID."
+          },
+          {
+            "name": "Unit_ID",
+            "type": "string",
+            "description": "2-digit PSD unit code. One unit per (Commodity_Code, Attribute_ID)."
+          },
+          {
+            "name": "Unit_Description",
+            "type": "string",
+            "description": "Unit name as PSD publishes it (e.g. (1000 MT), (MT/HA)). Never sum across units."
+          },
+          {
+            "name": "Value",
+            "type": "number",
+            "description": "The value, in Unit_Description. The latest estimate as of the snapshot: PSD overwrites earlier estimates. 34% of values are zero; whether a zero means zero or not reported is not documented."
+          }
+        ],
+        "primaryKey": [
+          "Commodity_Code",
+          "Country_Code",
+          "Market_Year",
+          "Attribute_ID"
+        ]
+      }
+    },
+    {
+      "name": "commodity_attribute",
+      "type": "table",
+      "path": "commodity_attribute.parquet",
+      "format": "parquet",
+      "bytes": 4689,
+      "hash": "sha256:43dbbb7caca013940a32633b0766b50e820435dac67c4ff47852ab3607ffb3ef",
+      "description": "Every attribute PSD reports for each commodity, with its unit, as published. One row per commodity and attribute pair found in psd_alldata.",
+      "schema": {
+        "fields": [
+          {
+            "name": "Commodity_Code",
+            "type": "string",
+            "description": "7-digit PSD commodity code, zero-padded (e.g. 0440000 Corn)."
+          },
+          {
+            "name": "Commodity_Description",
+            "type": "string",
+            "description": "Commodity name as PSD publishes it."
+          },
+          {
+            "name": "Attribute_ID",
+            "type": "string",
+            "description": "3-digit PSD attribute code, zero-padded (e.g. 028 Production)."
+          },
+          {
+            "name": "Attribute_Description",
+            "type": "string",
+            "description": "Attribute name as PSD publishes it."
+          },
+          {
+            "name": "Unit_Description",
+            "type": "string",
+            "description": "Unit of this attribute for this commodity, as PSD publishes it. The same attribute can have different units for different commodities (e.g. Production is 1000 MT for corn but 1000 480 lb. Bales for cotton)."
+          }
+        ],
+        "primaryKey": [
+          "Commodity_Code",
+          "Attribute_ID"
+        ]
+      }
+    }
+  ],
+  "build": {
+    "commit": "fc0f549-dirty",
+    "inputs": {
+      "psd_alldata_csv_2026-09-24.zip": "sha256:dccef5678cffecc1e7722342396c751442eb245d06dff4498ec87c346908c41f"
+    },
+    "intermediate": {},
+    "rows": {
+      "useful-views/psd_2026-09-24/psd_alldata.parquet": 2093353,
+      "useful-views/psd_2026-09-24/commodity_attribute.parquet": 752
+    },
+    "tools": {
+      "python": "3.13.15",
+      "duckdb": "1.5.6",
+      "polars": "2.0.0",
+      "pyarrow": "25.0.1"
+    }
+  }
+}
