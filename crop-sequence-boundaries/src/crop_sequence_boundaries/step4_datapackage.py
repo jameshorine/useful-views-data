@@ -218,7 +218,7 @@ def run(force: bool = False) -> None:
         "title": "Crop Sequence Boundaries 2018-2025 (rev23): tidy views",
         "description": (
             "Tidy views on the USDA NASS Crop Sequence Boundaries 2018-2025 release. "
-            "See in/SOURCES.md in the useful-views repository for full provenance."
+            "See in/SOURCES.md in the useful-views-data repository for full provenance."
         ),
         "licenses": [
             {

@@ -2,7 +2,7 @@
   "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
   "name": "csb-2025",
   "title": "Crop Sequence Boundaries 2018-2025 (rev23): tidy views",
-  "description": "Tidy views on the USDA NASS Crop Sequence Boundaries 2018-2025 release. See in/SOURCES.md in the useful-views repository for full provenance.",
+  "description": "Tidy views on the USDA NASS Crop Sequence Boundaries 2018-2025 release. See in/SOURCES.md in the useful-views-data repository for full provenance.",
   "licenses": [
     {
       "name": "other-pd",
@@ -217,7 +217,7 @@
     }
   ],
   "build": {
-    "commit": "cc6df0e",
+    "commit": "0f6adf7-dirty",
     "inputs": {
       "NationalCSB_2018-2025_rev23.zip": "sha256:32c5e138141a1526ee356c8d8c8888844b5531fcca8ca4ac0b36ba37d7c087bb",
       "csb_2025_metadata.htm": "sha256:d4840e7bb11ef9e641e34a7092c5a57543dba8e3bdd1c8d84fc3b9c1da60730a"

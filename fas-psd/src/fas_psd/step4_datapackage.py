@@ -216,7 +216,7 @@ def run(force: bool = False) -> None:
         "description": (
             f"Views on the USDA FAS PSD all-commodities file as published on {SNAPSHOT_DATE}. "
             "PSD overwrites earlier estimates every month, so the snapshot date is part of the data's "
-            "identity. See in/SOURCES.md in the useful-views repository for full provenance."
+            "identity. See in/SOURCES.md in the useful-views-data repository for full provenance."
         ),
         "licenses": [
             {

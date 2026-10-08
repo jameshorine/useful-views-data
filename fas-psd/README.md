@@ -53,7 +53,7 @@ Things to know before querying:
 
 World imports and exports also don't match, because each country's local marketing year is summed as is. That isn't an error; PSD's trade-year attributes (TY Imports, TY Exports) are the ones to compare.
 
-We haven't adjusted for any of this. If you know how USDA builds its own world totals, can confirm or rule out an overlap, or find one that isn't listed, please [open an issue](https://github.com/jameshorine/useful-views/issues) or a pull request. We'd like the adjustment, if one is needed, to be documented and agreed rather than guessed.
+We haven't adjusted for any of this. If you know how USDA builds its own world totals, can confirm or rule out an overlap, or find one that isn't listed, please [open an issue](https://github.com/jameshorine/useful-views-data/issues) or a pull request. We'd like the adjustment, if one is needed, to be documented and agreed rather than guessed.
 
 ## Build
 

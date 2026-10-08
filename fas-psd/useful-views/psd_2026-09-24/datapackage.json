@@ -2,7 +2,7 @@
   "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
   "name": "psd-2026-09-24",
   "title": "USDA FAS Production, Supply and Distribution (PSD), 2026-09-24 snapshot",
-  "description": "Views on the USDA FAS PSD all-commodities file as published on 2026-09-24. PSD overwrites earlier estimates every month, so the snapshot date is part of the data's identity. See in/SOURCES.md in the useful-views repository for full provenance.",
+  "description": "Views on the USDA FAS PSD all-commodities file as published on 2026-09-24. PSD overwrites earlier estimates every month, so the snapshot date is part of the data's identity. See in/SOURCES.md in the useful-views-data repository for full provenance.",
   "licenses": [
     {
       "name": "other-pd",
@@ -198,7 +198,7 @@
     }
   ],
   "build": {
-    "commit": "f0eea26",
+    "commit": "0f6adf7-dirty",
     "inputs": {
       "psd_alldata_csv_2026-09-24.zip": "sha256:dccef5678cffecc1e7722342396c751442eb245d06dff4498ec87c346908c41f"
     },
