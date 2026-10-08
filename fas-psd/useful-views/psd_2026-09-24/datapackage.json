@@ -198,7 +198,7 @@
     }
   ],
   "build": {
-    "commit": "8fd95ca-dirty",
+    "commit": "f0eea26",
     "inputs": {
       "psd_alldata_csv_2026-09-24.zip": "sha256:dccef5678cffecc1e7722342396c751442eb245d06dff4498ec87c346908c41f"
     },
