@@ -2,12 +2,12 @@
   "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
   "name": "psd-2026-09-24",
   "title": "USDA FAS Production, Supply and Distribution (PSD), 2026-09-24 snapshot",
-  "description": "Views on the USDA FAS PSD all-commodities file as published on 2026-09-24. PSD overwrites earlier estimates every month, so the snapshot date is part of the data's identity. See in/SOURCES.md in the useful-views-data repository for full provenance.",
+  "description": "Views on the USDA FAS PSD all-commodities file as published on 2026-09-24. PSD overwrites earlier estimates every month, so the snapshot date is part of the data's identity. The views are retyped and, in world_balance, summed by useful-views-data: they are not official USDA figures and are not endorsed by USDA. Credit: USDA Foreign Agricultural Service, PSD Online. See in/SOURCES.md in the useful-views-data repository for full provenance.",
   "licenses": [
     {
-      "name": "other-pd",
-      "title": "Not stated by FAS. As a work of the US federal government it is likely public domain (17 U.S.C. §105).",
-      "path": "https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads"
+      "name": "CC-BY-4.0",
+      "title": "Creative Commons Attribution 4.0, as listed in FAS's data.gov record USDA-26341. Also a work of the US federal government (17 U.S.C. §105).",
+      "path": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "sources": [
@@ -198,7 +198,7 @@
     }
   ],
   "build": {
-    "commit": "0f6adf7-dirty",
+    "commit": "8a768ee",
     "inputs": {
       "psd_alldata_csv_2026-09-24.zip": "sha256:dccef5678cffecc1e7722342396c751442eb245d06dff4498ec87c346908c41f"
     },
