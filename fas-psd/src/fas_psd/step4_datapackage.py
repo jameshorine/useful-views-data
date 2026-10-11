@@ -38,8 +38,6 @@ from fas_psd.config import (
 )
 from fas_psd.step1_export_psd import KEY
 
-PSD_URL = "https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads"
-
 # One entry per view: what a row is, its keys, and what each column means.
 VIEWS = {
     "psd_alldata": {
@@ -216,16 +214,19 @@ def run(force: bool = False) -> None:
         "description": (
             f"Views on the USDA FAS PSD all-commodities file as published on {SNAPSHOT_DATE}. "
             "PSD overwrites earlier estimates every month, so the snapshot date is part of the data's "
-            "identity. See in/SOURCES.md in the useful-views-data repository for full provenance."
+            "identity. The views are retyped and, in world_balance, summed by useful-views-data: they "
+            "are not official USDA figures and are not endorsed by USDA. Credit: USDA Foreign "
+            "Agricultural Service, PSD Online. See in/SOURCES.md in the useful-views-data repository "
+            "for full provenance."
         ),
         "licenses": [
             {
-                "name": "other-pd",
+                "name": "CC-BY-4.0",
                 "title": (
-                    "Not stated by FAS. As a work of the US federal government it is likely public "
-                    "domain (17 U.S.C. §105)."
+                    "Creative Commons Attribution 4.0, as listed in FAS's data.gov record USDA-26341. "
+                    "Also a work of the US federal government (17 U.S.C. §105)."
                 ),
-                "path": PSD_URL,
+                "path": "https://creativecommons.org/licenses/by/4.0/",
             }
         ],
         "sources": [

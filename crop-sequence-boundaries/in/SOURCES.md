@@ -15,6 +15,8 @@ Where every input in `in/` came from. Inputs are read-only: scripts read them, n
 | Zip size | 3,758,027,335 bytes |
 | Zip SHA256 | `32c5e138141a1526ee356c8d8c8888844b5531fcca8ca4ac0b36ba37d7c087bb` |
 | Downloaded | 2026-10-06. First downloaded on or before 2026-09-29; the 2026-10-06 copy was compared to the existing `.gdb` and all 63 files match (name, size, CRC). |
+| Licence | Public domain. The metadata's Use_Constraints: "provided to the public as is and are considered public domain and free to redistribute. The USDA NASS does not warrant any conclusions drawn from these data." The metadata file itself has "No restrictions on the distribution or use", which covers the two `.htm` copies committed here. |
+| Credit | USDA National Agricultural Statistics Service, 2025 Crop Sequence Boundaries (2018–2025), revision 23, published 2026-03-27. Not endorsed by USDA. |
 
 The zip contains:
 

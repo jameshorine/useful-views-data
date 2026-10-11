@@ -16,11 +16,7 @@ Use this project's `.venv` as your notebook kernel. Not the Anaconda base enviro
 
 ## The data
 
-- Download the zip listed in [in/SOURCES.md](in/SOURCES.md) and unzip `CSB1825.gdb/` to `in/CSB1825.gdb/`. The metadata file from the zip is already committed as `in/csb_2025_metadata.htm`.
-- [sandbox.ipynb](sandbox/sandbox.ipynb) explores the source.
-- [example-querries.ipynb](sandbox/example-querries.ipynb) has sample queries, land-cover codes, and a look at the geometry.
-
-The notebooks expect their working directory to be `sandbox/`. They use DuckDB's spatial extension; run `INSTALL spatial` once if `LOAD spatial` fails because it isn't installed.
+Download the zip listed in [in/SOURCES.md](in/SOURCES.md) and unzip `CSB1825.gdb/` to `in/CSB1825.gdb/`. The metadata file from the zip is already committed as `in/csb_2025_metadata.htm`.
 
 ## Building the views
 
@@ -76,7 +72,7 @@ All in `useful-views/csb_2025/`. Field IDs are specific to this release; see [in
 
 ## A couple of notes
 
-- `Shape` is geometry. Use `ST_AsText(Shape)` for WKT, or leave it out of table previews. GitHub's notebook render gets very wide, very fast.
+- `Shape` is geometry. Use `ST_AsText(Shape)` for WKT, or leave it out of table previews. Otherwise they get very wide, very fast.
 - Keep the national data in Parquet. A giant geometry CSV is not particularly useful here.
 
 ## USDA links

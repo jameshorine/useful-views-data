@@ -15,7 +15,8 @@ Where every input in `in/` came from. Inputs are read-only: scripts read them, n
 | Zip SHA256 | `dccef5678cffecc1e7722342396c751442eb245d06dff4498ec87c346908c41f` |
 | Downloaded | 2026-10-07 |
 | Saved as | `in/psd_alldata_csv_2026-09-24.zip` (gitignored; renamed with the server date) |
-| Licence | Not stated on the downloads page. As a work of the US federal government it is likely public domain (17 U.S.C. §105); confirm with FAS before redistributing. |
+| Licence | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as listed in FAS's own [data.gov record](https://catalog.data.gov/dataset/production-supply-and-distribution-database) (USDA-26341). PSD Online itself states no terms. Also a work of the US federal government (17 U.S.C. §105). |
+| Credit | USDA Foreign Agricultural Service, Production, Supply and Distribution (PSD) Online. The views here are retyped and, in `world_balance`, summed by this project: they are not official USDA figures and are not endorsed by USDA. |
 
 ### This is a snapshot
 

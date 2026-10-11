@@ -16,9 +16,7 @@ PSD is revised every month and overwrites earlier estimates, so each release is 
 
 Column descriptions, keys, checksums and build details are in the release's `datapackage.json`.
 
-## Example queries
-
-[sandbox/example_querries.ipynb](sandbox/example_querries.ipynb) ends with worked examples on all three views: what PSD reports for a commodity, a country balance sheet, the world balance over time, top producers and their share of the world, world stocks-to-use with and without China, net exporters, and area versus yield by decade.
+## Example query
 
 A quick start with DuckDB:
 
