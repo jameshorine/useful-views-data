@@ -9,6 +9,9 @@
 | Crop Sequence Boundaries | `csb_field` (GeoParquet) | Field acres, location and geometry. | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
 | Crop Sequence Boundaries | `county` (Parquet) | County names and ASDs by 5-digit county GEOID. | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
 | Crop Sequence Boundaries | `land_cover_codes` (Parquet) | Putting names to the CDL land-cover codes. You will get to practice your left-joins :) | [Generate locally](crop-sequence-boundaries/README.md#building-the-views) |
+| FAS Production, Supply and Distribution | `psd_alldata` (Parquet) | The USDA FAS PSD file as published: production, trade, use and stocks for 63 commodities, about 200 countries, 1960 on. | [Generate locally](fas-psd/README.md#build) |
+| FAS Production, Supply and Distribution | `commodity_attribute` (Parquet) | What PSD reports for each commodity, and in what unit. | [Generate locally](fas-psd/README.md#build) |
+| FAS Production, Supply and Distribution | `world_balance` (Parquet) | Every country summed to world totals: world supply, use and stocks by commodity and year. | [Generate locally](fas-psd/README.md#build) |
 
 
 
@@ -131,9 +134,9 @@ The branches represent the contributions, not the permanent homes for data sets.
 
 ## The Future of `useful-views`
 
-Right now `useful-views` is a pattern that one dataset (Crop Sequence Boundaries) follows. The plan is to turn it into a package that any dataset can use. Roughly in order:
+Right now `useful-views` is a pattern that two datasets (Crop Sequence Boundaries and FAS PSD) follow. The plan is to turn it into a package that any dataset can use. Roughly in order:
 
-- **A second dataset first.** One example can't show which parts are the pattern and which are specific to CSB. The second dataset is how we find out what is actually shared.
+- **A second dataset first.** One example can't show which parts are the pattern and which are specific to CSB. The second dataset, FAS PSD, is how we find out what is actually shared. So far: the data package writer and the verification step carried over almost unchanged, while the view steps are specific to each dataset.
 - **A shared `useful_views` Python package.** The generic parts move out of the CSB project and into one place: path and input checks (`config.py` helpers), the data package writer (step 4), the verification step (step 5), and the check that every column is documented. Each dataset then keeps only its own steps and declarations. Datasets would stay separate uv projects, sharing the package through a uv workspace.
 - **A written spec.** A short document saying what a `useful-views` dataset MUST and SHOULD have: the folder layout, `in/SOURCES.md`, release folders, a committed `datapackage.json`, and the `build` section.
 - **A Frictionless Data Package profile.** A versioned JSON Schema that extends Data Package with the `build` section, so any `datapackage.json` can be checked against the `useful-views` rules, not just the base standard.

@@ -218,13 +218,18 @@ def run(force: bool = False) -> None:
         "title": "Crop Sequence Boundaries 2018-2025 (rev23): tidy views",
         "description": (
             "Tidy views on the USDA NASS Crop Sequence Boundaries 2018-2025 release. "
-            "See in/SOURCES.md in the useful-views repository for full provenance."
+            "Credit: USDA National Agricultural Statistics Service, 2025 Crop Sequence Boundaries (rev23). "
+            "Not endorsed by USDA. See in/SOURCES.md in the useful-views-data repository for full provenance."
         ),
         "licenses": [
             {
                 "name": "other-pd",
-                "title": "Public domain. USDA NASS: \"considered public domain and free to redistribute\".",
-                "path": CSB_URL,
+                "title": (
+                    "Public domain. USDA NASS: \"provided to the public as is and are considered public "
+                    "domain and free to redistribute. The USDA NASS does not warrant any conclusions "
+                    "drawn from these data.\""
+                ),
+                "path": f"{CSB_URL}metadata_Crop-Sequence-Boundaries-2025.htm",
             }
         ],
         "sources": [
