@@ -1,0 +1,3 @@
+# useful-views downloads these files and checks their SHA-256, so git must
+# store and serve them byte for byte: no line-ending conversion.
+* -text

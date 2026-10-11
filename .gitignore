@@ -11,6 +11,14 @@ crop-sequence-boundaries/useful-views/**
 !crop-sequence-boundaries/useful-views/**/
 !crop-sequence-boundaries/useful-views/**/datapackage.json
 
+# FAS PSD: source zips are monthly snapshots (~10 MB each), recorded in
+# fas-psd/in/SOURCES.md by SHA256 rather than committed.
+fas-psd/in/*.zip
+fas-psd/out/
+fas-psd/useful-views/**
+!fas-psd/useful-views/**/
+!fas-psd/useful-views/**/datapackage.json
+
 # OS / Python artifacts
 .DS_Store
 __pycache__/
