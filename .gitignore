@@ -20,13 +20,13 @@ fas-psd/useful-views/**
 !fas-psd/useful-views/**/datapackage.json
 
 # Each examples/<name>/ is a real useful-views project, and can be fully built
-# locally with `useful-views sync`. Only its README.md, raw/ and recipes/ are
-# published (useful-views downloads exactly those), so keep what init and sync
-# make out of git.
+# locally with `useful-views sync`. As in any useful-views project, its
+# datapackage.json and catalog (useful-views/README.md) are committed, and its
+# work files and parquet views are not. useful-views downloads only README.md,
+# raw/ and recipes/.
 examples/*/.gitignore
-examples/*/datapackage.json
 examples/*/work/
-examples/*/useful-views/
+examples/*/useful-views/*.parquet
 
 # OS / Python artifacts
 .DS_Store
