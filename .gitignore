@@ -19,6 +19,15 @@ fas-psd/useful-views/**
 !fas-psd/useful-views/**/
 !fas-psd/useful-views/**/datapackage.json
 
+# Each examples/<name>/ is a real useful-views project, and can be fully built
+# locally with `useful-views sync`. Only its README.md, raw/ and recipes/ are
+# published (useful-views downloads exactly those), so keep what init and sync
+# make out of git.
+examples/*/.gitignore
+examples/*/datapackage.json
+examples/*/work/
+examples/*/useful-views/
+
 # OS / Python artifacts
 .DS_Store
 __pycache__/
