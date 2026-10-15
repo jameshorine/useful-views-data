@@ -9,7 +9,7 @@ project: raw data and recipes. No large data is committed here.
 
 | Name | Contents | Published in |
 |---|---|---|
-| [`pwt`](examples/pwt/) | Penn World Table 11.0 extract for Brazil, Germany, Spain and the United States, with two recipes. | `examples-v1` |
+| [`pwt`](examples/pwt/) | Penn World Table 11.0 extract for Brazil, Germany, Spain and the United States, with two recipes. | `examples-v2` (README covers `check` and the cookbook); first in `examples-v1` |
 
 Get one with:
 

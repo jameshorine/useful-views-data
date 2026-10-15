@@ -16,6 +16,10 @@ example `examples-v2`), then point the next useful-views release at it.
 |---|---|
 | `pwt` | Penn World Table 11.0 extract for Brazil, Germany, Spain and the United States, with two recipes. Licensed CC BY 4.0; see `pwt/README.md` for the source and citation. |
 
-Each example holds what a user starts from: `README.md`, `raw/` and
-`recipes/`. The views, `datapackage.json` and the catalog are made by
-running the recipes.
+`useful-views example` downloads what a user starts from: `README.md`,
+`raw/` and `recipes/`. The views, `datapackage.json` and the catalog are made
+by running the recipes (`useful-views sync`), and `cookbook.json` by
+`useful-views cookbook`. Each example here also commits its `datapackage.json`,
+catalog (`useful-views/README.md`) and `cookbook.json`, as any useful-views
+project does, so you can read them on GitHub. They name the project after its
+folder, so a downloaded copy makes its own.
