@@ -1,0 +1,526 @@
+{
+  "name": "census-acs",
+  "resources": [
+    {
+      "name": "acs20245yr_table_shells",
+      "type": "file",
+      "path": "raw/ACS20245YR_Table_Shells.txt",
+      "scheme": "file",
+      "format": "txt"
+    },
+    {
+      "name": "geos20245yr",
+      "type": "file",
+      "path": "raw/Geos20245YR.txt",
+      "scheme": "file",
+      "format": "txt"
+    },
+    {
+      "name": "acsdt5y2024-b01001",
+      "type": "file",
+      "path": "raw/acsdt5y2024-b01001.dat",
+      "scheme": "file",
+      "format": "dat"
+    },
+    {
+      "name": "acsdt5y2024-b01003",
+      "type": "file",
+      "path": "raw/acsdt5y2024-b01003.dat",
+      "scheme": "file",
+      "format": "dat"
+    },
+    {
+      "name": "acsdt5y2024-b15003",
+      "type": "file",
+      "path": "raw/acsdt5y2024-b15003.dat",
+      "scheme": "file",
+      "format": "dat"
+    },
+    {
+      "name": "acsdt5y2024-b17001",
+      "type": "file",
+      "path": "raw/acsdt5y2024-b17001.dat",
+      "scheme": "file",
+      "format": "dat"
+    },
+    {
+      "name": "acsdt5y2024-b19013",
+      "type": "file",
+      "path": "raw/acsdt5y2024-b19013.dat",
+      "scheme": "file",
+      "format": "dat"
+    },
+    {
+      "name": "acsdt5y2024-b25077",
+      "type": "file",
+      "path": "raw/acsdt5y2024-b25077.dat",
+      "scheme": "file",
+      "format": "dat"
+    },
+    {
+      "name": "acs5-2024-geographies",
+      "type": "table",
+      "path": "useful-views/acs5-2024-geographies.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "level",
+            "type": "string"
+          },
+          {
+            "name": "sumlevel",
+            "type": "string"
+          },
+          {
+            "name": "stusab",
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "type": "string"
+          },
+          {
+            "name": "county",
+            "type": "string"
+          },
+          {
+            "name": "tract",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_geographies",
+        "inputs": [
+          "raw/Geos20245YR.txt"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-b01001",
+      "type": "table",
+      "path": "useful-views/acs5-2024-b01001.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "estimate",
+            "type": "number"
+          },
+          {
+            "name": "moe",
+            "type": "number"
+          },
+          {
+            "name": "estimate_note",
+            "type": "string"
+          },
+          {
+            "name": "moe_note",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_tables",
+        "inputs": [
+          "raw/acsdt5y2024-b01003.dat",
+          "raw/acsdt5y2024-b01001.dat",
+          "raw/acsdt5y2024-b19013.dat",
+          "raw/acsdt5y2024-b17001.dat",
+          "raw/acsdt5y2024-b15003.dat",
+          "raw/acsdt5y2024-b25077.dat",
+          "useful-views/acs5-2024-geographies.parquet"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-b01003",
+      "type": "table",
+      "path": "useful-views/acs5-2024-b01003.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "estimate",
+            "type": "number"
+          },
+          {
+            "name": "moe",
+            "type": "number"
+          },
+          {
+            "name": "estimate_note",
+            "type": "string"
+          },
+          {
+            "name": "moe_note",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_tables",
+        "inputs": [
+          "raw/acsdt5y2024-b01003.dat",
+          "raw/acsdt5y2024-b01001.dat",
+          "raw/acsdt5y2024-b19013.dat",
+          "raw/acsdt5y2024-b17001.dat",
+          "raw/acsdt5y2024-b15003.dat",
+          "raw/acsdt5y2024-b25077.dat",
+          "useful-views/acs5-2024-geographies.parquet"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-b15003",
+      "type": "table",
+      "path": "useful-views/acs5-2024-b15003.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "estimate",
+            "type": "number"
+          },
+          {
+            "name": "moe",
+            "type": "number"
+          },
+          {
+            "name": "estimate_note",
+            "type": "string"
+          },
+          {
+            "name": "moe_note",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_tables",
+        "inputs": [
+          "raw/acsdt5y2024-b01003.dat",
+          "raw/acsdt5y2024-b01001.dat",
+          "raw/acsdt5y2024-b19013.dat",
+          "raw/acsdt5y2024-b17001.dat",
+          "raw/acsdt5y2024-b15003.dat",
+          "raw/acsdt5y2024-b25077.dat",
+          "useful-views/acs5-2024-geographies.parquet"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-b17001",
+      "type": "table",
+      "path": "useful-views/acs5-2024-b17001.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "estimate",
+            "type": "number"
+          },
+          {
+            "name": "moe",
+            "type": "number"
+          },
+          {
+            "name": "estimate_note",
+            "type": "string"
+          },
+          {
+            "name": "moe_note",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_tables",
+        "inputs": [
+          "raw/acsdt5y2024-b01003.dat",
+          "raw/acsdt5y2024-b01001.dat",
+          "raw/acsdt5y2024-b19013.dat",
+          "raw/acsdt5y2024-b17001.dat",
+          "raw/acsdt5y2024-b15003.dat",
+          "raw/acsdt5y2024-b25077.dat",
+          "useful-views/acs5-2024-geographies.parquet"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-b19013",
+      "type": "table",
+      "path": "useful-views/acs5-2024-b19013.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "estimate",
+            "type": "number"
+          },
+          {
+            "name": "moe",
+            "type": "number"
+          },
+          {
+            "name": "estimate_note",
+            "type": "string"
+          },
+          {
+            "name": "moe_note",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_tables",
+        "inputs": [
+          "raw/acsdt5y2024-b01003.dat",
+          "raw/acsdt5y2024-b01001.dat",
+          "raw/acsdt5y2024-b19013.dat",
+          "raw/acsdt5y2024-b17001.dat",
+          "raw/acsdt5y2024-b15003.dat",
+          "raw/acsdt5y2024-b25077.dat",
+          "useful-views/acs5-2024-geographies.parquet"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-b25077",
+      "type": "table",
+      "path": "useful-views/acs5-2024-b25077.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "geo_id",
+            "type": "string"
+          },
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "estimate",
+            "type": "number"
+          },
+          {
+            "name": "moe",
+            "type": "number"
+          },
+          {
+            "name": "estimate_note",
+            "type": "string"
+          },
+          {
+            "name": "moe_note",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_tables",
+        "inputs": [
+          "raw/acsdt5y2024-b01003.dat",
+          "raw/acsdt5y2024-b01001.dat",
+          "raw/acsdt5y2024-b19013.dat",
+          "raw/acsdt5y2024-b17001.dat",
+          "raw/acsdt5y2024-b15003.dat",
+          "raw/acsdt5y2024-b25077.dat",
+          "useful-views/acs5-2024-geographies.parquet"
+        ]
+      }
+    },
+    {
+      "name": "acs5-2024-variables",
+      "type": "table",
+      "path": "useful-views/acs5-2024-variables.parquet",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "variable",
+            "type": "string"
+          },
+          {
+            "name": "table_id",
+            "type": "string"
+          },
+          {
+            "name": "line",
+            "type": "integer"
+          },
+          {
+            "name": "indent",
+            "type": "integer"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "universe",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "type": "string"
+          }
+        ]
+      },
+      "producedBy": {
+        "recipe": "acs_variables",
+        "inputs": [
+          "raw/ACS20245YR_Table_Shells.txt"
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "name": "acs_geographies",
+      "description": "Every geography the shared ACS 2020-2024 5-year views cover (the nation, states, counties and census tracts), with its name and FIPS codes.",
+      "path": "recipes/acs_geographies",
+      "inputs": [
+        "raw/Geos20245YR.txt"
+      ],
+      "outputs": [
+        "useful-views/acs5-2024-geographies.parquet"
+      ],
+      "steps": [
+        {
+          "name": "keep_levels",
+          "path": "recipes/acs_geographies/01_keep_levels.py",
+          "description": "Keep the whole-area rows (geographic component 00) of the nation, states, counties and census tracts from the Census geography file, with each geography's name, level and FIPS codes."
+        }
+      ]
+    },
+    {
+      "name": "acs_tables",
+      "description": "Tidy ACS 2020-2024 5-year tables: one row per geography and variable, with its estimate, margin of error, and a note where Census reports a special value.",
+      "path": "recipes/acs_tables",
+      "inputs": [
+        "raw/acsdt5y2024-b01003.dat",
+        "raw/acsdt5y2024-b01001.dat",
+        "raw/acsdt5y2024-b19013.dat",
+        "raw/acsdt5y2024-b17001.dat",
+        "raw/acsdt5y2024-b15003.dat",
+        "raw/acsdt5y2024-b25077.dat",
+        "useful-views/acs5-2024-geographies.parquet"
+      ],
+      "outputs": [
+        "useful-views/acs5-2024-b01003.parquet",
+        "useful-views/acs5-2024-b01001.parquet",
+        "useful-views/acs5-2024-b19013.parquet",
+        "useful-views/acs5-2024-b17001.parquet",
+        "useful-views/acs5-2024-b15003.parquet",
+        "useful-views/acs5-2024-b25077.parquet"
+      ],
+      "steps": [
+        {
+          "name": "reshape_long",
+          "path": "recipes/acs_tables/01_reshape_long.py",
+          "description": "Reshape each ACS table file (one column per estimate and per margin of error) into one row per geography and variable, with the estimate and margin of error side by side, still as Census wrote them."
+        },
+        {
+          "name": "decode_annotations",
+          "path": "recipes/acs_tables/02_decode_annotations.py",
+          "description": "Turn Census's special values (such as -666666666) into nulls with a note, following Census's \"Notes on ACS Estimate and Annotation Values\", and make every estimate and margin of error a number."
+        },
+        {
+          "name": "keep_geographies",
+          "path": "recipes/acs_tables/03_keep_geographies.py",
+          "description": "Keep only the geographies in the shared geographies view, check that every one of them has every variable exactly once, and write one view per table."
+        }
+      ]
+    },
+    {
+      "name": "acs_variables",
+      "description": "What every ACS 2020-2024 5-year variable means: its table, label, title and universe, from the Census table shells.",
+      "path": "recipes/acs_variables",
+      "inputs": [
+        "raw/ACS20245YR_Table_Shells.txt"
+      ],
+      "outputs": [
+        "useful-views/acs5-2024-variables.parquet"
+      ],
+      "steps": [
+        {
+          "name": "tidy_table_shells",
+          "path": "recipes/acs_variables/01_tidy_table_shells.py",
+          "description": "Keep one row per ACS variable (such as B19013_001) from the Census table shells, with its table, position, label, title, universe and type, and drop the heading rows that have no variable."
+        }
+      ]
+    }
+  ]
+}

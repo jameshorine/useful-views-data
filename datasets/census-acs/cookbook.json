@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "generator": "useful-views",
+  "project": "census-acs",
+  "raw_inputs": [
+    "raw/ACS20245YR_Table_Shells.txt",
+    "raw/Geos20245YR.txt",
+    "raw/acsdt5y2024-b01001.dat",
+    "raw/acsdt5y2024-b01003.dat",
+    "raw/acsdt5y2024-b15003.dat",
+    "raw/acsdt5y2024-b17001.dat",
+    "raw/acsdt5y2024-b19013.dat",
+    "raw/acsdt5y2024-b25077.dat"
+  ],
+  "recipes": [
+    {
+      "name": "acs_geographies",
+      "description": "Every geography the shared ACS 2020-2024 5-year views cover (the nation, states, counties and census tracts), with its name and FIPS codes.",
+      "path": "recipes/acs_geographies",
+      "inputs": [
+        "raw/Geos20245YR.txt"
+      ],
+      "outputs": [
+        "useful-views/acs5-2024-geographies.parquet"
+      ],
+      "steps": [
+        {
+          "name": "keep_levels",
+          "path": "recipes/acs_geographies/01_keep_levels.py",
+          "description": "Keep the whole-area rows (geographic component 00) of the nation, states, counties and census tracts from the Census geography file, with each geography's name, level and FIPS codes."
+        }
+      ]
+    },
+    {
+      "name": "acs_tables",
+      "description": "Tidy ACS 2020-2024 5-year tables: one row per geography and variable, with its estimate, margin of error, and a note where Census reports a special value.",
+      "path": "recipes/acs_tables",
+      "inputs": [
+        "raw/acsdt5y2024-b01003.dat",
+        "raw/acsdt5y2024-b01001.dat",
+        "raw/acsdt5y2024-b19013.dat",
+        "raw/acsdt5y2024-b17001.dat",
+        "raw/acsdt5y2024-b15003.dat",
+        "raw/acsdt5y2024-b25077.dat",
+        "useful-views/acs5-2024-geographies.parquet"
+      ],
+      "outputs": [
+        "useful-views/acs5-2024-b01003.parquet",
+        "useful-views/acs5-2024-b01001.parquet",
+        "useful-views/acs5-2024-b19013.parquet",
+        "useful-views/acs5-2024-b17001.parquet",
+        "useful-views/acs5-2024-b15003.parquet",
+        "useful-views/acs5-2024-b25077.parquet"
+      ],
+      "steps": [
+        {
+          "name": "reshape_long",
+          "path": "recipes/acs_tables/01_reshape_long.py",
+          "description": "Reshape each ACS table file (one column per estimate and per margin of error) into one row per geography and variable, with the estimate and margin of error side by side, still as Census wrote them."
+        },
+        {
+          "name": "decode_annotations",
+          "path": "recipes/acs_tables/02_decode_annotations.py",
+          "description": "Turn Census's special values (such as -666666666) into nulls with a note, following Census's \"Notes on ACS Estimate and Annotation Values\", and make every estimate and margin of error a number."
+        },
+        {
+          "name": "keep_geographies",
+          "path": "recipes/acs_tables/03_keep_geographies.py",
+          "description": "Keep only the geographies in the shared geographies view, check that every one of them has every variable exactly once, and write one view per table."
+        }
+      ]
+    },
+    {
+      "name": "acs_variables",
+      "description": "What every ACS 2020-2024 5-year variable means: its table, label, title and universe, from the Census table shells.",
+      "path": "recipes/acs_variables",
+      "inputs": [
+        "raw/ACS20245YR_Table_Shells.txt"
+      ],
+      "outputs": [
+        "useful-views/acs5-2024-variables.parquet"
+      ],
+      "steps": [
+        {
+          "name": "tidy_table_shells",
+          "path": "recipes/acs_variables/01_tidy_table_shells.py",
+          "description": "Keep one row per ACS variable (such as B19013_001) from the Census table shells, with its table, position, label, title, universe and type, and drop the heading rows that have no variable."
+        }
+      ]
+    }
+  ]
+}

@@ -21,9 +21,9 @@ fas-psd/useful-views/**
 
 # Each examples/<name>/ is a real useful-views project, and can be fully built
 # locally with `useful-views sync`. As in any useful-views project, its
-# datapackage.json, catalog (useful-views/README.md) and cookbook.json are
-# committed, and its work files and parquet views are not. useful-views downloads only README.md,
-# raw/ and recipes/.
+# datapackage.json, catalog (useful-views/README.md), cookbook.json and
+# AGENTS.md are committed, and its work files and parquet views are not.
+# useful-views downloads only README.md, raw/ and recipes/.
 examples/*/.gitignore
 examples/*/work/
 examples/*/useful-views/*.parquet

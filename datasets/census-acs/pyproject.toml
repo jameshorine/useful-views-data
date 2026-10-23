@@ -1,0 +1,9 @@
+[project]
+name = "census-acs"
+version = "0.1.0"
+description = "Shared, documented views on the U.S. Census Bureau's American Community Survey, built with useful-views."
+requires-python = ">=3.11"
+dependencies = [
+    "polars>=2.0.0",
+    "useful-views>=0.1.0",
+]

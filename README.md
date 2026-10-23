@@ -36,7 +36,16 @@ from the hash pinned in the package. So:
 
 ## Dataset projects
 
-This repository used to hold two dataset projects, built before the
+Full useful-views projects on real data, in `datasets/`. Unlike the
+examples, their raw data is never committed: each project downloads it from
+the publisher with a script that checks every file's SHA-256, and builds its
+views locally.
+
+| Project | Data | Views |
+|---|---|---|
+| [`census-acs`](datasets/census-acs/) | U.S. Census Bureau, American Community Survey 2020-2024 5-year estimates (table-based Summary File) | Geographies (nation, states, counties, tracts), the meaning of every ACS variable, and six tidy tables (population, sex by age, median household income, poverty, educational attainment, median home value), with Census's special values decoded. A shared base for students' analyses. |
+
+This repository used to hold two other dataset projects, built before the
 useful-views package existed: USDA NASS Crop Sequence Boundaries and USDA FAS
 Production, Supply and Distribution (PSD). They have been removed, and will
 come back rebuilt on the package. The last version of both is in the git
@@ -56,6 +65,11 @@ The code and documentation in this repository are released under the
   https://doi.org/10.1257/aer.20130954. The views the recipes make are
   reshaped and derived from it, and are not published or endorsed by the
   Groningen Growth and Development Centre.
+- **U.S. Census Bureau, American Community Survey** (`datasets/census-acs/`):
+  a work of the U.S. federal government, in the public domain (17 U.S.C.
+  §105). Credit: U.S. Census Bureau, 2020-2024 American Community Survey
+  5-Year Estimates. Not affiliated with or endorsed by the U.S. Census Bureau.
+  Only the recipes and records are in git; the data is downloaded from Census.
 
 ## Contributing
 

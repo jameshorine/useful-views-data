@@ -1,0 +1,3 @@
+description = "Every geography the shared ACS 2020-2024 5-year views cover (the nation, states, counties and census tracts), with its name and FIPS codes."
+inputs  = ["raw/Geos20245YR.txt"]
+outputs = ["useful-views/acs5-2024-geographies.parquet"]
