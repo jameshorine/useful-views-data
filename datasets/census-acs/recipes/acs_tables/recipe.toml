@@ -1,0 +1,18 @@
+description = "Tidy ACS 2020-2024 5-year tables: one row per geography and variable, with its estimate, margin of error, and a note where Census reports a special value."
+inputs  = [
+    "raw/acsdt5y2024-b01003.dat",
+    "raw/acsdt5y2024-b01001.dat",
+    "raw/acsdt5y2024-b19013.dat",
+    "raw/acsdt5y2024-b17001.dat",
+    "raw/acsdt5y2024-b15003.dat",
+    "raw/acsdt5y2024-b25077.dat",
+    "useful-views/acs5-2024-geographies.parquet",
+]
+outputs = [
+    "useful-views/acs5-2024-b01003.parquet",
+    "useful-views/acs5-2024-b01001.parquet",
+    "useful-views/acs5-2024-b19013.parquet",
+    "useful-views/acs5-2024-b17001.parquet",
+    "useful-views/acs5-2024-b15003.parquet",
+    "useful-views/acs5-2024-b25077.parquet",
+]

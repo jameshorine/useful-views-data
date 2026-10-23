@@ -1,0 +1,3 @@
+description = "What every ACS 2020-2024 5-year variable means: its table, label, title and universe, from the Census table shells."
+inputs  = ["raw/ACS20245YR_Table_Shells.txt"]
+outputs = ["useful-views/acs5-2024-variables.parquet"]
