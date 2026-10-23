@@ -1,0 +1,5 @@
+raw/*
+!raw/.gitkeep
+/work/
+useful-views/*.parquet
+__pycache__/
