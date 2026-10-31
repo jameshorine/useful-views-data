@@ -89,18 +89,32 @@ code that is not in this list.
    `useful-views/acs5-2024-b19013.parquet` and
    `useful-views/acs5-2024-geographies.parquet`) and your own views as
    `outputs`. Write its steps as `01_….py`, `02_….py`, each starting with a
-   comment saying what it does.
+   comment saying what it does. Sort the rows a step writes by columns that
+   together identify each row (as the shared views do, by `geo_id` and
+   `variable`), so the same data always gives the same fingerprint.
 3. Build and record: `uv run useful-views sync`, then
-   `uv run useful-views cookbook`.
+   `uv run useful-views cookbook`. After editing a step's code, run that
+   recipe with `uv run useful-views run <recipe>`, then what its warnings say.
 4. Commit your recipe folder with the regenerated `datapackage.json`,
    `useful-views/README.md` and `cookbook.json`, and open a pull request into
    `dev`.
 
 Never edit `datapackage.json`, `useful-views/README.md` or `cookbook.json` by
 hand, and never resolve a merge conflict in them by hand. Merge `dev` into
-your branch, run `uv run useful-views sync` and `uv run useful-views cookbook`,
-and commit what they write. Never commit anything from `raw/` or `work/`, or
-any `.parquet` file: this project's `.gitignore` keeps them out.
+your branch, run `uv run useful-views sync --all` and
+`uv run useful-views cookbook`, and commit what they write. Use `sync --all`
+after any `git pull`, merge or branch switch too. Never commit anything from
+`raw/` or `work/`, or any `.parquet` file: this project's `.gitignore` keeps
+them out.
+
+### When the shared views change
+
+`datapackage.json` records a fingerprint of every view, a hash of the data
+it holds, and, for each recipe, the fingerprints of the views it read when
+it last ran. So when a shared view is rebuilt with different data, `uv run
+useful-views check` reports your recipe as `out-of-date` (reason
+`input-data-changed`), and `uv run useful-views sync` runs it again. Your
+results never silently rest on an older version of the shared data.
 
 ### Changing the shared base
 

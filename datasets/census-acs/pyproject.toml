@@ -5,5 +5,5 @@ description = "Shared, documented views on the U.S. Census Bureau's American Com
 requires-python = ">=3.11"
 dependencies = [
     "polars>=2.0.0",
-    "useful-views>=0.1.0",
+    "useful-views>=0.2.0",
 ]

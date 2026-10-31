@@ -59,89 +59,34 @@
     },
     {
       "name": "acs5-2024-geographies",
-      "type": "table",
       "path": "useful-views/acs5-2024-geographies.parquet",
+      "fingerprint": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804",
+      "producedBy": {
+        "recipe": "acs_geographies",
+        "inputs": ["raw/Geos20245YR.txt"],
+        "inputFingerprints": {}
+      },
+      "type": "table",
       "scheme": "file",
       "format": "parquet",
       "mediatype": "application/parquet",
       "schema": {
         "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "name": "level",
-            "type": "string"
-          },
-          {
-            "name": "sumlevel",
-            "type": "string"
-          },
-          {
-            "name": "stusab",
-            "type": "string"
-          },
-          {
-            "name": "state",
-            "type": "string"
-          },
-          {
-            "name": "county",
-            "type": "string"
-          },
-          {
-            "name": "tract",
-            "type": "string"
-          }
-        ]
-      },
-      "producedBy": {
-        "recipe": "acs_geographies",
-        "inputs": [
-          "raw/Geos20245YR.txt"
+          {"name": "geo_id", "type": "string"},
+          {"name": "name", "type": "string"},
+          {"name": "level", "type": "string"},
+          {"name": "sumlevel", "type": "string"},
+          {"name": "stusab", "type": "string"},
+          {"name": "state", "type": "string"},
+          {"name": "county", "type": "string"},
+          {"name": "tract", "type": "string"}
         ]
       }
     },
     {
       "name": "acs5-2024-b01001",
-      "type": "table",
       "path": "useful-views/acs5-2024-b01001.parquet",
-      "scheme": "file",
-      "format": "parquet",
-      "mediatype": "application/parquet",
-      "schema": {
-        "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "estimate",
-            "type": "number"
-          },
-          {
-            "name": "moe",
-            "type": "number"
-          },
-          {
-            "name": "estimate_note",
-            "type": "string"
-          },
-          {
-            "name": "moe_note",
-            "type": "string"
-          }
-        ]
-      },
+      "fingerprint": "datahash1:sha256:36006d3364098c7f0ae324fb5c18cf2a62978050934e577eb6eb9e1b2a8dd3d8",
       "producedBy": {
         "recipe": "acs_tables",
         "inputs": [
@@ -152,44 +97,30 @@
           "raw/acsdt5y2024-b15003.dat",
           "raw/acsdt5y2024-b25077.dat",
           "useful-views/acs5-2024-geographies.parquet"
+        ],
+        "inputFingerprints": {
+          "useful-views/acs5-2024-geographies.parquet": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "geo_id", "type": "string"},
+          {"name": "variable", "type": "string"},
+          {"name": "estimate", "type": "number"},
+          {"name": "moe", "type": "number"},
+          {"name": "estimate_note", "type": "string"},
+          {"name": "moe_note", "type": "string"}
         ]
       }
     },
     {
       "name": "acs5-2024-b01003",
-      "type": "table",
       "path": "useful-views/acs5-2024-b01003.parquet",
-      "scheme": "file",
-      "format": "parquet",
-      "mediatype": "application/parquet",
-      "schema": {
-        "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "estimate",
-            "type": "number"
-          },
-          {
-            "name": "moe",
-            "type": "number"
-          },
-          {
-            "name": "estimate_note",
-            "type": "string"
-          },
-          {
-            "name": "moe_note",
-            "type": "string"
-          }
-        ]
-      },
+      "fingerprint": "datahash1:sha256:da897047741e792fa2074fce72bfaabed1279aeca4e798ddfe90c1d22b080a02",
       "producedBy": {
         "recipe": "acs_tables",
         "inputs": [
@@ -200,44 +131,30 @@
           "raw/acsdt5y2024-b15003.dat",
           "raw/acsdt5y2024-b25077.dat",
           "useful-views/acs5-2024-geographies.parquet"
+        ],
+        "inputFingerprints": {
+          "useful-views/acs5-2024-geographies.parquet": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "geo_id", "type": "string"},
+          {"name": "variable", "type": "string"},
+          {"name": "estimate", "type": "number"},
+          {"name": "moe", "type": "number"},
+          {"name": "estimate_note", "type": "string"},
+          {"name": "moe_note", "type": "string"}
         ]
       }
     },
     {
       "name": "acs5-2024-b15003",
-      "type": "table",
       "path": "useful-views/acs5-2024-b15003.parquet",
-      "scheme": "file",
-      "format": "parquet",
-      "mediatype": "application/parquet",
-      "schema": {
-        "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "estimate",
-            "type": "number"
-          },
-          {
-            "name": "moe",
-            "type": "number"
-          },
-          {
-            "name": "estimate_note",
-            "type": "string"
-          },
-          {
-            "name": "moe_note",
-            "type": "string"
-          }
-        ]
-      },
+      "fingerprint": "datahash1:sha256:8868b17f0175eca551cd5fbda3731669704c2ec25ffb7402bcbb5edcb6ad9a1b",
       "producedBy": {
         "recipe": "acs_tables",
         "inputs": [
@@ -248,44 +165,30 @@
           "raw/acsdt5y2024-b15003.dat",
           "raw/acsdt5y2024-b25077.dat",
           "useful-views/acs5-2024-geographies.parquet"
+        ],
+        "inputFingerprints": {
+          "useful-views/acs5-2024-geographies.parquet": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "geo_id", "type": "string"},
+          {"name": "variable", "type": "string"},
+          {"name": "estimate", "type": "number"},
+          {"name": "moe", "type": "number"},
+          {"name": "estimate_note", "type": "string"},
+          {"name": "moe_note", "type": "string"}
         ]
       }
     },
     {
       "name": "acs5-2024-b17001",
-      "type": "table",
       "path": "useful-views/acs5-2024-b17001.parquet",
-      "scheme": "file",
-      "format": "parquet",
-      "mediatype": "application/parquet",
-      "schema": {
-        "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "estimate",
-            "type": "number"
-          },
-          {
-            "name": "moe",
-            "type": "number"
-          },
-          {
-            "name": "estimate_note",
-            "type": "string"
-          },
-          {
-            "name": "moe_note",
-            "type": "string"
-          }
-        ]
-      },
+      "fingerprint": "datahash1:sha256:313e816665471e52177162b9f6285f96099378d814b22a855afdf1abfc76fd06",
       "producedBy": {
         "recipe": "acs_tables",
         "inputs": [
@@ -296,44 +199,30 @@
           "raw/acsdt5y2024-b15003.dat",
           "raw/acsdt5y2024-b25077.dat",
           "useful-views/acs5-2024-geographies.parquet"
+        ],
+        "inputFingerprints": {
+          "useful-views/acs5-2024-geographies.parquet": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "geo_id", "type": "string"},
+          {"name": "variable", "type": "string"},
+          {"name": "estimate", "type": "number"},
+          {"name": "moe", "type": "number"},
+          {"name": "estimate_note", "type": "string"},
+          {"name": "moe_note", "type": "string"}
         ]
       }
     },
     {
       "name": "acs5-2024-b19013",
-      "type": "table",
       "path": "useful-views/acs5-2024-b19013.parquet",
-      "scheme": "file",
-      "format": "parquet",
-      "mediatype": "application/parquet",
-      "schema": {
-        "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "estimate",
-            "type": "number"
-          },
-          {
-            "name": "moe",
-            "type": "number"
-          },
-          {
-            "name": "estimate_note",
-            "type": "string"
-          },
-          {
-            "name": "moe_note",
-            "type": "string"
-          }
-        ]
-      },
+      "fingerprint": "datahash1:sha256:5b63e9f19db4a107f7ccb90ec0609dd24ab36bab02b941d5208b267e3702830b",
       "producedBy": {
         "recipe": "acs_tables",
         "inputs": [
@@ -344,44 +233,30 @@
           "raw/acsdt5y2024-b15003.dat",
           "raw/acsdt5y2024-b25077.dat",
           "useful-views/acs5-2024-geographies.parquet"
+        ],
+        "inputFingerprints": {
+          "useful-views/acs5-2024-geographies.parquet": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "geo_id", "type": "string"},
+          {"name": "variable", "type": "string"},
+          {"name": "estimate", "type": "number"},
+          {"name": "moe", "type": "number"},
+          {"name": "estimate_note", "type": "string"},
+          {"name": "moe_note", "type": "string"}
         ]
       }
     },
     {
       "name": "acs5-2024-b25077",
-      "type": "table",
       "path": "useful-views/acs5-2024-b25077.parquet",
-      "scheme": "file",
-      "format": "parquet",
-      "mediatype": "application/parquet",
-      "schema": {
-        "fields": [
-          {
-            "name": "geo_id",
-            "type": "string"
-          },
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "estimate",
-            "type": "number"
-          },
-          {
-            "name": "moe",
-            "type": "number"
-          },
-          {
-            "name": "estimate_note",
-            "type": "string"
-          },
-          {
-            "name": "moe_note",
-            "type": "string"
-          }
-        ]
-      },
+      "fingerprint": "datahash1:sha256:5ac3c6ae38fc88016be37bbd467381ebf547d267af78ebab79472e1014faace8",
       "producedBy": {
         "recipe": "acs_tables",
         "inputs": [
@@ -392,56 +267,49 @@
           "raw/acsdt5y2024-b15003.dat",
           "raw/acsdt5y2024-b25077.dat",
           "useful-views/acs5-2024-geographies.parquet"
-        ]
-      }
-    },
-    {
-      "name": "acs5-2024-variables",
+        ],
+        "inputFingerprints": {
+          "useful-views/acs5-2024-geographies.parquet": "datahash1:sha256:844d49b0cc6ac5273e70ac78999c220fa8ae4d593459f53dc5330d1c5e1ed804"
+        }
+      },
       "type": "table",
-      "path": "useful-views/acs5-2024-variables.parquet",
       "scheme": "file",
       "format": "parquet",
       "mediatype": "application/parquet",
       "schema": {
         "fields": [
-          {
-            "name": "variable",
-            "type": "string"
-          },
-          {
-            "name": "table_id",
-            "type": "string"
-          },
-          {
-            "name": "line",
-            "type": "integer"
-          },
-          {
-            "name": "indent",
-            "type": "integer"
-          },
-          {
-            "name": "label",
-            "type": "string"
-          },
-          {
-            "name": "title",
-            "type": "string"
-          },
-          {
-            "name": "universe",
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "type": "string"
-          }
+          {"name": "geo_id", "type": "string"},
+          {"name": "variable", "type": "string"},
+          {"name": "estimate", "type": "number"},
+          {"name": "moe", "type": "number"},
+          {"name": "estimate_note", "type": "string"},
+          {"name": "moe_note", "type": "string"}
         ]
-      },
+      }
+    },
+    {
+      "name": "acs5-2024-variables",
+      "path": "useful-views/acs5-2024-variables.parquet",
+      "fingerprint": "datahash1:sha256:dc76e29bb8dc8191d769419cec6c48d5a2bf62def96ec29a27bcf0cb44a67d21",
       "producedBy": {
         "recipe": "acs_variables",
-        "inputs": [
-          "raw/ACS20245YR_Table_Shells.txt"
+        "inputs": ["raw/ACS20245YR_Table_Shells.txt"],
+        "inputFingerprints": {}
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "variable", "type": "string"},
+          {"name": "table_id", "type": "string"},
+          {"name": "line", "type": "integer"},
+          {"name": "indent", "type": "integer"},
+          {"name": "label", "type": "string"},
+          {"name": "title", "type": "string"},
+          {"name": "universe", "type": "string"},
+          {"name": "type", "type": "string"}
         ]
       }
     }
@@ -451,12 +319,8 @@
       "name": "acs_geographies",
       "description": "Every geography the shared ACS 2020-2024 5-year views cover (the nation, states, counties and census tracts), with its name and FIPS codes.",
       "path": "recipes/acs_geographies",
-      "inputs": [
-        "raw/Geos20245YR.txt"
-      ],
-      "outputs": [
-        "useful-views/acs5-2024-geographies.parquet"
-      ],
+      "inputs": ["raw/Geos20245YR.txt"],
+      "outputs": ["useful-views/acs5-2024-geographies.parquet"],
       "steps": [
         {
           "name": "keep_levels",
@@ -508,12 +372,8 @@
       "name": "acs_variables",
       "description": "What every ACS 2020-2024 5-year variable means: its table, label, title and universe, from the Census table shells.",
       "path": "recipes/acs_variables",
-      "inputs": [
-        "raw/ACS20245YR_Table_Shells.txt"
-      ],
-      "outputs": [
-        "useful-views/acs5-2024-variables.parquet"
-      ],
+      "inputs": ["raw/ACS20245YR_Table_Shells.txt"],
+      "outputs": ["useful-views/acs5-2024-variables.parquet"],
       "steps": [
         {
           "name": "tidy_table_shells",
