@@ -14,7 +14,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "polars", specifier = ">=2.0.0" },
-    { name = "useful-views", specifier = ">=0.2.0" },
+    { name = "useful-views", specifier = ">=0.3.0" },
 ]
 
 [[package]]
@@ -104,12 +104,12 @@ wheels = [
 
 [[package]]
 name = "useful-views"
-version = "0.2.0"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyarrow" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/56/a80814511c44a565dfb1d2b2be8dcba6c8b3023290ef4ee21a0cf7740c34/useful_views-0.2.0.tar.gz", hash = "sha256:091ef68dbeea461aa66f9549b6e9972e43fd337aa24f116465753625de68349b", size = 702514, upload-time = "2026-10-30T19:00:10.666Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/80/62033d204220db15de1d12d654e205a9f43a97d6b1c2e08e196de66ade78/useful_views-0.3.0.tar.gz", hash = "sha256:5d192b6877c030fe0b0f7b0c28c8a3023ea495d8fbcbb2fed2756a222da7b630", size = 711534, upload-time = "2026-11-20T04:40:36.517Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/8a/bf7387a761746e056080b27bb340db53107c6a9193a4dec9d19c401a7fc5/useful_views-0.2.0-py3-none-any.whl", hash = "sha256:c63ed8b66e34e092bb6410e90b42038fe6d415a868364ac4f0577beed44d6b42", size = 98031, upload-time = "2026-10-30T19:00:08.838Z" },
+    { url = "https://files.pythonhosted.org/packages/72/4a/b5209277882e9b10d788cce2bc6c40500c06672a1690903ec2a13fa9b286/useful_views-0.3.0-py3-none-any.whl", hash = "sha256:3187b5207f1fe0323b9ff88135607bcbd08419ecc9a6e67b1c8ef0251b059781", size = 99573, upload-time = "2026-11-20T04:40:35.225Z" },
 ]
