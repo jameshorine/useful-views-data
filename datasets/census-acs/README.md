@@ -20,7 +20,7 @@ installed:
 
 ```sh
 uv sync                      # installs the exact useful-views and polars versions in uv.lock
-python fetch_raw.py          # downloads about 570 MB from Census into raw/ and checks it
+uv run python fetch_raw.py   # downloads about 570 MB from Census into raw/ and checks it
 uv run useful-views sync     # builds every view (about a minute)
 uv run useful-views check    # expect: No problems found.
 ```
@@ -58,6 +58,115 @@ import polars as pl
 income = pl.read_parquet("useful-views/acs5-2024-b19013.parquet")
 geos = pl.read_parquet("useful-views/acs5-2024-geographies.parquet")
 counties = income.join(geos, on="geo_id").filter(pl.col("level") == "county")
+```
+
+### Sample records
+
+Real rows from the 2020-2024 release. Run the setup once, then each snippet,
+from this folder: you get the same output. The comments say why each row was
+picked. When the data changes, re-run the snippets and paste the new output
+here.
+
+```python
+import polars as pl
+
+pl.Config.set_tbl_hide_dataframe_shape(True)
+pl.Config.set_fmt_str_lengths(100)
+pl.Config.set_tbl_width_chars(200)
+pl.Config.set_fmt_float("full")
+```
+
+**`acs5-2024-geographies`**: one geography at each level.
+
+```python
+geos = pl.read_parquet("useful-views/acs5-2024-geographies.parquet")
+print(geos.filter(pl.col("geo_id").is_in([
+    "0100000US",             # the nation
+    "0400000US17",           # a state: Illinois
+    "0500000US17019",        # a county: Champaign
+    "1400000US17019000200",  # a tract: its geo_id holds the state, county and tract codes
+])))
+```
+
+```text
+┌──────────────────────┬────────────────────────────────────────────┬────────┬──────────┬────────┬───────┬────────┬────────┐
+│ geo_id               ┆ name                                       ┆ level  ┆ sumlevel ┆ stusab ┆ state ┆ county ┆ tract  │
+│ ---                  ┆ ---                                        ┆ ---    ┆ ---      ┆ ---    ┆ ---   ┆ ---    ┆ ---    │
+│ str                  ┆ str                                        ┆ str    ┆ str      ┆ str    ┆ str   ┆ str    ┆ str    │
+╞══════════════════════╪════════════════════════════════════════════╪════════╪══════════╪════════╪═══════╪════════╪════════╡
+│ 0100000US            ┆ United States                              ┆ nation ┆ 010      ┆ US     ┆ null  ┆ null   ┆ null   │
+│ 0400000US17          ┆ Illinois                                   ┆ state  ┆ 040      ┆ IL     ┆ 17    ┆ null   ┆ null   │
+│ 0500000US17019       ┆ Champaign County, Illinois                 ┆ county ┆ 050      ┆ IL     ┆ 17    ┆ 019    ┆ null   │
+│ 1400000US17019000200 ┆ Census Tract 2, Champaign County, Illinois ┆ tract  ┆ 140      ┆ IL     ┆ 17    ┆ 019    ┆ 000200 │
+└──────────────────────┴────────────────────────────────────────────┴────────┴──────────┴────────┴───────┴────────┴────────┘
+```
+
+**`acs5-2024-variables`**: what a variable means: its line in the table (`label`) and who it counts (`universe`).
+
+```python
+variables = pl.read_parquet("useful-views/acs5-2024-variables.parquet")
+print(variables.filter(pl.col("variable").is_in(["B17001_001", "B17001_002", "B19013_001"]))
+      .select("variable", "label", "universe"))
+```
+
+```text
+┌────────────┬────────────────────────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────┐
+│ variable   ┆ label                                                                              ┆ universe                                         │
+│ ---        ┆ ---                                                                                ┆ ---                                              │
+│ str        ┆ str                                                                                ┆ str                                              │
+╞════════════╪════════════════════════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════╡
+│ B17001_001 ┆ Total:                                                                             ┆ Population for whom poverty status is determined │
+│ B17001_002 ┆ Income in the past 12 months below poverty level:                                  ┆ Population for whom poverty status is determined │
+│ B19013_001 ┆ Median household income in the past 12 months (in 2024 inflation-adjusted dollars) ┆ Households                                       │
+└────────────┴────────────────────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────┘
+```
+
+**`acs5-2024-b01003`**: total population.
+
+```python
+population = pl.read_parquet("useful-views/acs5-2024-b01003.parquet")
+print(population.filter(pl.col("geo_id").is_in([
+    "0400000US17",           # state and county totals are controlled: margin of error 0
+    "0500000US17019",
+    "1400000US17019000200",  # a tract has an ordinary margin of error
+])))
+```
+
+```text
+┌──────────────────────┬────────────┬──────────┬─────┬───────────────┬────────────┐
+│ geo_id               ┆ variable   ┆ estimate ┆ moe ┆ estimate_note ┆ moe_note   │
+│ ---                  ┆ ---        ┆ ---      ┆ --- ┆ ---           ┆ ---        │
+│ str                  ┆ str        ┆ f64      ┆ f64 ┆ str           ┆ str        │
+╞══════════════════════╪════════════╪══════════╪═════╪═══════════════╪════════════╡
+│ 0400000US17          ┆ B01003_001 ┆ 12694798 ┆ 0   ┆ null          ┆ controlled │
+│ 0500000US17019       ┆ B01003_001 ┆ 208741   ┆ 0   ┆ null          ┆ controlled │
+│ 1400000US17019000200 ┆ B01003_001 ┆ 2047     ┆ 442 ┆ null          ┆ null       │
+└──────────────────────┴────────────┴──────────┴─────┴───────────────┴────────────┘
+```
+
+**`acs5-2024-b19013`**: median household income, one row of each kind.
+
+```python
+income = pl.read_parquet("useful-views/acs5-2024-b19013.parquet")
+print(income.filter(pl.col("geo_id").is_in([
+    "0500000US17019",        # an ordinary estimate
+    "1400000US04013105003",  # median above the top of Census's scale: 250001 means "250,000 or more"
+    "1400000US17019000401",  # median below the bottom: 2499 means "under 2,500"
+    "1400000US01003990000",  # too few households sampled to estimate
+])))
+```
+
+```text
+┌──────────────────────┬────────────┬──────────┬──────┬─────────────────────┬─────────────────────┐
+│ geo_id               ┆ variable   ┆ estimate ┆ moe  ┆ estimate_note       ┆ moe_note            │
+│ ---                  ┆ ---        ┆ ---      ┆ ---  ┆ ---                 ┆ ---                 │
+│ str                  ┆ str        ┆ f64      ┆ f64  ┆ str                 ┆ str                 │
+╞══════════════════════╪════════════╪══════════╪══════╪═════════════════════╪═════════════════════╡
+│ 0500000US17019       ┆ B19013_001 ┆ 63683    ┆ 1675 ┆ null                ┆ null                │
+│ 1400000US01003990000 ┆ B19013_001 ┆ null     ┆ null ┆ insufficient-sample ┆ insufficient-sample │
+│ 1400000US04013105003 ┆ B19013_001 ┆ 250001   ┆ null ┆ median-upper-bound  ┆ open-ended-median   │
+│ 1400000US17019000401 ┆ B19013_001 ┆ 2499     ┆ null ┆ median-lower-bound  ┆ open-ended-median   │
+└──────────────────────┴────────────┴──────────┴──────┴─────────────────────┴─────────────────────┘
 ```
 
 ### Notes: Census's special values

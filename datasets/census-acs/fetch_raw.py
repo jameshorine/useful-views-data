@@ -2,7 +2,7 @@
 
 Run it from this folder before `useful-views sync`:
 
-    python fetch_raw.py
+    uv run python fetch_raw.py
 
 Each file comes from the U.S. Census Bureau's ACS Summary File and is checked
 against the size and SHA-256 recorded below (and in SOURCES.md). A file that
