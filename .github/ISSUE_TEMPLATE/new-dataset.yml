@@ -49,23 +49,11 @@ body:
   - type: textarea
     id: source
     attributes:
-      label: Source (sources.toml)
-      description: |
-        Where the raw data comes from, as the project's `sources.toml` will say it. Only `title` and `files` are required; delete any key you can't fill in. See https://jameshorine.github.io/useful-views/ (Concepts, Sources).
-      render: toml
-      value: |
-        [[sources]]
-        title = ""
-        files = ["raw/"]
-        url = ""
-        doi = ""
-        access = """
-        """
-        cost = "Free"
-        license = ""
-        license_url = ""
-        citation = """
-        """
+      label: Source
+      description: Where the data comes from, in plain words. Give a link to it and who publishes it, and, if you know them, its license or terms of use, how to get it (a download, a login, an application), and how to cite it.
+      placeholder: |
+        U.S. Census Bureau, American Community Survey 5-year estimates: https://www.census.gov/programs-surveys/acs/data/summary-file.html
+        Free download, no login. Public domain (a U.S. government work).
     validations:
       required: true
 
