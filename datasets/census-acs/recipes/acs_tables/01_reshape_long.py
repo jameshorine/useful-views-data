@@ -1,6 +1,3 @@
-# Reshape each ACS table file (one column per estimate and per margin of error)
-# into one row per geography and variable, with the estimate and margin of
-# error side by side, still as Census wrote them.
 import polars as pl
 
 # The tables this recipe makes. To add one, add its ID here, and its raw file

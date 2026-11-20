@@ -1,6 +1,3 @@
-# Turn Census's special values (such as -666666666) into nulls with a note,
-# following Census's "Notes on ACS Estimate and Annotation Values", and make
-# every estimate and margin of error a number.
 from pathlib import Path
 
 import polars as pl

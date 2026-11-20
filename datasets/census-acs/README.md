@@ -88,10 +88,12 @@ code that is not in this list.
    `recipe.toml`, list the shared views you read as `inputs` (for example
    `useful-views/acs5-2024-b19013.parquet` and
    `useful-views/acs5-2024-geographies.parquet`) and your own views as
-   `outputs`. Write its steps as `01_….py`, `02_….py`, each starting with a
-   comment saying what it does. Sort the rows a step writes by columns that
-   together identify each row (as the shared views do, by `geo_id` and
-   `variable`), so the same data always gives the same fingerprint.
+   `outputs`. Write its steps as `01_….py`, `02_….py`, and list each one at
+   the end of `recipe.toml` in a `[[steps]]` block, with a `file` and a
+   one-sentence `description` of what it does. Sort the rows a step writes
+   by columns that together identify each row (as the shared views do, by
+   `geo_id` and `variable`), so the same data always gives the same
+   fingerprint.
 3. Build and record: `uv run useful-views sync`, then
    `uv run useful-views cookbook`. After editing a step's code, run that
    recipe with `uv run useful-views run <recipe>`, then what its warnings say.
@@ -120,8 +122,10 @@ results never silently rest on an older version of the shared data.
 
 - **More geography levels** (places, ZCTAs, block groups): add the level to
   `LEVELS` and its count to `EXPECTED` in
-  `recipes/acs_geographies/01_keep_levels.py`, then run
-  `uv run useful-views sync --all`.
+  `recipes/acs_geographies/01_keep_levels.py`. Name it in the recipe's
+  `description` and in the step's `[[steps]]` description in
+  `recipes/acs_geographies/recipe.toml`, and in the `acs5-2024-geographies`
+  row of the table above. Then run `uv run useful-views sync --all`.
 - **More tables:** add the table file to `fetch_raw.py` and
   [SOURCES.md](SOURCES.md) with its size and SHA-256. Add its raw file and
   view to `recipes/acs_tables/recipe.toml`, and its ID to `TABLES` in

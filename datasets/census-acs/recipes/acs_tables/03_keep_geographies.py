@@ -1,5 +1,3 @@
-# Keep only the geographies in the shared geographies view, check that every
-# one of them has every variable exactly once, and write one view per table.
 from pathlib import Path
 
 import polars as pl
