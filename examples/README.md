@@ -42,6 +42,8 @@ To see which tag your useful-views uses:
 
 ## Changing or adding an example
 
+0. For a new example, open a [New dataset issue](https://github.com/jameshorine/useful-views-data/issues/new?template=new-dataset.yml)
+   with Kind set to Example, and link it from [#23](https://github.com/jameshorine/useful-views-data/issues/23) with a comment.
 1. Start a branch from the latest `dev`: `examples/<name>`.
 2. Change or add the files in `examples/<name>/`. Build it with
    `useful-views sync`, run `useful-views cookbook`, and commit the regenerated
@@ -53,4 +55,5 @@ To see which tag your useful-views uses:
    new tag, update the pinned SHA-256 of every changed file, and update the
    test copy in `tests/data/examples/`.
 6. For a new example, add a row to the examples table in the
-   [catalogue](../datasets/README.md#examples).
+   [catalogue](../datasets/README.md#examples), close its issue with a
+   **Delivered** comment, and mark it `done` in its comment on [#23](https://github.com/jameshorine/useful-views-data/issues/23).
