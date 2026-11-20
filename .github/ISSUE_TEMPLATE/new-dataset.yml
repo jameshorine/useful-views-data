@@ -1,0 +1,104 @@
+name: New dataset or example
+description: Propose a dataset (a full project in datasets/) or an example (a small project in examples/) to add.
+title: "New dataset: <name> (<source and release>)"
+labels: ["dataset"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One issue per dataset or example. #23 tracks them all.
+        Title it `New dataset: <name> (<source and release>)`, or `New example: …` for an example, as in `New dataset: census-acs (ACS 2020-2024 5-year)`.
+        When it's done, close it from the pull request (`Closes #N`) and add a **Delivered** comment: the pull request, the catalogue row, and any known problems in the source data.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - "Dataset: a full project in datasets/; its raw data is downloaded from the publisher and never committed"
+        - "Example: a small project in examples/; its raw data is committed and `useful-views example` downloads it"
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Project name
+      description: The folder name, in lowercase with hyphens.
+      placeholder: census-acs
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: What and why
+      description: What the data is, and who needs it (a course, a paper, a student's analysis).
+    validations:
+      required: true
+
+  - type: input
+    id: release
+    attributes:
+      label: Release
+      description: The release, version or snapshot date to use.
+      placeholder: "2020-2024 5-year estimates"
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source (sources.toml)
+      description: |
+        Where the raw data comes from, as the project's `sources.toml` will say it. Only `title` and `files` are required; delete any key you can't fill in. See https://jameshorine.github.io/useful-views/ (Concepts, Sources).
+      render: toml
+      value: |
+        [[sources]]
+        title = ""
+        files = ["raw/"]
+        url = ""
+        doi = ""
+        access = """
+        """
+        cost = "Free"
+        license = ""
+        license_url = ""
+        citation = """
+        """
+    validations:
+      required: true
+
+  - type: textarea
+    id: raw
+    attributes:
+      label: Raw data
+      description: The files to download. Give the format, the size, and whether each is a single file or a folder or set of files (a shapefile, a file geodatabase). Examples commit their raw data, so an example's must be small.
+    validations:
+      required: true
+
+  - type: textarea
+    id: views
+    attributes:
+      label: Views wanted
+      description: The tables to make, one per line, each with what one row is.
+      placeholder: |
+        field_year: one row per field and year, with its land-cover code
+        county: one row per county
+    validations:
+      required: true
+
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blocked by
+      description: Anything useful-views can't do yet that this needs, with links to its issues (for example jameshorine/useful-views#35 for raw inputs that are folders).
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before opening
+      options:
+        - label: The license allows publishing recipes and records built on this data.
+          required: true
+        - label: For a dataset, the raw data can be downloaded from the publisher, so nothing large will be committed.

@@ -48,17 +48,23 @@ useful-views check
 
 ## Adding a dataset
 
-1. Start a branch from the latest `dev`: `new-dataset/<name>`.
-2. Make the project with `useful-views init datasets/<name>`, and give it a
+1. Open a [New dataset issue](https://github.com/jameshorine/useful-views-data/issues/new?template=new-dataset.yml)
+   and fill in the form. Then link it from [#23](https://github.com/jameshorine/useful-views-data/issues/23) with a comment, such as
+   `census-acs: #26 (open: …)`.
+2. Start a branch from the latest `dev`: `new-dataset/<name>`.
+3. Make the project with `useful-views init datasets/<name>`, and give it a
    `pyproject.toml` and `uv.lock` (`uv init --bare`, then
    `uv add useful-views` and the libraries its steps use).
-3. Download nothing into git. Write a script that fetches each raw file into
-   `raw/` and checks its SHA-256, and record every file's URL, release,
-   download date, size and SHA-256 in `SOURCES.md`, with the publisher's
-   licence and how to credit it.
-4. Write its recipes, build with `useful-views sync`, then run
+4. Download nothing into git. Copy the issue's Source block into the
+   project's `sources.toml`, and write a script that fetches each raw file
+   into `raw/` and checks its size and SHA-256.
+5. Write its recipes, build with `useful-views sync`, then run
    `useful-views cookbook`, and commit the recipes and the records.
-5. Add a row to the datasets table above.
+6. Add a row to the datasets table above, and open a pull request into `dev`
+   that says `Closes #N`.
+7. Once it's merged, add a **Delivered** comment to the issue (the pull
+   request, the catalogue row, any known problems in the source data), and
+   mark it `done` in its comment on [#23](https://github.com/jameshorine/useful-views-data/issues/23).
 
 Before committing, check `git status`: nothing from `raw/` or `work/`, and
 no `.parquet` file, should be listed.
