@@ -9,8 +9,8 @@ useful-views example <name> [path]
 
 Each release of useful-views pins a tag of this repository and the SHA-256
 of every file it downloads, so a published example must never change in
-place. To change an example, commit the new files and create a new tag (for
-example `examples-v2`), then point the next useful-views release at it.
+place. To change an example, commit the new files and create a new tag (the
+next `examples-vN`), then point the next useful-views release at it.
 
 | Name | Contents |
 |---|---|

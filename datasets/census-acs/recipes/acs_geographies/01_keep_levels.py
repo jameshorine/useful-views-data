@@ -1,12 +1,10 @@
-# Keep the whole-area rows (geographic component 00) of the nation, states,
-# counties and census tracts from the Census geography file, with each
-# geography's name, level and FIPS codes.
 import polars as pl
 
 # The geography levels the shared views cover: Census summary level -> name.
-# This is the one place they are listed. To add one, add it here with its
-# expected count below, then run `useful-views sync --all`. Common choices:
-# "160": "place", "860": "zcta", "150": "block group".
+# This is the one place the code lists them. To add one, add it here with its
+# expected count below, name it in the descriptions in
+# recipes/acs_geographies/recipe.toml, then run `useful-views sync --all`.
+# Common choices: "160": "place", "860": "zcta", "150": "block group".
 LEVELS = {"010": "nation", "040": "state", "050": "county", "140": "tract"}
 EXPECTED = {"nation": 1, "state": 52, "county": 3222, "tract": 85382}  # 2020-2024 release
 
