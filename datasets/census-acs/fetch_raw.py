@@ -17,7 +17,7 @@ from pathlib import Path
 
 BASE = "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF"
 
-# File in raw/ -> (path under BASE, size in bytes, SHA-256). Keep in step with SOURCES.md.
+# File in raw/ -> (path under BASE, size in bytes, SHA-256). Keep in step with SOURCES.md and the recipe steps.
 FILES = {
     "acsdt5y2024-b01003.dat": ("data/5YRData/acsdt5y2024-b01003.dat", 18313708, "38d1a992bb058d184009b10b9b34987279aee575e4323165cfb5706c69b6ca90"),
     "acsdt5y2024-b01001.dat": ("data/5YRData/acsdt5y2024-b01001.dat", 200356282, "1637b18a96881b81e050df1cd3d5ac38a33208b9b69b40e1dbeb3c4e13718f0e"),

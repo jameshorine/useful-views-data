@@ -189,7 +189,8 @@ issue.
 
 1. Download the new zip and save it as `raw/psd_alldata_csv_<server date>.zip`,
    with the date from the `last-modified` header (`curl -sI <url>`).
-2. Update `fetch_raw.py` (name, size, SHA-256) and `sources.toml`.
+2. Update `fetch_raw.py` (name, size, SHA-256), `sources.toml`, and the SHA-256
+   in `recipes/psd_alldata/01_extract_csv.py`.
 3. In the three recipes, change the snapshot date in the paths and in the
    view names, and update the expected facts in
    `recipes/psd_alldata/02_type_and_sort.py` and

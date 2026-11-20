@@ -5,6 +5,6 @@ outputs = ["useful-views/acs5-2024-geographies.parquet"]
 [[steps]]
 file = "01_keep_levels.py"
 description = """
-Keep the whole-area rows (geographic component 00) of the nation, states,
-counties and census tracts from the Census geography file, with each
-geography's name, level and FIPS codes."""
+Check the geography file's SHA-256, then keep the whole-area rows (geographic
+component 00) of the nation, states, counties and census tracts from it, with
+each geography's name, level and FIPS codes."""
