@@ -55,9 +55,10 @@ useful-views check
 3. Make the project with `useful-views init datasets/<name>`, and give it a
    `pyproject.toml` and `uv.lock` (`uv init --bare`, then
    `uv add useful-views` and the libraries its steps use).
-4. Download nothing into git. Copy the issue's Source block into the
-   project's `sources.toml`, and write a script that fetches each raw file
-   into `raw/` and checks its size and SHA-256.
+4. Download nothing into git. Record where each raw file comes from in the
+   project's `sources.toml` (from the issue's Source, completed), and write a
+   script that fetches each raw file into `raw/` and checks its size and
+   SHA-256.
 5. Write its recipes, build with `useful-views sync`, then run
    `useful-views cookbook`, and commit the recipes and the records.
 6. Add a row to the datasets table above, and open a pull request into `dev`
