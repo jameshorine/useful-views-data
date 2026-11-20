@@ -16,3 +16,23 @@ outputs = [
     "useful-views/acs5-2024-b15003.parquet",
     "useful-views/acs5-2024-b25077.parquet",
 ]
+
+[[steps]]
+file = "01_reshape_long.py"
+description = """
+Reshape each ACS table file (one column per estimate and per margin of error)
+into one row per geography and variable, with the estimate and margin of error
+side by side, still as Census wrote them."""
+
+[[steps]]
+file = "02_decode_annotations.py"
+description = """
+Turn Census's special values (such as -666666666) into nulls with a note,
+following Census's "Notes on ACS Estimate and Annotation Values", and make
+every estimate and margin of error a number."""
+
+[[steps]]
+file = "03_keep_geographies.py"
+description = """
+Keep only the geographies in the shared geographies view, check that every one
+of them has every variable exactly once, and write one view per table."""

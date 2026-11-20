@@ -9,7 +9,7 @@ project: raw data and recipes. No large data is committed here.
 
 | Name | Contents | Published in |
 |---|---|---|
-| [`pwt`](examples/pwt/) | Penn World Table 11.0 extract for Brazil, Germany, Spain and the United States, with two recipes. | `examples-v2` (README covers `check` and the cookbook); first in `examples-v1` |
+| [`pwt`](examples/pwt/) | Penn World Table 11.0 extract for Brazil, Germany, Spain and the United States, with two recipes. | `examples-v3` (`recipe.toml` lists the steps); `examples-v2` added `check` and the cookbook to the README; first in `examples-v1` |
 
 Get one with:
 
@@ -27,7 +27,7 @@ from the hash pinned in the package. So:
 - Files under a published tag never change in place, and the tag is never
   moved or deleted.
 - To change or add an example, commit the new files to `main`, create a new
-  tag (`examples-v2`, ...), then point the next useful-views release at that
+  tag (the next `examples-vN`), then point the next useful-views release at that
   tag and update its pinned hashes.
 - [`examples/.gitattributes`](examples/.gitattributes) turns off line-ending
   conversion, so git stores and serves the files byte for byte. Don't put them

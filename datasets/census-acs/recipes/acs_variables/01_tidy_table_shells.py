@@ -1,6 +1,3 @@
-# Keep one row per ACS variable (such as B19013_001) from the Census table
-# shells, with its table, position, label, title, universe and type, and drop
-# the heading rows that have no variable.
 import polars as pl
 
 shells = pl.read_csv("raw/ACS20245YR_Table_Shells.txt", separator="|", infer_schema=False)
