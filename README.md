@@ -1,55 +1,19 @@
 # useful-views-data
 
-Example data for [useful-views](https://github.com/jameshorine/useful-views),
-the way [seaborn-data](https://github.com/mwaskom/seaborn-data) serves
-seaborn. Each folder in [`examples/`](examples/) is a ready-to-run useful-views
-project: raw data and recipes. No large data is committed here.
+Data for [useful-views](https://jameshorine.github.io/useful-views/), in two
+kinds:
 
-## Examples
+- **Examples** (`examples/`): small, ready-to-run projects that
+  `useful-views example <name>` downloads, the way
+  [seaborn-data](https://github.com/mwaskom/seaborn-data) serves seaborn. Each
+  published version is a tag that never changes; see
+  [`examples/README.md`](examples/README.md).
+- **Datasets** (`datasets/`): full projects on real data. Their raw data is
+  never committed: each downloads it from the publisher, checks every file's
+  SHA-256, and builds its views on your machine.
 
-| Name | Contents | Published in |
-|---|---|---|
-| [`pwt`](examples/pwt/) | Penn World Table 11.0 extract for Brazil, Germany, Spain and the United States, with two recipes. | `examples-v3` (`recipe.toml` lists the steps); `examples-v2` added `check` and the cookbook to the README; first in `examples-v1` |
-
-Get one with:
-
-```sh
-useful-views example pwt [path]
-cd pwt-example && useful-views sync
-```
-
-## A published example never changes
-
-Each release of useful-views downloads the example files from one tag of this
-repository, such as `examples-v1`, and rejects any file whose SHA-256 differs
-from the hash pinned in the package. So:
-
-- Files under a published tag never change in place, and the tag is never
-  moved or deleted.
-- To change or add an example, commit the new files to `main`, create a new
-  tag (the next `examples-vN`), then point the next useful-views release at that
-  tag and update its pinned hashes.
-- [`examples/.gitattributes`](examples/.gitattributes) turns off line-ending
-  conversion, so git stores and serves the files byte for byte. Don't put them
-  in Git LFS: the raw download URL would then serve the pointer file instead of
-  the data.
-
-## Dataset projects
-
-Full useful-views projects on real data, in `datasets/`. Unlike the
-examples, their raw data is never committed: each project downloads it from
-the publisher with a script that checks every file's SHA-256, and builds its
-views locally.
-
-| Project | Data | Views |
-|---|---|---|
-| [`census-acs`](datasets/census-acs/) | U.S. Census Bureau, American Community Survey 2020-2024 5-year estimates (table-based Summary File) | Geographies (nation, states, counties, tracts), the meaning of every ACS variable, and six tidy tables (population, sex by age, median household income, poverty, educational attainment, median home value), with Census's special values decoded. A shared base for students' analyses. |
-
-This repository used to hold two other dataset projects, built before the
-useful-views package existed: USDA NASS Crop Sequence Boundaries and USDA FAS
-Production, Supply and Distribution (PSD). They have been removed, and will
-come back rebuilt on the package. The last version of both is in the git
-history at commit `19ab074`.
+The [catalogue](datasets/README.md) lists every example and dataset, with
+its source, its views and a link to its generated catalog.
 
 ## Licenses and credit
 
