@@ -1,3 +1,5 @@
+import hashlib
+
 import polars as pl
 
 # The geography levels the shared views cover: Census summary level -> name.
@@ -8,6 +10,17 @@ import polars as pl
 LEVELS = {"010": "nation", "040": "state", "050": "county", "140": "tract"}
 EXPECTED = {"nation": 1, "state": 52, "county": 3222, "tract": 85382}  # 2020-2024 release
 
+
+def check_sha256(path: str, expected: str) -> None:
+    """Stop if a raw file is not the one fetch_raw.py and SOURCES.md record."""
+    digest = hashlib.sha256()
+    with open(path, "rb") as file:
+        for chunk in iter(lambda: file.read(1 << 20), b""):
+            digest.update(chunk)
+    assert digest.hexdigest() == expected, f"{path} is not the file SOURCES.md records. Run fetch_raw.py."
+
+
+check_sha256("raw/Geos20245YR.txt", "b87a1d1a4db9f826d0d133d20cbf7d011932f9ec2cfa74eacf8c9cf387aea344")
 geos = pl.read_csv("raw/Geos20245YR.txt", separator="|", infer_schema=False)
 view = (
     geos.filter(pl.col("SUMLEVEL").is_in(list(LEVELS)) & (pl.col("COMPONENT") == "00"))
