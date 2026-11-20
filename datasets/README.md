@@ -8,13 +8,16 @@ recipe and steps that make it, and its columns.
 
 ## Datasets
 
-No data is committed for a dataset. Each project downloads its raw files from
-the publisher, checks every file against the SHA-256 recorded in its
-`SOURCES.md`, and builds its views on your machine.
+No data files are committed for a dataset. Each project downloads its raw
+files from the publisher with its fetch script, which checks every file
+against a SHA-256 recorded in the project (in its `SOURCES.md` or
+`sources.toml`), and builds its views on your machine. Each README shows a few
+sample rows of each view.
 
 | Dataset | Publisher and source | Release | Coverage | Views | Catalog | Download | Use |
 |---|---|---|---|---|---|---|---|
 | [`census-acs`](census-acs/) | U.S. Census Bureau, [American Community Survey](https://www.census.gov/programs-surveys/acs/data/summary-file.html), table-based Summary File | 2020-2024 5-year estimates | The nation, 52 states (with DC and Puerto Rico), 3,222 counties and 85,382 census tracts | 8: geographies, the meaning of every ACS variable, and six tables (population, sex by age, median household income, poverty, educational attainment, median home value) with estimates, margins of error and Census's special values decoded | [catalog](census-acs/useful-views/README.md) | about 570 MB | A shared base for students' analyses: each student adds their own recipes on top of its views |
+| [`fas-psd`](fas-psd/) | USDA Foreign Agricultural Service, [Production, Supply and Distribution (PSD) Online](https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads), all commodities | Snapshot of 2026-11-17 (PSD overwrites its estimates monthly) | 63 commodities, 214 countries and regions, marketing years 1960-2027 | 3: the full table typed (2,095,339 rows), each commodity's attributes and units, and world totals by commodity, year and attribute | [catalog](fas-psd/useful-views/README.md) | 10 MB | Commodity supply, use, trade and stocks; world balances |
 
 ## Examples
 
@@ -32,7 +35,7 @@ has the details:
 
 ```sh
 uv sync                      # the exact tool versions in the project's uv.lock
-python fetch_raw.py          # download the raw files from the publisher and check them
+uv run python fetch_raw.py   # download the raw files from the publisher and check them
 uv run useful-views sync     # build the views
 uv run useful-views check    # expect: No problems found.
 ```
@@ -76,5 +79,9 @@ To add or change an example, follow [`examples/README.md`](../examples/README.md
 
 This repository used to hold two dataset projects built before the
 useful-views package existed: USDA NASS Crop Sequence Boundaries and USDA FAS
-Production, Supply and Distribution (PSD). They will come back rebuilt on the
-package. Their last version is in the git history at commit `19ab074`.
+Production, Supply and Distribution (PSD). Their last version is in the git
+history at commit `19ab074`. PSD is back, rebuilt on the package, as
+[`fas-psd`](fas-psd/) ([#38](https://github.com/jameshorine/useful-views-data/issues/38)). Crop Sequence Boundaries is tracked in
+[#24](https://github.com/jameshorine/useful-views-data/issues/24) (an example)
+and [#25](https://github.com/jameshorine/useful-views-data/issues/25) (the full
+dataset).

@@ -1,0 +1,14 @@
+description = "The USDA FAS PSD all-commodities file, snapshot of 2026-11-17, every column as published but typed: one row per commodity, country, market year and attribute."
+inputs  = ["raw/psd_alldata_csv_2026-11-17.zip"]
+outputs = ["useful-views/psd-2026-11-17-alldata.parquet"]
+
+[[steps]]
+file = "01_extract_csv.py"
+description = "Check that the zip is the 2026-11-17 snapshot (its SHA-256), and extract psd_alldata.csv from it."
+
+[[steps]]
+file = "02_type_and_sort.py"
+description = """
+Check the CSV's header, read every column with a fixed type (codes stay
+zero-padded strings, years and months become integers, Value a number), sort
+by the key, and check the snapshot's known facts."""

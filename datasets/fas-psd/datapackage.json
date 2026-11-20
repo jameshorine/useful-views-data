@@ -1,0 +1,155 @@
+{
+  "name": "fas-psd",
+  "resources": [
+    {
+      "name": "psd_alldata_csv_2026-11-17",
+      "type": "file",
+      "path": "raw/psd_alldata_csv_2026-11-17.zip",
+      "scheme": "file",
+      "format": "zip",
+      "sources": [
+        {
+          "title": "USDA Foreign Agricultural Service, Production, Supply and Distribution (PSD) Online, All Commodities (CSV), snapshot of 2026-11-17",
+          "path": "https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads",
+          "access": "Download https://apps.fas.usda.gov/psdonline/downloads/psd_alldata_csv.zip (no login, no redirect). The URL serves only the latest snapshot and is overwritten every month. This one was served with Last-Modified: Tue, 17 Nov 2026 20:02:11 GMT and ETag \"fc876a88ce76dd1:0\" (10,459,432 bytes, SHA-256 a293f2b05b1b7b185d7fdb7e1a562c43e6a0f190c6bf0e03fbe3df876286bd32), holds one file, psd_alldata.csv (202,290,029 bytes), and is saved under its server date. fetch_raw.py downloads and checks it. The CC BY 4.0 license is stated in FAS's data.gov record, USDA-26341: https://catalog.data.gov/dataset/production-supply-and-distribution-database",
+          "cost": "Free",
+          "obtained": "2026-11-20",
+          "citation": "USDA Foreign Agricultural Service, Production, Supply and Distribution (PSD) Online, All Commodities, snapshot of 2026-11-17. https://apps.fas.usda.gov/psdonline/"
+        }
+      ],
+      "licenses": [{"name": "CC-BY-4.0", "path": "https://creativecommons.org/licenses/by/4.0/"}]
+    },
+    {
+      "name": "psd-2026-11-17-alldata",
+      "path": "useful-views/psd-2026-11-17-alldata.parquet",
+      "fingerprint": "datahash1:sha256:491183ea47319a250ccdaade08de1fb2385f8e4e11894560389d555b50123c6a",
+      "producedBy": {
+        "recipe": "psd_alldata",
+        "inputs": ["raw/psd_alldata_csv_2026-11-17.zip"],
+        "inputFingerprints": {}
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "Commodity_Code", "type": "string"},
+          {"name": "Commodity_Description", "type": "string"},
+          {"name": "Country_Code", "type": "string"},
+          {"name": "Country_Name", "type": "string"},
+          {"name": "Market_Year", "type": "integer"},
+          {"name": "Calendar_Year", "type": "integer"},
+          {"name": "Month", "type": "integer"},
+          {"name": "Attribute_ID", "type": "string"},
+          {"name": "Attribute_Description", "type": "string"},
+          {"name": "Unit_ID", "type": "string"},
+          {"name": "Unit_Description", "type": "string"},
+          {"name": "Value", "type": "number"}
+        ]
+      }
+    },
+    {
+      "name": "psd-2026-11-17-commodity-attribute",
+      "path": "useful-views/psd-2026-11-17-commodity-attribute.parquet",
+      "fingerprint": "datahash1:sha256:fd6338264b49a2f3651402762a74e0f01b0b63e0cc4a8699e80c03f493a3f1e0",
+      "producedBy": {
+        "recipe": "commodity_attribute",
+        "inputs": ["useful-views/psd-2026-11-17-alldata.parquet"],
+        "inputFingerprints": {
+          "useful-views/psd-2026-11-17-alldata.parquet": "datahash1:sha256:491183ea47319a250ccdaade08de1fb2385f8e4e11894560389d555b50123c6a"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "Commodity_Code", "type": "string"},
+          {"name": "Commodity_Description", "type": "string"},
+          {"name": "Attribute_ID", "type": "string"},
+          {"name": "Attribute_Description", "type": "string"},
+          {"name": "Unit_Description", "type": "string"}
+        ]
+      }
+    },
+    {
+      "name": "psd-2026-11-17-world-balance",
+      "path": "useful-views/psd-2026-11-17-world-balance.parquet",
+      "fingerprint": "datahash1:sha256:e7871d4b9e2fba5e9d8c2172254b1d2556eecc757080e13a5b0596a837b42dc8",
+      "producedBy": {
+        "recipe": "world_balance",
+        "inputs": ["useful-views/psd-2026-11-17-alldata.parquet"],
+        "inputFingerprints": {
+          "useful-views/psd-2026-11-17-alldata.parquet": "datahash1:sha256:491183ea47319a250ccdaade08de1fb2385f8e4e11894560389d555b50123c6a"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "Commodity_Code", "type": "string"},
+          {"name": "Commodity_Description", "type": "string"},
+          {"name": "Market_Year", "type": "integer"},
+          {"name": "Attribute_ID", "type": "string"},
+          {"name": "Attribute_Description", "type": "string"},
+          {"name": "Unit_Description", "type": "string"},
+          {"name": "Value", "type": "number"},
+          {"name": "n_countries", "type": "integer"}
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "name": "psd_alldata",
+      "description": "The USDA FAS PSD all-commodities file, snapshot of 2026-11-17, every column as published but typed: one row per commodity, country, market year and attribute.",
+      "path": "recipes/psd_alldata",
+      "inputs": ["raw/psd_alldata_csv_2026-11-17.zip"],
+      "outputs": ["useful-views/psd-2026-11-17-alldata.parquet"],
+      "steps": [
+        {
+          "name": "extract_csv",
+          "path": "recipes/psd_alldata/01_extract_csv.py",
+          "description": "Check that the zip is the 2026-11-17 snapshot (its SHA-256), and extract psd_alldata.csv from it."
+        },
+        {
+          "name": "type_and_sort",
+          "path": "recipes/psd_alldata/02_type_and_sort.py",
+          "description": "Check the CSV's header, read every column with a fixed type (codes stay zero-padded strings, years and months become integers, Value a number), sort by the key, and check the snapshot's known facts."
+        }
+      ]
+    },
+    {
+      "name": "commodity_attribute",
+      "description": "Every attribute PSD reports for each commodity, with its unit, as published: one row per commodity and attribute pair in the 2026-11-17 snapshot.",
+      "path": "recipes/commodity_attribute",
+      "inputs": ["useful-views/psd-2026-11-17-alldata.parquet"],
+      "outputs": ["useful-views/psd-2026-11-17-commodity-attribute.parquet"],
+      "steps": [
+        {
+          "name": "list_pairs",
+          "path": "recipes/commodity_attribute/01_list_pairs.py",
+          "description": "List each commodity and attribute pair once, with the descriptions and unit as PSD publishes them, and check that every row of psd_alldata finds its pair."
+        }
+      ]
+    },
+    {
+      "name": "world_balance",
+      "description": "Every country in the 2026-11-17 PSD snapshot summed to a world total: one row per commodity, market year and attribute, leaving out rates and ratios.",
+      "path": "recipes/world_balance",
+      "inputs": ["useful-views/psd-2026-11-17-alldata.parquet"],
+      "outputs": ["useful-views/psd-2026-11-17-world-balance.parquet"],
+      "steps": [
+        {
+          "name": "sum_countries",
+          "path": "recipes/world_balance/01_sum_countries.py",
+          "description": "Sum Value over every country as exact decimals, with no country dropped or adjusted, count the countries with a nonzero value, leave out the rates and ratios that cannot be summed, and check that nothing is lost in the sum and that the world balances wherever its countries do."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "generator": "useful-views",
+  "project": "fas-psd",
+  "raw_inputs": [
+    "raw/psd_alldata_csv_2026-11-17.zip"
+  ],
+  "sources": [
+    {
+      "title": "USDA Foreign Agricultural Service, Production, Supply and Distribution (PSD) Online, All Commodities (CSV), snapshot of 2026-11-17",
+      "files": [
+        "raw/psd_alldata_csv_2026-11-17.zip"
+      ],
+      "path": "https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads",
+      "access": "Download https://apps.fas.usda.gov/psdonline/downloads/psd_alldata_csv.zip (no login, no redirect). The URL serves only the latest snapshot and is overwritten every month. This one was served with Last-Modified: Tue, 17 Nov 2026 20:02:11 GMT and ETag \"fc876a88ce76dd1:0\" (10,459,432 bytes, SHA-256 a293f2b05b1b7b185d7fdb7e1a562c43e6a0f190c6bf0e03fbe3df876286bd32), holds one file, psd_alldata.csv (202,290,029 bytes), and is saved under its server date. fetch_raw.py downloads and checks it. The CC BY 4.0 license is stated in FAS's data.gov record, USDA-26341: https://catalog.data.gov/dataset/production-supply-and-distribution-database",
+      "cost": "Free",
+      "obtained": "2026-11-20",
+      "citation": "USDA Foreign Agricultural Service, Production, Supply and Distribution (PSD) Online, All Commodities, snapshot of 2026-11-17. https://apps.fas.usda.gov/psdonline/",
+      "licenses": [
+        {
+          "name": "CC-BY-4.0",
+          "path": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "name": "psd_alldata",
+      "description": "The USDA FAS PSD all-commodities file, snapshot of 2026-11-17, every column as published but typed: one row per commodity, country, market year and attribute.",
+      "path": "recipes/psd_alldata",
+      "inputs": [
+        "raw/psd_alldata_csv_2026-11-17.zip"
+      ],
+      "outputs": [
+        "useful-views/psd-2026-11-17-alldata.parquet"
+      ],
+      "steps": [
+        {
+          "name": "extract_csv",
+          "path": "recipes/psd_alldata/01_extract_csv.py",
+          "description": "Check that the zip is the 2026-11-17 snapshot (its SHA-256), and extract psd_alldata.csv from it."
+        },
+        {
+          "name": "type_and_sort",
+          "path": "recipes/psd_alldata/02_type_and_sort.py",
+          "description": "Check the CSV's header, read every column with a fixed type (codes stay zero-padded strings, years and months become integers, Value a number), sort by the key, and check the snapshot's known facts."
+        }
+      ]
+    },
+    {
+      "name": "commodity_attribute",
+      "description": "Every attribute PSD reports for each commodity, with its unit, as published: one row per commodity and attribute pair in the 2026-11-17 snapshot.",
+      "path": "recipes/commodity_attribute",
+      "inputs": [
+        "useful-views/psd-2026-11-17-alldata.parquet"
+      ],
+      "outputs": [
+        "useful-views/psd-2026-11-17-commodity-attribute.parquet"
+      ],
+      "steps": [
+        {
+          "name": "list_pairs",
+          "path": "recipes/commodity_attribute/01_list_pairs.py",
+          "description": "List each commodity and attribute pair once, with the descriptions and unit as PSD publishes them, and check that every row of psd_alldata finds its pair."
+        }
+      ]
+    },
+    {
+      "name": "world_balance",
+      "description": "Every country in the 2026-11-17 PSD snapshot summed to a world total: one row per commodity, market year and attribute, leaving out rates and ratios.",
+      "path": "recipes/world_balance",
+      "inputs": [
+        "useful-views/psd-2026-11-17-alldata.parquet"
+      ],
+      "outputs": [
+        "useful-views/psd-2026-11-17-world-balance.parquet"
+      ],
+      "steps": [
+        {
+          "name": "sum_countries",
+          "path": "recipes/world_balance/01_sum_countries.py",
+          "description": "Sum Value over every country as exact decimals, with no country dropped or adjusted, count the countries with a nonzero value, leave out the rates and ratios that cannot be summed, and check that nothing is lost in the sum and that the world balances wherever its countries do."
+        }
+      ]
+    }
+  ]
+}

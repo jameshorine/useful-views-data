@@ -1,0 +1,9 @@
+description = "Every attribute PSD reports for each commodity, with its unit, as published: one row per commodity and attribute pair in the 2026-11-17 snapshot."
+inputs  = ["useful-views/psd-2026-11-17-alldata.parquet"]
+outputs = ["useful-views/psd-2026-11-17-commodity-attribute.parquet"]
+
+[[steps]]
+file = "01_list_pairs.py"
+description = """
+List each commodity and attribute pair once, with the descriptions and unit as
+PSD publishes them, and check that every row of psd_alldata finds its pair."""
