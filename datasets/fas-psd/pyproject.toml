@@ -1,0 +1,9 @@
+[project]
+name = "fas-psd"
+version = "0.1.0"
+description = "Useful views on USDA FAS Production, Supply and Distribution (PSD), built with useful-views."
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=2.0.1",
+    "useful-views>=0.3.0",
+]
