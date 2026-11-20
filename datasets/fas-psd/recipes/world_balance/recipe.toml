@@ -1,0 +1,11 @@
+description = "Every country in the 2026-11-17 PSD snapshot summed to a world total: one row per commodity, market year and attribute, leaving out rates and ratios."
+inputs  = ["useful-views/psd-2026-11-17-alldata.parquet"]
+outputs = ["useful-views/psd-2026-11-17-world-balance.parquet"]
+
+[[steps]]
+file = "01_sum_countries.py"
+description = """
+Sum Value over every country as exact decimals, with no country dropped or
+adjusted, count the countries with a nonzero value, leave out the rates and
+ratios that cannot be summed, and check that nothing is lost in the sum and
+that the world balances wherever its countries do."""

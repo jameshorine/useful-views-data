@@ -34,6 +34,13 @@ The code and documentation in this repository are released under the
   §105). Credit: U.S. Census Bureau, 2020-2024 American Community Survey
   5-Year Estimates. Not affiliated with or endorsed by the U.S. Census Bureau.
   Only the recipes and records are in git; the data is downloaded from Census.
+- **USDA FAS Production, Supply and Distribution** (`datasets/fas-psd/`):
+  listed by FAS under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+  in its [data.gov record](https://catalog.data.gov/dataset/production-supply-and-distribution-database),
+  and a work of the U.S. federal government. Credit: USDA Foreign Agricultural
+  Service, Production, Supply and Distribution (PSD) Online. The views are
+  retyped and summed by this project: they are not official USDA figures, and
+  this project is not affiliated with or endorsed by USDA.
 
 ## Contributing
 
