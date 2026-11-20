@@ -1,10 +1,13 @@
 # Sources
 
-Where every file in `raw/` comes from. `raw/` is not in git; `python
-fetch_raw.py` downloads these files and checks each one against the size
-and SHA-256 below. If Census replaces a file, the check fails, and this page
-and `fetch_raw.py` must be updated together, with a new section here for the
-new file.
+Where every file in `raw/` comes from. `raw/` is not in git; `uv run python
+fetch_raw.py` downloads these files and checks each one against the size and
+SHA-256 below, and each recipe checks the files it reads again. If Census
+replaces a file, the checks fail, and this page, `fetch_raw.py` and the recipe
+step that reads the file (`recipes/acs_geographies/01_keep_levels.py`,
+`recipes/acs_variables/01_tidy_table_shells.py`, or `SHA256` in
+`recipes/acs_tables/01_reshape_long.py`) must be updated together, with a new
+section here for the new file.
 
 ## ACS 2020-2024 5-year estimates, table-based Summary File
 

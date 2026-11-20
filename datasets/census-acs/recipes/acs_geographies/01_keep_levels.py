@@ -12,12 +12,17 @@ EXPECTED = {"nation": 1, "state": 52, "county": 3222, "tract": 85382}  # 2020-20
 
 
 def check_sha256(path: str, expected: str) -> None:
-    """Stop if a raw file is not the one fetch_raw.py and SOURCES.md record."""
+    """Stop if a raw file is not the one fetch_raw.py and SOURCES.md record (the same SHA-256 is in all three)."""
     digest = hashlib.sha256()
     with open(path, "rb") as file:
         for chunk in iter(lambda: file.read(1 << 20), b""):
             digest.update(chunk)
-    assert digest.hexdigest() == expected, f"{path} is not the file SOURCES.md records. Run fetch_raw.py."
+    actual = digest.hexdigest()
+    if actual != expected:  # not an assert: python -O would skip it
+        raise SystemExit(
+            f"{path} is not the file this project records (its SHA-256 is {actual}). "
+            "Run fetch_raw.py, or if Census replaced the file, see SOURCES.md."
+        )
 
 
 check_sha256("raw/Geos20245YR.txt", "b87a1d1a4db9f826d0d133d20cbf7d011932f9ec2cfa74eacf8c9cf387aea344")

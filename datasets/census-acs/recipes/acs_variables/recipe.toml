@@ -5,6 +5,6 @@ outputs = ["useful-views/acs5-2024-variables.parquet"]
 [[steps]]
 file = "01_tidy_table_shells.py"
 description = """
-Check the table shells' SHA-256, then keep one row per ACS variable (such as B19013_001) from the Census table
-shells, with its table, position, label, title, universe and type, and drop
-the heading rows that have no variable."""
+Check the table shells' SHA-256, then keep one row per ACS variable (such as
+B19013_001) from them, with its table, position, label, title, universe and
+type, and drop the heading rows that have no variable."""

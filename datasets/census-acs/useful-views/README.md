@@ -11,7 +11,7 @@ Every geography the shared ACS 2020-2024 5-year views cover (the nation, states,
 
 Steps:
 
-1. Check the geography file's SHA-256, then keep the whole-area rows (geographic component 00) of the nation, states, counties and census tracts from the Census geography file, with each geography's name, level and FIPS codes. (`01_keep_levels.py`)
+1. Check the geography file's SHA-256, then keep the whole-area rows (geographic component 00) of the nation, states, counties and census tracts from it, with each geography's name, level and FIPS codes. (`01_keep_levels.py`)
 
 | Column | Type |
 |---|---|
@@ -165,7 +165,7 @@ What every ACS 2020-2024 5-year variable means: its table, label, title and univ
 
 Steps:
 
-1. Check the table shells' SHA-256, then keep one row per ACS variable (such as B19013_001) from the Census table shells, with its table, position, label, title, universe and type, and drop the heading rows that have no variable. (`01_tidy_table_shells.py`)
+1. Check the table shells' SHA-256, then keep one row per ACS variable (such as B19013_001) from them, with its table, position, label, title, universe and type, and drop the heading rows that have no variable. (`01_tidy_table_shells.py`)
 
 | Column | Type |
 |---|---|
@@ -185,7 +185,7 @@ Steps:
 - Files: `raw/ACS20245YR_Table_Shells.txt`, `raw/Geos20245YR.txt`, `raw/acsdt5y2024-b01001.dat`, `raw/acsdt5y2024-b01003.dat`, `raw/acsdt5y2024-b15003.dat`, `raw/acsdt5y2024-b17001.dat`, `raw/acsdt5y2024-b19013.dat`, `raw/acsdt5y2024-b25077.dat`
 - Where: https://www.census.gov/programs-surveys/acs/data/summary-file.html
 - Obtained: 2026-10-23
-- Access: Download from https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/: one pipe-delimited file per table (data/5YRData/acsdt5y2024-<table>.dat), and the geography file and table shells (documentation/). No key or login is needed. fetch_raw.py downloads them and checks each file's SHA-256 against SOURCES.md, and each recipe checks the files it reads again before reading them.
+- Access: Download from https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/: one pipe-delimited file per table (data/5YRData/acsdt5y2024-TABLE.dat), and the geography file and table shells (documentation/). No key or login is needed. fetch_raw.py downloads them and checks each file's SHA-256 against SOURCES.md, and each recipe checks the files it reads again before reading them.
 - Cost: Free
-- License: Public domain: a work of the U.S. federal government (17 U.S.C. §105)
+- License: Public domain: a work of the U.S. federal government (17 U.S.C. §105) https://www.law.cornell.edu/uscode/text/17/105
 - Cite: U.S. Census Bureau, 2020-2024 American Community Survey 5-Year Estimates.

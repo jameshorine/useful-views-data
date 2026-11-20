@@ -236,8 +236,9 @@ results never silently rest on an older version of the shared data.
   `recipes/acs_geographies/recipe.toml`, and in the `acs5-2024-geographies`
   row of the table above. Then run `uv run useful-views sync --all`.
 - **More tables:** add the table file to `fetch_raw.py` and
-  [SOURCES.md](SOURCES.md) with its size and SHA-256. Add its raw file and
-  view to `recipes/acs_tables/recipe.toml`, and its ID to `TABLES` in
+  [SOURCES.md](SOURCES.md) with its size and SHA-256, and to `files` in
+  [sources.toml](sources.toml). Add its raw file and view to
+  `recipes/acs_tables/recipe.toml`, and its ID and SHA-256 to `SHA256` in
   `recipes/acs_tables/01_reshape_long.py`. Then run `uv run useful-views sync`.
 
 Change the shared base in its own pull request, so everyone's work moves to
