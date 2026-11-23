@@ -1,0 +1,10 @@
+description = "Monthly electricity (kWh) and gas (therms) for every row of Energy Usage 2010, in long form: one row per community area, census block, building type, subtype and month of 2010."
+inputs  = ["useful-views/energy-usage-2010.parquet"]
+outputs = ["useful-views/energy-usage-2010-monthly.parquet"]
+
+[[steps]]
+file = "01_to_long.py"
+description = """
+Turn the twelve kWh and twelve therm columns into one row per month, keeping
+the key, and check that every row's months add up to its published annual
+totals."""

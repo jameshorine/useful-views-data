@@ -1,0 +1,10 @@
+[project]
+name = "chicago-energy-usage-2010"
+version = "0.1.0"
+description = "Useful views on the City of Chicago's Energy Usage 2010 (electricity and gas by census block and building type), built with useful-views."
+requires-python = ">=3.11"
+dependencies = [
+    "certifi>=2025.1.31",
+    "duckdb>=2.0.1",
+    "useful-views>=0.3.0",
+]

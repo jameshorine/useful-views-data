@@ -1,0 +1,298 @@
+{
+  "name": "chicago-energy-usage-2010",
+  "resources": [
+    {
+      "name": "energy_usage_2010",
+      "type": "table",
+      "path": "raw/energy_usage_2010.csv",
+      "scheme": "file",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "sources": [
+        {
+          "title": "City of Chicago, Energy Usage 2010 (Chicago Data Portal dataset 8yq3-m6wp)",
+          "path": "https://data.cityofchicago.org/Environment-Sustainable-Development/Energy-Usage-2010/8yq3-m6wp",
+          "access": "Download https://data.cityofchicago.org/resource/8yq3-m6wp.csv?$limit=100000&$order=:id with no login or key. It is the portal's SODA2 endpoint, so the header row uses the API field names. The dataset has not changed since 2013: rows were last updated 2013-08-02, and the endpoint's Last-Modified is Thu, 18 Apr 2019 08:32:28 GMT. Three downloads on 2026-11-23 were byte-identical: 67,051 rows, 37,004,866 bytes, SHA-256 6e59d593ef8c0a21aea92fcea363bcbb1770fdad221e2f8d2ca199ee9391802b. fetch_raw.py downloads and checks it. The portal's /api/views/8yq3-m6wp/rows.csv export is not used, because it returns Sunset: Tue, 22 Dec 2026.",
+          "cost": "Free",
+          "obtained": "2026-11-23",
+          "citation": "City of Chicago, Energy Usage 2010, Chicago Data Portal, dataset 8yq3-m6wp: https://data.cityofchicago.org/d/8yq3-m6wp. ComEd and Peoples Gas data, aggregated by Accenture."
+        }
+      ],
+      "licenses": [
+        {
+          "title": "City of Chicago Data Portal Terms of Use (no open license is stated)",
+          "path": "https://www.chicago.gov/city/en/narr/foia/data_disclaimer.html"
+        }
+      ],
+      "schema": {
+        "fields": [
+          {"name": "community_area_name", "type": "string"},
+          {"name": "census_block", "type": "integer"},
+          {"name": "building_type", "type": "string"},
+          {"name": "building_subtype", "type": "string"},
+          {"name": "kwh_january_2010", "type": "integer"},
+          {"name": "kwh_february_2010", "type": "integer"},
+          {"name": "kwh_march_2010", "type": "integer"},
+          {"name": "kwh_april_2010", "type": "integer"},
+          {"name": "kwh_may_2010", "type": "integer"},
+          {"name": "kwh_june_2010", "type": "integer"},
+          {"name": "kwh_july_2010", "type": "integer"},
+          {"name": "kwh_august_2010", "type": "integer"},
+          {"name": "kwh_september_2010", "type": "integer"},
+          {"name": "kwh_october_2010", "type": "integer"},
+          {"name": "kwh_november_2010", "type": "integer"},
+          {"name": "kwh_december_2010", "type": "integer"},
+          {"name": "total_kwh", "type": "integer"},
+          {"name": "electricity_accounts", "type": "string"},
+          {"name": "zero_kwh_accounts", "type": "integer"},
+          {"name": "therm_january_2010", "type": "integer"},
+          {"name": "therm_february_2010", "type": "integer"},
+          {"name": "therm_march_2010", "type": "integer"},
+          {"name": "term_april_2010", "type": "integer"},
+          {"name": "therm_may_2010", "type": "integer"},
+          {"name": "therm_june_2010", "type": "integer"},
+          {"name": "therm_july_2010", "type": "integer"},
+          {"name": "therm_august_2010", "type": "integer"},
+          {"name": "therm_september_2010", "type": "integer"},
+          {"name": "therm_october_2010", "type": "integer"},
+          {"name": "therm_november_2010", "type": "integer"},
+          {"name": "therm_december_2010", "type": "integer"},
+          {"name": "total_therms", "type": "integer"},
+          {"name": "gas_accounts", "type": "string"},
+          {"name": "kwh_total_sqft", "type": "integer"},
+          {"name": "therms_total_sqft", "type": "integer"},
+          {"name": "kwh_mean_2010", "type": "number"},
+          {"name": "kwh_standard_deviation_2010", "type": "number"},
+          {"name": "kwh_minimum_2010", "type": "integer"},
+          {"name": "kwh_1st_quartile_2010", "type": "number"},
+          {"name": "kwh_2nd_quartile_2010", "type": "number"},
+          {"name": "kwh_3rd_quartile_2010", "type": "number"},
+          {"name": "kwh_maximum_2010", "type": "integer"},
+          {"name": "kwh_sqft_mean_2010", "type": "number"},
+          {"name": "kwh_sqft_standard_deviation_2010", "type": "number"},
+          {"name": "kwh_sqft_minimum_2010", "type": "integer"},
+          {"name": "kwh_sqft_1st_quartile_2010", "type": "number"},
+          {"name": "kwh_sqft_2nd_quartile_2010", "type": "number"},
+          {"name": "kwh_sqft_3rd_quartile_2010", "type": "number"},
+          {"name": "kwh_sqft_maximum_2010", "type": "integer"},
+          {"name": "therm_mean_2010", "type": "number"},
+          {"name": "therm_standard_deviation_2010", "type": "number"},
+          {"name": "therm_minimum_2010", "type": "integer"},
+          {"name": "therm_1st_quartile_2010", "type": "number"},
+          {"name": "therm_2nd_quartile_2010", "type": "number"},
+          {"name": "therm_3rd_quartile_2010", "type": "number"},
+          {"name": "therm_maximum_2010", "type": "integer"},
+          {"name": "therms_sqft_mean_2010", "type": "number"},
+          {"name": "therms_sqft_standard_deviation_2010", "type": "number"},
+          {"name": "therms_sqft_minimum_2010", "type": "integer"},
+          {"name": "therms_sqft_1st_quartile_2010", "type": "number"},
+          {"name": "therms_sqft_2nd_quartile_2010", "type": "number"},
+          {"name": "therms_sqft_3rd_quartile_2010", "type": "number"},
+          {"name": "therms_sqft_maximum_2010", "type": "integer"},
+          {"name": "total_population", "type": "integer"},
+          {"name": "total_units", "type": "integer"},
+          {"name": "average_stories", "type": "number"},
+          {"name": "average_building_age", "type": "number"},
+          {"name": "average_housesize", "type": "number"},
+          {"name": "occupied_units", "type": "integer"},
+          {"name": "occupied_units_percentage", "type": "number"},
+          {"name": "renter_occupied_housing_units", "type": "integer"},
+          {"name": "renter_occupied_housing_percentage", "type": "number"},
+          {"name": "ten_ohu_tot", "type": "integer"}
+        ]
+      }
+    },
+    {
+      "name": "energy-usage-2010",
+      "path": "useful-views/energy-usage-2010.parquet",
+      "fingerprint": "datahash1:sha256:e28ab87cb21ca7fe4c14e39509d69923af7397254d588eccfefd87af1e430513",
+      "producedBy": {
+        "recipe": "energy_usage_2010",
+        "inputs": ["raw/energy_usage_2010.csv"],
+        "inputFingerprints": {}
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "community_area_name", "type": "string"},
+          {"name": "census_block", "type": "string"},
+          {"name": "building_type", "type": "string"},
+          {"name": "building_subtype", "type": "string"},
+          {"name": "kwh_january_2010", "type": "integer"},
+          {"name": "kwh_february_2010", "type": "integer"},
+          {"name": "kwh_march_2010", "type": "integer"},
+          {"name": "kwh_april_2010", "type": "integer"},
+          {"name": "kwh_may_2010", "type": "integer"},
+          {"name": "kwh_june_2010", "type": "integer"},
+          {"name": "kwh_july_2010", "type": "integer"},
+          {"name": "kwh_august_2010", "type": "integer"},
+          {"name": "kwh_september_2010", "type": "integer"},
+          {"name": "kwh_october_2010", "type": "integer"},
+          {"name": "kwh_november_2010", "type": "integer"},
+          {"name": "kwh_december_2010", "type": "integer"},
+          {"name": "total_kwh", "type": "integer"},
+          {"name": "electricity_accounts", "type": "integer"},
+          {"name": "electricity_accounts_note", "type": "string"},
+          {"name": "zero_kwh_accounts", "type": "integer"},
+          {"name": "therm_january_2010", "type": "integer"},
+          {"name": "therm_february_2010", "type": "integer"},
+          {"name": "therm_march_2010", "type": "integer"},
+          {"name": "therm_april_2010", "type": "integer"},
+          {"name": "therm_may_2010", "type": "integer"},
+          {"name": "therm_june_2010", "type": "integer"},
+          {"name": "therm_july_2010", "type": "integer"},
+          {"name": "therm_august_2010", "type": "integer"},
+          {"name": "therm_september_2010", "type": "integer"},
+          {"name": "therm_october_2010", "type": "integer"},
+          {"name": "therm_november_2010", "type": "integer"},
+          {"name": "therm_december_2010", "type": "integer"},
+          {"name": "total_therms", "type": "integer"},
+          {"name": "gas_accounts", "type": "integer"},
+          {"name": "gas_accounts_note", "type": "string"},
+          {"name": "kwh_total_sqft", "type": "integer"},
+          {"name": "therms_total_sqft", "type": "integer"},
+          {"name": "kwh_mean_2010", "type": "number"},
+          {"name": "kwh_standard_deviation_2010", "type": "number"},
+          {"name": "kwh_minimum_2010", "type": "integer"},
+          {"name": "kwh_1st_quartile_2010", "type": "number"},
+          {"name": "kwh_2nd_quartile_2010", "type": "number"},
+          {"name": "kwh_3rd_quartile_2010", "type": "number"},
+          {"name": "kwh_maximum_2010", "type": "integer"},
+          {"name": "kwh_sqft_mean_2010", "type": "number"},
+          {"name": "kwh_sqft_standard_deviation_2010", "type": "number"},
+          {"name": "kwh_sqft_minimum_2010", "type": "integer"},
+          {"name": "kwh_sqft_1st_quartile_2010", "type": "number"},
+          {"name": "kwh_sqft_2nd_quartile_2010", "type": "number"},
+          {"name": "kwh_sqft_3rd_quartile_2010", "type": "number"},
+          {"name": "kwh_sqft_maximum_2010", "type": "integer"},
+          {"name": "therm_mean_2010", "type": "number"},
+          {"name": "therm_standard_deviation_2010", "type": "number"},
+          {"name": "therm_minimum_2010", "type": "integer"},
+          {"name": "therm_1st_quartile_2010", "type": "number"},
+          {"name": "therm_2nd_quartile_2010", "type": "number"},
+          {"name": "therm_3rd_quartile_2010", "type": "number"},
+          {"name": "therm_maximum_2010", "type": "integer"},
+          {"name": "therms_sqft_mean_2010", "type": "number"},
+          {"name": "therms_sqft_standard_deviation_2010", "type": "number"},
+          {"name": "therms_sqft_minimum_2010", "type": "integer"},
+          {"name": "therms_sqft_1st_quartile_2010", "type": "number"},
+          {"name": "therms_sqft_2nd_quartile_2010", "type": "number"},
+          {"name": "therms_sqft_3rd_quartile_2010", "type": "number"},
+          {"name": "therms_sqft_maximum_2010", "type": "integer"},
+          {"name": "total_population", "type": "integer"},
+          {"name": "total_units", "type": "integer"},
+          {"name": "average_stories", "type": "number"},
+          {"name": "average_building_age", "type": "number"},
+          {"name": "average_housesize", "type": "number"},
+          {"name": "occupied_units", "type": "integer"},
+          {"name": "occupied_units_percentage", "type": "number"},
+          {"name": "renter_occupied_housing_units", "type": "integer"},
+          {"name": "renter_occupied_housing_percentage", "type": "number"},
+          {"name": "ten_ohu_tot", "type": "integer"}
+        ]
+      }
+    },
+    {
+      "name": "energy-usage-2010-community-areas",
+      "path": "useful-views/energy-usage-2010-community-areas.parquet",
+      "fingerprint": "datahash1:sha256:e838f227a0073a2c44f3fb8ae043842b36923a577ed293ec7b85acdc247deacb",
+      "producedBy": {
+        "recipe": "community_areas",
+        "inputs": ["useful-views/energy-usage-2010.parquet"],
+        "inputFingerprints": {
+          "useful-views/energy-usage-2010.parquet": "datahash1:sha256:e28ab87cb21ca7fe4c14e39509d69923af7397254d588eccfefd87af1e430513"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "community_area_name", "type": "string"},
+          {"name": "census_blocks", "type": "integer"},
+          {"name": "block_rows", "type": "integer"},
+          {"name": "rows_with_kwh", "type": "integer"},
+          {"name": "total_kwh", "type": "integer"},
+          {"name": "rows_with_therms", "type": "integer"},
+          {"name": "total_therms", "type": "integer"}
+        ]
+      }
+    },
+    {
+      "name": "energy-usage-2010-monthly",
+      "path": "useful-views/energy-usage-2010-monthly.parquet",
+      "fingerprint": "datahash1:sha256:b327ec888120a0d736d493595cf724ceeace9ec1bee7c9d4cd4cd20d1a0286ba",
+      "producedBy": {
+        "recipe": "monthly",
+        "inputs": ["useful-views/energy-usage-2010.parquet"],
+        "inputFingerprints": {
+          "useful-views/energy-usage-2010.parquet": "datahash1:sha256:e28ab87cb21ca7fe4c14e39509d69923af7397254d588eccfefd87af1e430513"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "community_area_name", "type": "string"},
+          {"name": "census_block", "type": "string"},
+          {"name": "building_type", "type": "string"},
+          {"name": "building_subtype", "type": "string"},
+          {"name": "month", "type": "date"},
+          {"name": "kwh", "type": "integer"},
+          {"name": "therms", "type": "integer"}
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "name": "energy_usage_2010",
+      "description": "The City of Chicago's Energy Usage 2010, every column typed: one row per community area, census block, building type and subtype, plus one row per community area that the portal gives without a census block.",
+      "path": "recipes/energy_usage_2010",
+      "inputs": ["raw/energy_usage_2010.csv"],
+      "outputs": ["useful-views/energy-usage-2010.parquet"],
+      "steps": [
+        {
+          "name": "type_and_check",
+          "path": "recipes/energy_usage_2010/01_type_and_check.py",
+          "description": "Check that the CSV is the pinned download (its SHA-256) with the portal's 73 columns in order. Give every column a fixed type: census blocks as their 15-digit code, energy and counts as integers, statistics and averages as decimals. Split the two account counts into a number and a note (\"Less than 4\"), rename the portal's misspelled term_april_2010, sort by the key, and check the table's known facts."
+        }
+      ]
+    },
+    {
+      "name": "community_areas",
+      "description": "Electricity (kWh) and gas (therms) used in 2010 in each of Chicago's 77 community areas, summed over the census-block rows of Energy Usage 2010.",
+      "path": "recipes/community_areas",
+      "inputs": ["useful-views/energy-usage-2010.parquet"],
+      "outputs": ["useful-views/energy-usage-2010-community-areas.parquet"],
+      "steps": [
+        {
+          "name": "sum_block_rows",
+          "path": "recipes/community_areas/01_sum_block_rows.py",
+          "description": "Sum annual kWh and therms over each community area's census-block rows, leaving out the portal's rows without a census block (see the README), count the blocks and rows behind each sum, and check that nothing is lost."
+        }
+      ]
+    },
+    {
+      "name": "monthly",
+      "description": "Monthly electricity (kWh) and gas (therms) for every row of Energy Usage 2010, in long form: one row per community area, census block, building type, subtype and month of 2010.",
+      "path": "recipes/monthly",
+      "inputs": ["useful-views/energy-usage-2010.parquet"],
+      "outputs": ["useful-views/energy-usage-2010-monthly.parquet"],
+      "steps": [
+        {
+          "name": "to_long",
+          "path": "recipes/monthly/01_to_long.py",
+          "description": "Turn the twelve kWh and twelve therm columns into one row per month, keeping the key, and check that every row's months add up to its published annual totals."
+        }
+      ]
+    }
+  ]
+}
