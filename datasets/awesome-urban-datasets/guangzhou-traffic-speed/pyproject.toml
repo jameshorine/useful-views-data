@@ -1,0 +1,10 @@
+[project]
+name = "guangzhou-traffic-speed"
+version = "0.1.0"
+description = "Useful views on the Urban Traffic Speed Dataset of Guangzhou, China (214 road segments, 10-minute speeds, August-September 2016), built with useful-views."
+requires-python = ">=3.11"
+dependencies = [
+    "certifi>=2025.1.31",
+    "duckdb>=2.0.1",
+    "useful-views>=0.3.0",
+]

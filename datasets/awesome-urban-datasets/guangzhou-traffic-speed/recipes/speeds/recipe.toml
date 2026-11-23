@@ -1,0 +1,15 @@
+description = "Every speed observation in the Urban Traffic Speed Dataset of Guangzhou, typed: one row per road segment and 10-minute window, with the window's date and start time."
+inputs  = ["raw/Data.zip"]
+outputs = ["useful-views/guangzhou-traffic-speed.parquet"]
+
+[[steps]]
+file = "01_extract_csvs.py"
+description = "Check that the zip is the pinned Zenodo file (its SHA-256) and holds the expected files, and extract its three CSV tables into work/."
+
+[[steps]]
+file = "02_type_and_join.py"
+description = """
+Check each table's header and read every column with a fixed type. Round
+speeds to their three decimals, removing float noise such as
+44.483000000000004. Join in each window's date and start time, sort by
+segment and window, and check the dataset's known facts."""

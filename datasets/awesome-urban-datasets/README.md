@@ -15,6 +15,7 @@ live data, and what is gated or too heavy.
 | Project | Source | Section of the list | Views |
 |---|---|---|---|
 | [`chicago-energy-usage-2010`](chicago-energy-usage-2010/) | City of Chicago Data Portal, [Energy Usage 2010](https://data.cityofchicago.org/d/8yq3-m6wp) (`8yq3-m6wp`) | Built & natural environment › Buildings & lots | 3: the table typed, monthly kWh and therms, and totals by community area |
+| [`guangzhou-traffic-speed`](guangzhou-traffic-speed/) | Chen, Chen and He, [Urban Traffic Speed Dataset of Guangzhou](https://doi.org/10.5281/zenodo.1205229) (Zenodo, CC BY 4.0) | Human-driven phenomena › Mobility | 2: every 10-minute speed typed, and a summary per road segment |
 
 ## Notes for every project here
 

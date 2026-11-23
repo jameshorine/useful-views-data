@@ -1,0 +1,22 @@
+# Where each raw file comes from. useful-views copies these details into
+# datapackage.json, the catalog and the cookbook.
+
+[[sources]]
+title = "Urban Traffic Speed Dataset of Guangzhou, China (Zenodo record 1205229)"
+files = ["raw/Data.zip"]
+url = "https://zenodo.org/records/1205229"
+doi = "10.5281/zenodo.1205229"
+access = """
+Download https://zenodo.org/records/1205229/files/Data.zip?download=1 with no login or key.
+It is the record's only file and the record's only version, published 2018-03-22: 17,562,786
+bytes, MD5 9ea898ba4b03043ad5f60d9c7b881c44 as Zenodo lists it, SHA-256
+4bf27e535928df9abbbde7cdb26075f11b1d70ab2d5a4e71107272e1c4add299. It holds
+traffic_speed_data.csv, day_information_table.csv, time_information_table.csv, and tensor.mat,
+which this project doesn't use. fetch_raw.py downloads it and checks both digests."""
+cost = "Free"
+obtained = 2026-11-23
+license = "CC-BY-4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+citation = """
+Xinyu Chen, Yixian Chen and Zhaocheng He (2018). Urban Traffic Speed Dataset of Guangzhou,
+China. Zenodo. https://doi.org/10.5281/zenodo.1205229"""

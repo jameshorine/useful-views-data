@@ -28,6 +28,7 @@ the list curated by the Urban Toolkit lab at UIC. See [`awesome-urban-datasets/`
 | Dataset | Publisher and source | Release | Coverage | Views | Catalog | Download | Use |
 |---|---|---|---|---|---|---|---|
 | [`chicago-energy-usage-2010`](awesome-urban-datasets/chicago-energy-usage-2010/) | City of Chicago, [Energy Usage 2010](https://data.cityofchicago.org/d/8yq3-m6wp) (Chicago Data Portal; ComEd and Peoples Gas data) | 2010 data, unchanged since 2013 | 35,699 census blocks in Chicago's 77 community areas, by building type | 3: the table typed (67,051 rows), monthly kWh and therms, and totals by community area | [catalog](awesome-urban-datasets/chicago-energy-usage-2010/useful-views/README.md) | 37 MB | Building energy use by block and building type; joins to 2010 census blocks |
+| [`guangzhou-traffic-speed`](awesome-urban-datasets/guangzhou-traffic-speed/) | Xinyu Chen, Yixian Chen and Zhaocheng He, [Urban Traffic Speed Dataset of Guangzhou, China](https://doi.org/10.5281/zenodo.1205229) (Zenodo, CC BY 4.0) | The record's only version (2018) | 214 anonymized road segments in Guangzhou, every 10 minutes, 1 August to 30 September 2016 | 2: every speed typed (1,855,589 rows), and a summary per road segment | [catalog](awesome-urban-datasets/guangzhou-traffic-speed/useful-views/README.md) | 18 MB | Traffic forecasting, missing-data imputation and congestion patterns |
 
 ## Examples
 

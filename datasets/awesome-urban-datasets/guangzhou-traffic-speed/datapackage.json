@@ -1,0 +1,105 @@
+{
+  "name": "guangzhou-traffic-speed",
+  "resources": [
+    {
+      "name": "data",
+      "type": "file",
+      "path": "raw/Data.zip",
+      "scheme": "file",
+      "format": "zip",
+      "sources": [
+        {
+          "title": "Urban Traffic Speed Dataset of Guangzhou, China (Zenodo record 1205229)",
+          "path": "https://zenodo.org/records/1205229",
+          "doi": "10.5281/zenodo.1205229",
+          "access": "Download https://zenodo.org/records/1205229/files/Data.zip?download=1 with no login or key. It is the record's only file and the record's only version, published 2018-03-22: 17,562,786 bytes, MD5 9ea898ba4b03043ad5f60d9c7b881c44 as Zenodo lists it, SHA-256 4bf27e535928df9abbbde7cdb26075f11b1d70ab2d5a4e71107272e1c4add299. It holds traffic_speed_data.csv, day_information_table.csv, time_information_table.csv, and tensor.mat, which this project doesn't use. fetch_raw.py downloads it and checks both digests.",
+          "cost": "Free",
+          "obtained": "2026-11-23",
+          "citation": "Xinyu Chen, Yixian Chen and Zhaocheng He (2018). Urban Traffic Speed Dataset of Guangzhou, China. Zenodo. https://doi.org/10.5281/zenodo.1205229"
+        }
+      ],
+      "licenses": [{"name": "CC-BY-4.0", "path": "https://creativecommons.org/licenses/by/4.0/"}]
+    },
+    {
+      "name": "guangzhou-traffic-speed",
+      "path": "useful-views/guangzhou-traffic-speed.parquet",
+      "fingerprint": "datahash1:sha256:d17a3109fe2d97b10e79971775c9b3a5367ffd0a5e6c297f2f24036f77b181ba",
+      "producedBy": {"recipe": "speeds", "inputs": ["raw/Data.zip"], "inputFingerprints": {}},
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "road_id", "type": "integer"},
+          {"name": "day_id", "type": "integer"},
+          {"name": "time_id", "type": "integer"},
+          {"name": "window_start", "type": "datetime"},
+          {"name": "speed", "type": "number"}
+        ]
+      }
+    },
+    {
+      "name": "guangzhou-traffic-speed-segments",
+      "path": "useful-views/guangzhou-traffic-speed-segments.parquet",
+      "fingerprint": "datahash1:sha256:9f853d8bfd96aceb9cfe9ac8a3aafa60339f78ee27d08f7fb3e06fb261e82b9e",
+      "producedBy": {
+        "recipe": "segments",
+        "inputs": ["useful-views/guangzhou-traffic-speed.parquet"],
+        "inputFingerprints": {
+          "useful-views/guangzhou-traffic-speed.parquet": "datahash1:sha256:d17a3109fe2d97b10e79971775c9b3a5367ffd0a5e6c297f2f24036f77b181ba"
+        }
+      },
+      "type": "table",
+      "scheme": "file",
+      "format": "parquet",
+      "mediatype": "application/parquet",
+      "schema": {
+        "fields": [
+          {"name": "road_id", "type": "integer"},
+          {"name": "observations", "type": "integer"},
+          {"name": "missing_windows", "type": "integer"},
+          {"name": "days_with_data", "type": "integer"},
+          {"name": "min_speed", "type": "number"},
+          {"name": "mean_speed", "type": "number"},
+          {"name": "max_speed", "type": "number"}
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "name": "speeds",
+      "description": "Every speed observation in the Urban Traffic Speed Dataset of Guangzhou, typed: one row per road segment and 10-minute window, with the window's date and start time.",
+      "path": "recipes/speeds",
+      "inputs": ["raw/Data.zip"],
+      "outputs": ["useful-views/guangzhou-traffic-speed.parquet"],
+      "steps": [
+        {
+          "name": "extract_csvs",
+          "path": "recipes/speeds/01_extract_csvs.py",
+          "description": "Check that the zip is the pinned Zenodo file (its SHA-256) and holds the expected files, and extract its three CSV tables into work/."
+        },
+        {
+          "name": "type_and_join",
+          "path": "recipes/speeds/02_type_and_join.py",
+          "description": "Check each table's header and read every column with a fixed type. Round speeds to their three decimals, removing float noise such as 44.483000000000004. Join in each window's date and start time, sort by segment and window, and check the dataset's known facts."
+        }
+      ]
+    },
+    {
+      "name": "segments",
+      "description": "One row per road segment of the Guangzhou dataset: how many of its 8,784 ten-minute windows have a speed, and its lowest, mean and highest speed.",
+      "path": "recipes/segments",
+      "inputs": ["useful-views/guangzhou-traffic-speed.parquet"],
+      "outputs": ["useful-views/guangzhou-traffic-speed-segments.parquet"],
+      "steps": [
+        {
+          "name": "summarize",
+          "path": "recipes/segments/01_summarize.py",
+          "description": "Count each segment's observations and missing windows (of 61 days × 144 windows), and give its lowest, mean and highest speed. The mean is computed from exact sums, so it doesn't vary between runs. Check that the counts add up to the dataset's totals."
+        }
+      ]
+    }
+  ]
+}
