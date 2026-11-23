@@ -5,12 +5,13 @@ Run it from this folder before `useful-views sync`:
     uv run python fetch_raw.py
 
 The Urban Traffic Speed Dataset of Guangzhou is one file, Data.zip, on Zenodo
-(record 1205229, DOI 10.5281/zenodo.1205229). Zenodo doesn't change a published
-file, and the record has only this version, so the file must match the SHA-256
-below. Zenodo publishes its MD5, which this script checks too.
+(record 1205229, DOI 10.5281/zenodo.1205229). Zenodo changes a published file
+only in exceptional cases, and the record has only this version, so the file
+must match the SHA-256 below. Zenodo publishes its MD5, which this script checks
+too.
 
 Temporary errors are retried. Uses the Python standard library plus certifi's
-certificates, as the other projects here do.
+certificates, as chicago-energy-usage-2010 does.
 """
 
 import hashlib
@@ -51,14 +52,17 @@ def digests(path: Path) -> tuple[str, str]:
 
 def download(target: Path) -> None:
     """Save URL to target, retrying temporary errors."""
-    request = urllib.request.Request(URL, headers={"User-Agent": "useful-views-data fetch_raw.py"})
     for attempt in range(1, TRIES + 1):
         try:
+            # A fresh request each try: urllib records the redirects it followed on the request.
+            request = urllib.request.Request(URL, headers={"User-Agent": "useful-views-data fetch_raw.py"})
             with urllib.request.urlopen(request, timeout=300, context=CONTEXT) as response, open(target, "wb") as out:
+                got = 0
                 while chunk := response.read(1 << 20):
                     out.write(chunk)
+                    got += len(chunk)
                 if response.length:  # a Content-Length was sent and not reached: the transfer was cut off
-                    raise http.client.IncompleteRead(b"", response.length)
+                    raise ConnectionError(f"cut off after {got:,} of {got + response.length:,} bytes")
             return
         except urllib.error.HTTPError as exc:
             if exc.code not in RETRY or attempt == TRIES:
@@ -70,7 +74,7 @@ def download(target: Path) -> None:
                 raise
             why = str(reason) or type(reason).__name__
         wait = 2**attempt
-        print(f"  Zenodo did not answer ({why}, try {attempt} of {TRIES}); trying again in {wait} s")
+        print(f"  The download failed ({why}, try {attempt} of {TRIES}); trying again in {wait} s")
         time.sleep(wait)
 
 
@@ -99,7 +103,8 @@ def main() -> int:
     partial.replace(kept)
     sha256, md5 = digests(kept)
     print(f"  Zenodo served a different file ({kept.stat().st_size:,} bytes, SHA-256 {sha256}, MD5 {md5}).")
-    print(f"  It is kept as raw/{kept.name} to look at. Zenodo doesn't change published files, so check the URL.")
+    print(f"  It is kept as raw/{kept.name} to look at. Zenodo rarely changes published files: check the URL,")
+    print("  then the record's page for a notice, and see README.md, 'If the download no longer matches'.")
     return 1
 
 

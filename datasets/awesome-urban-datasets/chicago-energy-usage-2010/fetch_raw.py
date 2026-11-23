@@ -62,10 +62,12 @@ def download(target: Path) -> None:
         try:
             request = urllib.request.Request(URL, headers=headers)
             with urllib.request.urlopen(request, timeout=300, context=CONTEXT) as response, open(target, "wb") as out:
+                got = 0
                 while chunk := response.read(1 << 20):
                     out.write(chunk)
+                    got += len(chunk)
                 if response.length:  # a Content-Length was sent and not reached: the transfer was cut off
-                    raise http.client.IncompleteRead(b"", response.length)
+                    raise ConnectionError(f"cut off after {got:,} of {got + response.length:,} bytes")
             return
         except urllib.error.HTTPError as exc:
             if exc.code not in RETRY or attempt == TRIES:
@@ -77,7 +79,7 @@ def download(target: Path) -> None:
                 raise
             why = str(reason) or type(reason).__name__
         wait = 2**attempt
-        print(f"  the portal did not answer ({why}, try {attempt} of {TRIES}); trying again in {wait} s")
+        print(f"  The download failed ({why}, try {attempt} of {TRIES}); trying again in {wait} s")
         time.sleep(wait)
 
 

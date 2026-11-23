@@ -17,5 +17,7 @@ if digest.hexdigest() != SHA256:  # not an assert: python -O would skip it
 with zipfile.ZipFile(ZIP) as archive:
     names = sorted(archive.namelist())
     assert names == sorted(MEMBERS), f"Unexpected zip contents: {names}"
-    for name in CSVS:  # tensor.mat holds the same speeds as a 214 x 61 x 144 array; it isn't needed
+    # tensor.mat holds the same observations as a 214 x 61 x 144 array (0 where missing), with 4,396 values that
+    # differ slightly from the CSV's. The record calls the CSV the original data, so these views use it.
+    for name in CSVS:
         archive.extract(name, "work/speeds")
