@@ -24,8 +24,9 @@ uv run useful-views check    # expect: No problems found.
 
 Plan for about 62 MB of disk: 18 MB of raw data, 38 MB in `work/` (the extracted CSVs) and 7 MB of views.
 
-Zenodo doesn't change a published file, and this record has only one version, so the download is pinned for good.
-`fetch_raw.py` checks its SHA-256, and the MD5 that Zenodo lists for it.
+Zenodo lets a record's files change only in its first 30 days, and after that only for exceptional reasons such as
+personal data. This record was published in 2018 and has only one version, so the download is pinned: `fetch_raw.py`
+checks its SHA-256, and the MD5 that Zenodo lists for it.
 
 ## The views
 
@@ -105,8 +106,10 @@ duckdb.sql("""
 **Speeds**
 - The record doesn't state the unit. The values run from 1.054 to 119.27, with a mean of 39.0, which fits km/h on
   expressways and arterials.
-- Speeds have three decimals. 455,175 of them are written with float noise (such as `44.483000000000004`), and these
-  views round them to three decimals. No speed moves by more than a billionth, and the recipe checks this.
+- Speeds have three decimals, except the 17 of 100 or more, which the CSV gives to at most two. All 17 are on segment
+  166 on 8 September, between 00:00 and 03:50.
+- 455,175 speeds are written with float noise (such as `44.483000000000004`), and these views round them to three
+  decimals. No speed moves by more than a billionth, and the recipe checks this.
 
 **Missing windows**
 - 206 of the 214 segments have all 8,784 windows. The 24,187 missing windows (1.29%) are almost all whole days:
@@ -120,7 +123,23 @@ duckdb.sql("""
 - `window_start` is the window's date and start time as the dataset gives them. The dataset doesn't name a time zone;
   it is presumably local time in Guangzhou (China Standard Time, UTC+8).
 - Day 1 (1 August 2016) is a Monday.
-- `tensor.mat` in the zip holds the same speeds as a 214 × 61 × 144 array. These views don't use it.
+- **`tensor.mat`** in the zip holds the same 1,855,589 observations as a 214 × 61 × 144 array (segment × day ×
+  window), with 0 for each of the 24,187 missing windows.
+  - 4,396 of its values differ from the CSV's, by 0.0005 to 0.004. It keeps a fourth decimal for most of segment
+    211's speeds (62.0745 where the CSV has 62.075), and a third for 16 of segment 166's speeds of 100 or more
+    (108.446 where the CSV has 108.45).
+  - These views use the CSV, which the record calls the original data.
+
+## If the download no longer matches
+
+`fetch_raw.py` keeps a different download as `raw/Data_download.zip`. Check the URL first, then the record's page
+for a notice. The pin lives in:
+- `fetch_raw.py`: `SIZE`, `SHA256` and `MD5`;
+- `recipes/speeds/01_extract_csvs.py`: `SHA256`;
+- `sources.toml`.
+
+The known facts are in `recipes/speeds/02_type_and_join.py`. After a change, run `uv run useful-views sync --all` and
+`uv run useful-views cookbook`.
 
 ## Sources and credit
 

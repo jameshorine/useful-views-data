@@ -24,14 +24,14 @@ Steps:
 
 ## guangzhou-traffic-speed-segments.parquet
 
-One row per road segment of the Guangzhou dataset: how many of its 8,784 ten-minute windows have a speed, and its lowest, mean and highest speed.
+One row per road segment of the Guangzhou dataset: how many of its 8,784 ten-minute windows have a speed, on how many of the 61 days, and its lowest, mean and highest speed.
 
 - Recipe: `recipes/segments/`
 - Inputs: `useful-views/guangzhou-traffic-speed.parquet`
 
 Steps:
 
-1. Count each segment's observations and missing windows (of 61 days × 144 windows), and give its lowest, mean and highest speed. The mean is computed from exact sums, so it doesn't vary between runs. Check that the counts add up to the dataset's totals. (`01_summarize.py`)
+1. Count each segment's observations, missing windows (of 61 days × 144 windows) and days with data, and give its lowest, mean and highest speed. The mean is computed from exact sums and rounded to three decimals, so it doesn't vary between runs. Check that the counts add up to the dataset's totals. (`01_summarize.py`)
 
 | Column | Type |
 |---|---|
