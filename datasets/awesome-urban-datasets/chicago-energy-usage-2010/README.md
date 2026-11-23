@@ -132,15 +132,16 @@ duckdb.sql("""
 - **Census blocks** are 2010 block codes of 15 digits (state 17, Cook County 031, tract, block), stored as text.
   Join to 2010 census block geography on this code.
 - **The key** is community area + census block + building type + subtype. A block alone isn't unique: 89 blocks
-  appear in two community areas, with separate rows and separate usage in each.
+  appear in more than one community area (86 in two, one in three, two in four), with separate rows and separate
+  usage in each.
 
 **The 77 rows without a census block**
 - There is one per community area, with no building type either.
 - The portal says "Census blocks with less than 4 accounts is displayed at the Community Area without further
   geographic identifiers", but these rows overlap the block rows. Adding their population to the blocks' would put
   Albany Park at 70,842 people, against 51,542 in the 2010 census.
-- So `energy-usage-2010-community-areas` leaves them out. Treat them as a separate summary that isn't documented.
-  Their kWh add up to 4.1 billion, against 11.6 billion over the block rows.
+- So `energy-usage-2010-community-areas` leaves them out. Treat them as a separate summary that doesn't match the
+  portal's description of it. Their kWh add up to 4.1 billion, against 11.6 billion over the block rows.
 
 **Accounts and usage**
 - **"Less than 4" accounts:** for 11,817 rows' electricity accounts and 12,577 rows' gas accounts, the portal gives
@@ -148,28 +149,31 @@ duckdb.sql("""
   every one of these rows.
 - **Missing usage:**
   - 871 rows have no electricity figures and 1,296 have no gas total.
-  - A single month can be empty while the year's total isn't; for example, 4,232 rows have no February therms.
+  - A gas month can be empty while the year's total isn't; for example, 2,936 rows have an annual gas total but no
+    February therms. No electricity month is empty when the year's total is given.
   - Each annual total is the sum of the months given, and the recipes check this.
 
 **Block characteristics**
 - Population, housing units, occupied and renter-occupied units, the two percentages and `average_housesize` are the
   same on every row of a block, so don't sum them across a block's rows. `average_stories` and
   `average_building_age` describe that row's buildings.
-- **The two "percentage" columns are fractions from 0 to 1**, and they don't always agree with the counts:
-  - `occupied_units_percentage` differs from occupied ÷ total units in 4,725 rows;
-  - `renter_occupied_housing_percentage` equals renter-occupied ÷ occupied units in only 23,747 of the 64,433 rows
-    that have it;
-  - `average_housesize` isn't population ÷ occupied units in 1,420 rows, and reaches 2,061.92 in the rows without a
-    block.
-
-  Recompute ratios from the counts.
+- **The two "percentage" columns are fractions from 0 to 1**, rounded to at most four decimals.
+  `occupied_units_percentage` is occupied ÷ total units, and `renter_occupied_housing_percentage` is renter-occupied
+  ÷ occupied units. Both are within 0.0006 of the counts in every row; recompute them from the counts if you need more
+  precision.
+- **`average_housesize` is the Census's average household size** (from its report QT-P11), which leaves out people in
+  group quarters. So it is lower than population ÷ occupied units in 1,343 block rows (never higher), and it can't be
+  recomputed from these columns. In the rows without a block it reaches 2,061.92.
 
 **Columns as published**
 - `ten_ohu_tot` (labelled "OCCUPIED HOUSING UNITS") repeats `occupied_units` in every row.
 - The portal names April's therms `term_april_2010`; here it is `therm_april_2010`.
-- The portal doesn't define the `*_sqft` columns. Their values, from 300 up to 48.6 million, look like floor areas
-  in square feet. The statistics columns (mean, standard deviation, quartiles, minimum, maximum) are given as
-  published, also undefined.
+- The portal describes `kwh_total_sqft` and `therms_total_sqft` as the total square footage tied to the electricity
+  or gas use, from Cook County Assessor records (300 up to 48.6 million).
+- Of the statistics columns, only the means have a description ("Average Total KWHs for 2010", "Average kWh per
+  square foot in 2010", and the same for therms). The `*_sqft_mean_2010` values are square feet (median 2,217), not
+  energy per square foot. The standard deviations, quartiles, minimums and maximums have no description. All are given
+  as published.
 
 **Building types**
 - Residential: Single Family, Multi < 7, Multi 7+.
@@ -183,8 +187,14 @@ DuckDB:
 - **The rows are unchanged but the bytes differ** (for example, the portal changed how it writes numbers): update
   `SIZE` and `SHA256` in `fetch_raw.py`, the SHA-256 in `recipes/energy_usage_2010/01_type_and_check.py`, and
   `sources.toml`.
-- **The rows changed:** check the dataset's "last updated" date on the portal, and treat it as a new snapshot. That
-  means updating the known facts in `01_type_and_check.py`, then the sample records here.
+- **The rows changed:** check the dataset's "last updated" date on the portal, and treat it as a new snapshot. Update:
+  - the pin, as above;
+  - the known facts in `01_type_and_check.py`;
+  - `sources.toml` (obtained date, rows, size, SHA-256, last-updated date);
+  - the counts and sample records in this README;
+  - this dataset's rows in [`../README.md`](../README.md) and [`../../README.md`](../../README.md).
+
+After either change, run `uv run useful-views sync --all` and `uv run useful-views cookbook`.
 
 ## Sources and credit
 
