@@ -7,7 +7,8 @@ file = "01_type_and_check.py"
 description = """
 Check that the CSV is the pinned download (its SHA-256) with the portal's 73
 columns in order. Give every column a fixed type: census blocks as their
-15-digit code, energy and counts as integers, statistics and averages as
-decimals. Split the two account counts into a number and a note ("Less than
+15-digit code; energy, counts, floor areas, minimums and maximums as integers;
+means, standard deviations, quartiles and averages as decimals. Split the two
+account counts into a number and a note ("Less than
 4"), rename the portal's misspelled term_april_2010, sort by the key, and check
 the table's known facts."""

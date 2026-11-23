@@ -11,7 +11,7 @@ The City of Chicago's Energy Usage 2010, every column typed: one row per communi
 
 Steps:
 
-1. Check that the CSV is the pinned download (its SHA-256) with the portal's 73 columns in order. Give every column a fixed type: census blocks as their 15-digit code, energy and counts as integers, statistics and averages as decimals. Split the two account counts into a number and a note ("Less than 4"), rename the portal's misspelled term_april_2010, sort by the key, and check the table's known facts. (`01_type_and_check.py`)
+1. Check that the CSV is the pinned download (its SHA-256) with the portal's 73 columns in order. Give every column a fixed type: census blocks as their 15-digit code; energy, counts, floor areas, minimums and maximums as integers; means, standard deviations, quartiles and averages as decimals. Split the two account counts into a number and a note ("Less than 4"), rename the portal's misspelled term_april_2010, sort by the key, and check the table's known facts. (`01_type_and_check.py`)
 
 | Column | Type |
 |---|---|
@@ -140,7 +140,7 @@ Steps:
 - Files: `raw/energy_usage_2010.csv`
 - Where: https://data.cityofchicago.org/Environment-Sustainable-Development/Energy-Usage-2010/8yq3-m6wp
 - Obtained: 2026-11-23
-- Access: Download https://data.cityofchicago.org/resource/8yq3-m6wp.csv?$limit=100000&$order=:id with no login or key. It is the portal's SODA2 endpoint, so the header row uses the API field names. The dataset has not changed since 2013: rows were last updated 2013-08-02, and the endpoint's Last-Modified is Thu, 18 Apr 2019 08:32:28 GMT. Three downloads on 2026-11-23 were byte-identical: 67,051 rows, 37,004,866 bytes, SHA-256 6e59d593ef8c0a21aea92fcea363bcbb1770fdad221e2f8d2ca199ee9391802b. fetch_raw.py downloads and checks it. The portal's /api/views/8yq3-m6wp/rows.csv export is not used, because it returns Sunset: Tue, 22 Dec 2026.
+- Access: Download https://data.cityofchicago.org/resource/8yq3-m6wp.csv?$limit=100000&$order=:id with no login or key. It is the portal's SODA2 endpoint, so the header row uses the API field names. The dataset has not changed since 2013: rows were last updated 2013-08-02, and the endpoint's Last-Modified is Thu, 18 Apr 2019 08:32:28 GMT. Three downloads on 2026-11-23 (UTC) were byte-identical: 67,051 rows, 37,004,866 bytes, SHA-256 6e59d593ef8c0a21aea92fcea363bcbb1770fdad221e2f8d2ca199ee9391802b. fetch_raw.py downloads and checks it. The portal's /api/views/8yq3-m6wp/rows.csv export is not used, because it returns Sunset: Tue, 22 Dec 2026.
 - Cost: Free
 - License: City of Chicago Data Portal Terms of Use (no open license is stated) https://www.chicago.gov/city/en/narr/foia/data_disclaimer.html
 - Cite: City of Chicago, Energy Usage 2010, Chicago Data Portal, dataset 8yq3-m6wp: https://data.cityofchicago.org/d/8yq3-m6wp. ComEd and Peoples Gas data, aggregated by Accenture.

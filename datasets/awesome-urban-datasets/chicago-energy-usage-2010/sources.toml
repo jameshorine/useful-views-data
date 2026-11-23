@@ -10,7 +10,7 @@ Download https://data.cityofchicago.org/resource/8yq3-m6wp.csv?$limit=100000&$or
 with no login or key. It is the portal's SODA2 endpoint, so the header row uses the API
 field names. The dataset has not changed since 2013: rows were last updated 2013-08-02, and
 the endpoint's Last-Modified is Thu, 18 Apr 2019 08:32:28 GMT. Three downloads on
-2026-11-23 were byte-identical: 67,051 rows, 37,004,866 bytes, SHA-256
+2026-11-23 (UTC) were byte-identical: 67,051 rows, 37,004,866 bytes, SHA-256
 6e59d593ef8c0a21aea92fcea363bcbb1770fdad221e2f8d2ca199ee9391802b. fetch_raw.py downloads
 and checks it. The portal's /api/views/8yq3-m6wp/rows.csv export is not used, because it
 returns Sunset: Tue, 22 Dec 2026."""

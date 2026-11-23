@@ -19,6 +19,7 @@ don't have (on macOS, /etc/ssl/cert.pem lacks it).
 """
 
 import hashlib
+import http.client
 import os
 import ssl
 import sys
@@ -63,16 +64,18 @@ def download(target: Path) -> None:
             with urllib.request.urlopen(request, timeout=300, context=CONTEXT) as response, open(target, "wb") as out:
                 while chunk := response.read(1 << 20):
                     out.write(chunk)
+                if response.length:  # a Content-Length was sent and not reached: the transfer was cut off
+                    raise http.client.IncompleteRead(b"", response.length)
             return
         except urllib.error.HTTPError as exc:
             if exc.code not in RETRY or attempt == TRIES:
                 raise
             why = f"HTTP {exc.code}"
-        except (urllib.error.URLError, OSError) as exc:  # connection reset, timeout
+        except (urllib.error.URLError, OSError, http.client.HTTPException) as exc:  # reset, timeout, cut off
             reason = getattr(exc, "reason", exc)
-            if attempt == TRIES or isinstance(reason, ssl.SSLError):  # a certificate problem won't fix itself
+            if attempt == TRIES or isinstance(reason, ssl.SSLCertVerificationError):  # won't fix itself
                 raise
-            why = str(reason)
+            why = str(reason) or type(reason).__name__
         wait = 2**attempt
         print(f"  the portal did not answer ({why}, try {attempt} of {TRIES}); trying again in {wait} s")
         time.sleep(wait)
@@ -87,8 +90,13 @@ def main() -> int:
     partial = target.with_name(NAME + ".part")
     try:
         download(partial)
-    except (urllib.error.URLError, OSError) as exc:
-        print(f"  Could not download {NAME} ({getattr(exc, 'reason', exc)}). Check your connection and try again.")
+    except (urllib.error.URLError, OSError, http.client.HTTPException) as exc:
+        reason = getattr(exc, "reason", exc)
+        if isinstance(reason, ssl.SSLCertVerificationError):
+            print(f"  Could not check the portal's certificate ({reason}).")
+            print("  Run it as `uv run python fetch_raw.py`, which uses certifi's certificates.")
+        else:
+            print(f"  Could not download {NAME} ({reason}). Check your connection and try again.")
         return 1
     if partial.stat().st_size == SIZE and sha256(partial) == SHA256:
         partial.replace(target)

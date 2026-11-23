@@ -3,7 +3,7 @@
 Projects built from [awesome-urban-datasets](https://github.com/urban-toolkit/awesome-urban-datasets), a list of open
 urban datasets curated by the [Urban Toolkit](https://urbantk.org/) lab at the University of Illinois Chicago.
 - The list, its choice of datasets and its taxonomy (natural phenomena, human-driven phenomena, built and natural
-  environment) are theirs. The projects here are ours.
+  environment, others) are theirs. The projects here are ours.
 - The list has no license, so the descriptions here are written for this repository.
 
 Every entry on the list was checked on 22–23 November 2026. The triage and progress are tracked in
