@@ -41,6 +41,22 @@ The code and documentation in this repository are released under the
   Service, Production, Supply and Distribution (PSD) Online. The views are
   retyped and summed by this project: they are not official USDA figures, and
   this project is not affiliated with or endorsed by USDA.
+- **City of Chicago, Energy Usage 2010**
+  (`datasets/awesome-urban-datasets/chicago-energy-usage-2010/`): the Chicago
+  Data Portal states no open license. The City of Chicago's
+  [data terms of use](https://www.chicago.gov/city/en/narr/foia/data_disclaimer.html)
+  apply, and the project README carries the disclaimer they require. Credit:
+  City of Chicago, Energy Usage 2010 (ComEd and Peoples Gas data, aggregated by
+  Accenture). Only the recipes and records are in git; the data is downloaded
+  from the portal.
+- **Urban Traffic Speed Dataset of Guangzhou, China**
+  (`datasets/awesome-urban-datasets/guangzhou-traffic-speed/`) by Xinyu Chen,
+  Yixian Chen and Zhaocheng He is licensed under
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source:
+  https://doi.org/10.5281/zenodo.1205229. The views are typed, rounded and
+  summarized by this project, and are not published or endorsed by its
+  authors. Only the recipes and records are in git; the data is downloaded
+  from Zenodo.
 
 ## Contributing
 

@@ -12,6 +12,32 @@
     "raw/acsdt5y2024-b19013.dat",
     "raw/acsdt5y2024-b25077.dat"
   ],
+  "sources": [
+    {
+      "title": "U.S. Census Bureau, American Community Survey 2020-2024 5-Year Estimates, table-based Summary File",
+      "files": [
+        "raw/ACS20245YR_Table_Shells.txt",
+        "raw/Geos20245YR.txt",
+        "raw/acsdt5y2024-b01001.dat",
+        "raw/acsdt5y2024-b01003.dat",
+        "raw/acsdt5y2024-b15003.dat",
+        "raw/acsdt5y2024-b17001.dat",
+        "raw/acsdt5y2024-b19013.dat",
+        "raw/acsdt5y2024-b25077.dat"
+      ],
+      "path": "https://www.census.gov/programs-surveys/acs/data/summary-file.html",
+      "access": "Download from https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/: one pipe-delimited file per table (data/5YRData/acsdt5y2024-TABLE.dat), and the geography file and table shells (documentation/). No key or login is needed. fetch_raw.py downloads them and checks each file's SHA-256 against SOURCES.md, and each recipe checks the files it reads again before reading them.",
+      "cost": "Free",
+      "obtained": "2026-10-23",
+      "citation": "U.S. Census Bureau, 2020-2024 American Community Survey 5-Year Estimates.",
+      "licenses": [
+        {
+          "title": "Public domain: a work of the U.S. federal government (17 U.S.C. §105)",
+          "path": "https://www.law.cornell.edu/uscode/text/17/105"
+        }
+      ]
+    }
+  ],
   "recipes": [
     {
       "name": "acs_geographies",
@@ -27,7 +53,7 @@
         {
           "name": "keep_levels",
           "path": "recipes/acs_geographies/01_keep_levels.py",
-          "description": "Keep the whole-area rows (geographic component 00) of the nation, states, counties and census tracts from the Census geography file, with each geography's name, level and FIPS codes."
+          "description": "Check the geography file's SHA-256, then keep the whole-area rows (geographic component 00) of the nation, states, counties and census tracts from it, with each geography's name, level and FIPS codes."
         }
       ]
     },
@@ -56,7 +82,7 @@
         {
           "name": "reshape_long",
           "path": "recipes/acs_tables/01_reshape_long.py",
-          "description": "Reshape each ACS table file (one column per estimate and per margin of error) into one row per geography and variable, with the estimate and margin of error side by side, still as Census wrote them."
+          "description": "Check each table file's SHA-256, then reshape it (one column per estimate and per margin of error) into one row per geography and variable, with the estimate and margin of error side by side, still as Census wrote them."
         },
         {
           "name": "decode_annotations",
@@ -84,7 +110,7 @@
         {
           "name": "tidy_table_shells",
           "path": "recipes/acs_variables/01_tidy_table_shells.py",
-          "description": "Keep one row per ACS variable (such as B19013_001) from the Census table shells, with its table, position, label, title, universe and type, and drop the heading rows that have no variable."
+          "description": "Check the table shells' SHA-256, then keep one row per ACS variable (such as B19013_001) from them, with its table, position, label, title, universe and type, and drop the heading rows that have no variable."
         }
       ]
     }

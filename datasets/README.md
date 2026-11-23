@@ -19,6 +19,17 @@ sample rows of each view.
 | [`census-acs`](census-acs/) | U.S. Census Bureau, [American Community Survey](https://www.census.gov/programs-surveys/acs/data/summary-file.html), table-based Summary File | 2020-2024 5-year estimates | The nation, 52 states (with DC and Puerto Rico), 3,222 counties and 85,382 census tracts | 8: geographies, the meaning of every ACS variable, and six tables (population, sex by age, median household income, poverty, educational attainment, median home value) with estimates, margins of error and Census's special values decoded | [catalog](census-acs/useful-views/README.md) | about 570 MB | A shared base for students' analyses: each student adds their own recipes on top of its views |
 | [`fas-psd`](fas-psd/) | USDA Foreign Agricultural Service, [Production, Supply and Distribution (PSD) Online](https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads), all commodities | Snapshot of 2026-11-17 (PSD overwrites its estimates monthly) | 63 commodities, 214 countries and regions, marketing years 1960-2027 | 3: the full table typed (2,095,339 rows), each commodity's attributes and units, and world totals by commodity, year and attribute | [catalog](fas-psd/useful-views/README.md) | 10 MB | Commodity supply, use, trade and stocks; world balances |
 
+### From awesome-urban-datasets
+
+These projects cover datasets on [awesome-urban-datasets](https://github.com/urban-toolkit/awesome-urban-datasets),
+the list curated by the Urban Toolkit lab at UIC. See [`awesome-urban-datasets/`](awesome-urban-datasets/) and
+[#59](https://github.com/jameshorine/useful-views-data/issues/59) for the triage of the whole list.
+
+| Dataset | Publisher and source | Release | Coverage | Views | Catalog | Download | Use |
+|---|---|---|---|---|---|---|---|
+| [`chicago-energy-usage-2010`](awesome-urban-datasets/chicago-energy-usage-2010/) | City of Chicago, [Energy Usage 2010](https://data.cityofchicago.org/d/8yq3-m6wp) (Chicago Data Portal; ComEd and Peoples Gas data) | 2010 data, unchanged since 2013 | 35,699 census blocks in Chicago's 77 community areas, by building type | 3: the table typed (67,051 rows), monthly kWh and therms, and totals by community area | [catalog](awesome-urban-datasets/chicago-energy-usage-2010/useful-views/README.md) | 37 MB | Building energy use by block and building type; joins to 2010 census blocks |
+| [`guangzhou-traffic-speed`](awesome-urban-datasets/guangzhou-traffic-speed/) | Xinyu Chen, Yixian Chen and Zhaocheng He, [Urban Traffic Speed Dataset of Guangzhou, China](https://doi.org/10.5281/zenodo.1205229) (Zenodo, CC BY 4.0) | The record's only version (2018) | 214 anonymized road segments in Guangzhou, every 10 minutes, 1 August to 30 September 2016 | 2: every speed typed (1,855,589 rows), and a summary per road segment | [catalog](awesome-urban-datasets/guangzhou-traffic-speed/useful-views/README.md) | 18 MB | Traffic forecasting, missing-data imputation and congestion patterns |
+
 ## Examples
 
 Small, ready-to-run projects whose raw data is committed. How they are

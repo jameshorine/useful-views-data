@@ -1,0 +1,14 @@
+description = "The City of Chicago's Energy Usage 2010, every column typed: one row per community area, census block, building type and subtype, plus one row per community area that the portal gives without a census block."
+inputs  = ["raw/energy_usage_2010.csv"]
+outputs = ["useful-views/energy-usage-2010.parquet"]
+
+[[steps]]
+file = "01_type_and_check.py"
+description = """
+Check that the CSV is the pinned download (its SHA-256) with the portal's 73
+columns in order. Give every column a fixed type: census blocks as their
+15-digit code; energy, counts, floor areas, minimums and maximums as integers;
+means, standard deviations, quartiles and averages as decimals. Split the two
+account counts into a number and a note ("Less than
+4"), rename the portal's misspelled term_april_2010, sort by the key, and check
+the table's known facts."""

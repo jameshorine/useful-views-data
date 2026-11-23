@@ -20,9 +20,9 @@ outputs = [
 [[steps]]
 file = "01_reshape_long.py"
 description = """
-Reshape each ACS table file (one column per estimate and per margin of error)
-into one row per geography and variable, with the estimate and margin of error
-side by side, still as Census wrote them."""
+Check each table file's SHA-256, then reshape it (one column per estimate and
+per margin of error) into one row per geography and variable, with the
+estimate and margin of error side by side, still as Census wrote them."""
 
 [[steps]]
 file = "02_decode_annotations.py"

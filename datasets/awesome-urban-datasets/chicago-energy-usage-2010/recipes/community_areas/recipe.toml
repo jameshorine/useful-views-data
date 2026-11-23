@@ -1,0 +1,10 @@
+description = "Electricity (kWh) and gas (therms) used in 2010 in each of Chicago's 77 community areas, summed over the census-block rows of Energy Usage 2010."
+inputs  = ["useful-views/energy-usage-2010.parquet"]
+outputs = ["useful-views/energy-usage-2010-community-areas.parquet"]
+
+[[steps]]
+file = "01_sum_block_rows.py"
+description = """
+Sum annual kWh and therms over each community area's census-block rows,
+leaving out the portal's rows without a census block (see the README), count
+the blocks and rows behind each sum, and check that nothing is lost."""
