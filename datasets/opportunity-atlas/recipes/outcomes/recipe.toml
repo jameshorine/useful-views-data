@@ -1,0 +1,12 @@
+description = "The Opportunity Atlas's outcomes for children whose parents were at the 25th percentile of the national income distribution, by the census tract, county and commuting zone where they grew up, by race and gender: household income rank in adulthood and incarceration, with standard errors and counts."
+inputs  = ["raw/tract_outcomes_simple.csv", "raw/county_outcomes_simple.csv", "raw/cz_outcomes_simple.csv"]
+outputs = ["useful-views/tract-outcomes.parquet", "useful-views/county-outcomes.parquet", "useful-views/cz-outcomes.parquet"]
+
+[[steps]]
+file = "01_type_and_check.py"
+description = """
+Check that each CSV is the pinned download (its SHA-256) with the codebook's
+columns. Write each table typed: FIPS codes as zero-padded text with an
+11-digit tract_fips or 5-digit county_fips key in front, commuting zones as
+integers, and every estimate, standard error and count as a decimal, in the
+published column order, sorted by the key; then check the tables' known facts."""
