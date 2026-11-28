@@ -51,9 +51,9 @@ for level, (csv, keys, typed_keys, key, n_measures, rows, no_cz) in TABLES.items
 # Outside Puerto Rico, the rows without a commuting zone (1990 definitions) are Alaska areas newer than them
 # (Kusilvak, given here under both its old code 02270 and its new one 02158, and Yakutat, 02282) and, in the
 # tracts, three tracts of Shannon County, South Dakota (46113, now Oglala Lakota County, 46102).
-assert one("SELECT list(tract_fips ORDER BY tract_fips) FROM tract WHERE cz IS NULL AND state <> '72'").__len__() == 5, \
+assert one("SELECT count(*) FROM tract WHERE cz IS NULL AND state <> '72'") == 5, \
     "Not 5 tracts outside Puerto Rico without a commuting zone"
-assert one("SELECT list(DISTINCT substr(tract_fips, 1, 5) ORDER BY 1) FROM tract WHERE cz IS NULL AND state <> '72'") == \
+assert one("SELECT list_sort(list(DISTINCT substr(tract_fips, 1, 5))) FROM tract WHERE cz IS NULL AND state <> '72'") == \
     ["02270", "02282", "46113"], "The tracts outside Puerto Rico without a CZ are not in 02270, 02282 and 46113"
 assert one("SELECT list(county_fips ORDER BY county_fips) FROM county WHERE cz IS NULL AND state <> '72'") == \
     ["02158", "02270", "02282"], "The counties outside Puerto Rico without a CZ are not 02158, 02270 and 02282"
@@ -61,9 +61,12 @@ assert one("SELECT count(*) FROM tract WHERE NOT regexp_full_match(tract_fips, '
 for level in ("tract", "county"):
     assert one(f"SELECT count(*) FROM {level} t LEFT JOIN cz USING (cz) WHERE t.cz IS NOT NULL AND cz.czname IS DISTINCT FROM t.czname") == 0, \
         f"A {level}'s commuting zone is missing from the CZ table or named differently"
-# Shares and rates are fractions.
-for level, (_, keys, *_rest) in TABLES.items():
-    cols = [r[0] for r in con.execute(f"SELECT column_name FROM (DESCRIBE {level})").fetchall()]
-    for c in cols:
-        if c.startswith(("share_", "poor_share", "frac_coll_plus", "singleparent_share", "foreign_share", "traveltime15", "emp2000", "mail_return_rate")):
+# Shares and rates are fractions from 0 to 1, except mail_return_rate2010, a percentage from 0 to 100.
+FRACTIONS = ("share_", "poor_share", "frac_coll_plus", "singleparent_share", "foreign_share", "traveltime15", "emp2000")
+for level in TABLES:
+    for c in (r[0] for r in con.execute(f"SELECT column_name FROM (DESCRIBE {level})").fetchall()):
+        if c.startswith(FRACTIONS):
             assert one(f"SELECT count(*) FROM {level} WHERE {c} NOT BETWEEN 0 AND 1") == 0, f"{level}: {c} is outside 0 to 1"
+    assert one(f"SELECT count(*) FROM {level} WHERE mail_return_rate2010 NOT BETWEEN 0 AND 100") == 0, \
+        f"{level}: mail_return_rate2010 is outside 0 to 100"
+    assert one(f"SELECT max(mail_return_rate2010) FROM {level}") > 1, f"{level}: mail_return_rate2010 is no longer a percentage"
