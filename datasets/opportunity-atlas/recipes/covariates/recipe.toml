@@ -1,0 +1,13 @@
+description = "The Opportunity Atlas's neighborhood characteristics by census tract, county and commuting zone (2010 boundaries): incomes, poverty, education, racial shares, family structure, jobs, commuting, rents and test scores from public Census, ACS, LODES and school data."
+inputs  = ["raw/tract_covariates.csv", "raw/cty_covariates.csv", "raw/cz_covariates.csv"]
+outputs = ["useful-views/tract-covariates.parquet", "useful-views/county-covariates.parquet", "useful-views/cz-covariates.parquet"]
+
+[[steps]]
+file = "01_type_and_check.py"
+description = """
+Check that each CSV is the pinned download (its SHA-256) with the expected key
+columns and number of measures. Write each table typed: FIPS codes as
+zero-padded text with an 11-digit tract_fips or 5-digit county_fips key in
+front, commuting zones as integers, and every characteristic as a decimal, in
+the published column order, sorted by the key; then check the tables' known
+facts."""

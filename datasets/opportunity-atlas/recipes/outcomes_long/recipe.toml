@@ -1,0 +1,11 @@
+description = "The Opportunity Atlas's tract, county and commuting-zone outcomes in long form: one row per geography, place, outcome (household income rank or incarceration), race and gender that has an estimate, with its standard error and the number of low-income children it stands for."
+inputs  = ["useful-views/tract-outcomes.parquet", "useful-views/county-outcomes.parquet", "useful-views/cz-outcomes.parquet"]
+outputs = ["useful-views/outcomes-long.parquet"]
+
+[[steps]]
+file = "01_to_long.py"
+description = """
+Turn each wide table's kfr and jail columns into one row per place, outcome,
+race and gender, keeping the place's commuting zone and the race-gender count,
+leave out the cells without an estimate, sort by the key, and check that every
+published estimate is there once."""

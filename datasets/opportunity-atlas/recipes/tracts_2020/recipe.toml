@@ -1,0 +1,12 @@
+description = "Opportunity Insights' crosswalk from 2020 to 2010 census tracts: the Opportunity Atlas's upward mobility (kfr_pooled_pooled_p25) carried to each 2020 tract, and each 2020 tract's overlapping 2010 tracts with their overlap weights."
+inputs  = ["raw/us_tract_2010_2020_crosswalk.csv", "useful-views/tract-outcomes.parquet"]
+outputs = ["useful-views/tracts-2020.parquet", "useful-views/tracts-2020-to-2010.parquet"]
+
+[[steps]]
+file = "01_type_and_check.py"
+description = """
+Check that the CSV is the pinned download (its SHA-256) with the ReadMe's 18
+columns. Write one row per 2020 tract with its two mobility estimates and the
+number of 2010 tracts listed, and one row per 2020-2010 tract pair with its
+overlap rank, weight and the 2010 tract's mobility, sorted by their keys; then
+check that the published values agree with each other and with tract-outcomes."""

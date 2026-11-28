@@ -1,0 +1,12 @@
+description = "The Opportunity Atlas's national outcomes by parent income percentile, race and gender, in long form: one row per percentile, outcome (47 of them, from income ranks and incarceration to college, marriage and teen births), race and gender, with the estimate, its LOWESS fit, the children behind it and how the fit was made."
+inputs  = ["raw/national_percentile_outcomes.csv"]
+outputs = ["useful-views/national-outcomes.parquet"]
+
+[[steps]]
+file = "01_to_long.py"
+description = """
+Check that the CSV is the pinned download (its SHA-256) and that every column
+is par_pctile or follows the codebook's [s_|imp_]outcome_race_gender[_n]
+pattern. Turn the 3,913 columns into one row per percentile, outcome, race and
+gender with the estimate, LOWESS fit, count, fit flag (with a label) and the
+race-gender sample count, sort by the key, and check the table's known facts."""

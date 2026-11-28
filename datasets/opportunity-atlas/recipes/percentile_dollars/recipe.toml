@@ -1,0 +1,11 @@
+description = "The Opportunity Atlas's crosswalk from income and wage percentile ranks to 2015 dollars, for children (household and individual income in 2014-2015 and at age 26, and hourly wages) and for parents (household income)."
+inputs  = ["raw/pctile_to_dollar_cw.csv"]
+outputs = ["useful-views/percentile-dollars.parquet"]
+
+[[steps]]
+file = "01_type_and_check.py"
+description = """
+Check that the CSV is the pinned download (its SHA-256) with the codebook's
+seven columns, type the percentile as an integer and the dollar values as
+decimals, sort by percentile, and check that each column never falls as the
+percentile rises."""

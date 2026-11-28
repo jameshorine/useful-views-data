@@ -57,6 +57,17 @@ The code and documentation in this repository are released under the
   summarized by this project, and are not published or endorsed by its
   authors. Only the recipes and records are in git; the data is downloaded
   from Zenodo.
+- **The Opportunity Atlas** (`datasets/opportunity-atlas/`) by Raj Chetty,
+  John N. Friedman, Nathaniel Hendren, Maggie R. Jones and Sonya R. Porter
+  (Opportunity Insights and the U.S. Census Bureau): no license is stated, and
+  the site reads "All rights reserved". Source:
+  https://opportunityinsights.org/paper/the-opportunity-atlas/. Please cite
+  Chetty, Friedman, Hendren, Jones and Porter, "The Opportunity Atlas: Mapping
+  the Childhood Roots of Social Mobility", *American Economic Review* 116(1):
+  1-51, 2026. The views are retyped and reshaped by this project, and are not
+  published or endorsed by Opportunity Insights or the Census Bureau. Only the
+  recipes and records are in git; the data is downloaded from Opportunity
+  Insights.
 
 ## Contributing
 
